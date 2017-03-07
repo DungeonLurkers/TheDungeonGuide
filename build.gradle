@@ -1,0 +1,64 @@
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    repositories {
+        mavenCentral()
+    }
+}
+project(':server') {
+    buildscript {
+        ext {
+            springBootVersion = '1.5.2.RELEASE'
+        }
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+    jar {
+        baseName = 'server'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    apply plugin: 'eclipse'
+
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-aop')
+        compile('org.springframework.boot:spring-boot-starter-data-rest')
+        // compile('org.springframework.boot:spring-boot-starter-security')
+        compile('org.springframework.session:spring-session')
+        compile('org.springframework.boot:spring-boot-starter-social-facebook')
+        compile('org.springframework.boot:spring-boot-starter-social-linkedin')
+        compile('org.springframework.boot:spring-boot-starter-social-twitter')
+        compile('org.springframework.boot:spring-boot-starter-validation')
+
+        // compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
+        // compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
+
+        runtime('mysql:mysql-connector-java')
+        compileOnly('org.projectlombok:lombok')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+    }
+
+    version '0.1-ALPHA'
+}
+project(':Client') {
+    version '0.1'
+    jar {
+        manifest {
+            attributes "Main-Class": "tk.avabin.tdg.Client"
+        }
+
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+}
+subprojects {
+    group 'tk.avabin.tdg'
+}
+task buildAll(  dependsOn: [":server:build", ":Client:build"]) {}

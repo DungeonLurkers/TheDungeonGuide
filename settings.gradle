@@ -1,0 +1,4 @@
+rootProject.name = 'TheDungeonGuide'
+include 'server'
+include 'Client'
+
