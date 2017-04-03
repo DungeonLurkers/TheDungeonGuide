@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import tk.avabin.tdg.beans.Character;
+import tk.avabin.tdg.beans.RestService;
 import tk.avabin.tdg.beans.SampleBean;
 import tk.avabin.tdg.beans.User;
 
@@ -12,6 +13,13 @@ import tk.avabin.tdg.beans.User;
  */
 @Configuration
 public class AppConfig {
+
+    @Bean
+    @Scope("singleton")
+    public RestService restService() {
+        return new RestService();
+    }
+
     @Bean
     @Scope(scopeName = "prototype")
     public SampleBean sampleBean() {

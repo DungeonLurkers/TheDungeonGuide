@@ -3,6 +3,10 @@ allprojects {
     sourceCompatibility = 1.8
     repositories {
         mavenCentral()
+        maven {
+            url 'http://repo.boundlessgeo.com/main/'
+        }
+
     }
 }
 project(':server') {
@@ -56,6 +60,12 @@ project(':Client') {
         from {
             configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
         }
+    }
+    dependencies {
+        compile group: 'org.restlet.jee', name: 'org.restlet', version: '2.3.9'
+        compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+        compileOnly('org.projectlombok:lombok')
+
     }
 }
 subprojects {
