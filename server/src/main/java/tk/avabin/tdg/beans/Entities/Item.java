@@ -2,12 +2,9 @@ package tk.avabin.tdg.beans.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -16,12 +13,20 @@ import javax.persistence.Id;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue
-    @NotEmpty
-    private Long id;
+    @Column(name = "item_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "item_name", nullable = false)
     private String name;
-    private int price;
+
+    @Column(name = "item_desc")
     private String desc;
+
+    @Column(name = "item_price", nullable = false)
+    private long price;
+
 }

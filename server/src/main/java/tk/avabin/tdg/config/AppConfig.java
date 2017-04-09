@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import tk.avabin.tdg.beans.Controllers.PingRestController;
 import tk.avabin.tdg.beans.Entities.Character;
-import tk.avabin.tdg.beans.Entities.Item;
-import tk.avabin.tdg.beans.Entities.User;
+import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.SampleBean;
 
 /**
@@ -34,8 +33,21 @@ public class AppConfig {
     }
 
     @Bean(name = "Item")
+    @Scope("prototype")
     public Item getItem() {
         return new Item();
+    }
+
+    @Bean(name = "RPGSession")
+    @Scope("prototype")
+    public RPGSession getRpgSession() {
+        return new RPGSession();
+    }
+
+    @Bean(name = "spell")
+    @Scope("prototype")
+    public Spell getSpell() {
+        return new Spell();
     }
 
     @Bean(name = "character")

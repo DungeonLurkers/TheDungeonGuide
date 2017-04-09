@@ -2,10 +2,10 @@ package tk.avabin.tdg.beans.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -18,13 +18,13 @@ import java.util.Set;
 public class RPGSession {
     @Id
     @GeneratedValue
-    @NotEmpty
+    @NotNull
     private Long id;
     private String name;
     @ManyToOne
     private User gameMaster;
     @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER)
-    private Set<Character> characters;
+    private Set<Character> Characters;
     @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
     private Set<User> players;
 }

@@ -43,7 +43,8 @@ project(':server') {
         compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
         compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
 
-        runtime('mysql:mysql-connector-java')
+        compile group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
+
         compileOnly('org.projectlombok:lombok')
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')

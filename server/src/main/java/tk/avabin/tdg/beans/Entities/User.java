@@ -2,7 +2,6 @@ package tk.avabin.tdg.beans.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,14 +14,22 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "app_user")
 public class User {
-    @GeneratedValue
+
     @Id
-    @NotEmpty
-    private Long id;
+    @Column(name = "user_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "password", nullable = false)
     private String password;
     @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER)
-    private Set<Character> characters;
+    private Set<Character> Characters;
 }

@@ -2,11 +2,9 @@ package tk.avabin.tdg.beans.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,16 +14,25 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "game_character")
 public class Character {
     @Id
-    @GeneratedValue
-    @NotEmpty
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "character_id", nullable = false, unique = true)
+    private long id;
+
+    @Column(name = "character_name", nullable = false)
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne
     private User owner;
-    @OneToMany(targetEntity = Item.class, fetch = FetchType.EAGER)
-    private List<Item> items;
-    @OneToMany(targetEntity = Spell.class, fetch = FetchType.EAGER)
+
+    @ManyToOne
+    private RPGSession session;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Item> items;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Spell> spells;
 }

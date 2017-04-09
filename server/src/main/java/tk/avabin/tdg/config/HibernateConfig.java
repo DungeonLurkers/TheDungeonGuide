@@ -17,24 +17,28 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "tk.avabin.tdg.beans.Entities", entityManagerFactoryRef = "sessionFactory")
+@EnableJpaRepositories(basePackages = "tk.avabin.tdg.beans", entityManagerFactoryRef = "sessionFactory")
 public class HibernateConfig {
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
         sessionBuilder.scanPackages("tk.avabin.tdg.beans.Entities");
-        sessionBuilder.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+        sessionBuilder.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.PostgreSQL9Dialect");
+        sessionBuilder.setProperty(AvailableSettings.USE_NEW_ID_GENERATOR_MAPPINGS, "false");
+        sessionBuilder.setProperty(AvailableSettings.HBM2DDL_AUTO, "create");
+        // sessionBuilder.setProperty(AvailableSettings.SHOW_SQL, "true");
+        // sessionBuilder.setProperty(AvailableSettings.FORMAT_SQL, "true");
         return sessionBuilder.buildSessionFactory();
     }
 
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/tdgdb?createDatabaseIfNotExist=true");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/tdgdb");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("pass");
 
         return dataSource;
     }
