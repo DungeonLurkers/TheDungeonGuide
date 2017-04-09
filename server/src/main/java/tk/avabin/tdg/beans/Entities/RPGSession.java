@@ -19,12 +19,12 @@ public class RPGSession {
     @Id
     @GeneratedValue
     @NotNull
-    private Long id;
+    private int id;
     private String name;
     @ManyToOne
     private User gameMaster;
     @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER)
     private Set<Character> Characters;
-    @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER, mappedBy = "sessions")
     private Set<User> players;
 }

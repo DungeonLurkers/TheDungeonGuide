@@ -20,7 +20,7 @@ public class User {
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -30,6 +30,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
-    @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER)
-    private Set<Character> Characters;
+
+    @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER, mappedBy = "owner")
+    private Set<Character> characters;
+
+    @ManyToMany(targetEntity = RPGSession.class, fetch = FetchType.EAGER)
+    private Set<RPGSession> sessions;
 }

@@ -18,7 +18,7 @@ public class Spell {
     @Id
     @Column(name = "spell_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "spell_name", nullable = false)
     private String name;

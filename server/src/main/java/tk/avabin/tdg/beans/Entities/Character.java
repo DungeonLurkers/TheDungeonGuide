@@ -19,16 +19,13 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "character_id", nullable = false, unique = true)
-    private long id;
+    private int id;
 
     @Column(name = "character_name", nullable = false)
     private String name;
 
     @ManyToOne
     private User owner;
-
-    @ManyToOne
-    private RPGSession session;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Item> items;
