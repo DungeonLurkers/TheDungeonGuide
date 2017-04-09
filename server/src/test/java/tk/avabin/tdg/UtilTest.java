@@ -1,8 +1,8 @@
 package tk.avabin.tdg;
 
 import org.junit.Test;
-import tk.avabin.tdg.beans.Character;
-import tk.avabin.tdg.beans.User;
+import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Entities.User;
 
 import java.util.HashSet;
 

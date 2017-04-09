@@ -32,15 +32,16 @@ project(':server') {
     dependencies {
         compile('org.springframework.boot:spring-boot-starter-aop')
         compile('org.springframework.boot:spring-boot-starter-data-rest')
-        // compile('org.springframework.boot:spring-boot-starter-security')
+        compile('org.springframework.boot:spring-boot-starter-security')
         compile('org.springframework.session:spring-session')
         compile('org.springframework.boot:spring-boot-starter-social-facebook')
         compile('org.springframework.boot:spring-boot-starter-social-linkedin')
         compile('org.springframework.boot:spring-boot-starter-social-twitter')
         compile('org.springframework.boot:spring-boot-starter-validation')
 
-        // compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
-        // compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
+        compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
+        compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
+        compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
 
         runtime('mysql:mysql-connector-java')
         compileOnly('org.projectlombok:lombok')
@@ -64,7 +65,7 @@ project(':Client') {
     dependencies {
         compile group: 'org.restlet.jee', name: 'org.restlet', version: '2.3.9'
         compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
-        compileOnly('org.projectlombok:lombok')
+        compileOnly('org.projectlombok:lombok:1.16.14')
 
     }
 }

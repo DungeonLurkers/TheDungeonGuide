@@ -1,12 +1,13 @@
-package tk.avabin.tdg;
+package tk.avabin.tdg.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import tk.avabin.tdg.beans.Character;
-import tk.avabin.tdg.beans.RestService;
+import tk.avabin.tdg.beans.Controllers.PingRestController;
+import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Entities.Item;
+import tk.avabin.tdg.beans.Entities.User;
 import tk.avabin.tdg.beans.SampleBean;
-import tk.avabin.tdg.beans.User;
 
 /**
  * Created by Avabin on 06.03.2017.
@@ -14,10 +15,10 @@ import tk.avabin.tdg.beans.User;
 @Configuration
 public class AppConfig {
 
-    @Bean
+    @Bean(name = "pingRestController")
     @Scope("singleton")
-    public RestService restService() {
-        return new RestService();
+    public PingRestController getPingRestController() {
+        return new PingRestController();
     }
 
     @Bean
@@ -26,15 +27,20 @@ public class AppConfig {
         return new SampleBean();
     }
 
-    @Bean
+    @Bean(name = "user")
     @Scope("prototype")
-    public User user() {
+    public User getUser() {
         return new User();
     }
 
-    @Bean
+    @Bean(name = "Item")
+    public Item getItem() {
+        return new Item();
+    }
+
+    @Bean(name = "character")
     @Scope("prototype")
-    public Character character() {
+    public Character getCharacter() {
         return new Character();
     }
 }

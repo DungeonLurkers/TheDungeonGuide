@@ -43,12 +43,6 @@ public class Util {
         printCell(sb, valueColName, maxFieldValueLength, true);
         printCellBorder(sb, maxFieldNameLength, false);
         printCellBorder(sb, maxFieldValueLength, true);
-        /*
-        printCell(sb, "testa", maxFieldNameLength, false);
-
-        printCell(sb, "wololo", maxFieldValueLength, true);
-        printCellBorder(sb, maxFieldNameLength, false);
-        printCellBorder(sb, maxFieldValueLength, true);*/
         try {
             for (PropertyDescriptor pd :
                     Introspector.getBeanInfo(o.getClass()).getPropertyDescriptors()) {
