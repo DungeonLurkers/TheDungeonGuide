@@ -66,6 +66,7 @@ project(':Client') {
     dependencies {
         compile group: 'org.restlet.jee', name: 'org.restlet', version: '2.3.9'
         compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+
         compileOnly('org.projectlombok:lombok:1.16.14')
 
     }

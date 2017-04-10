@@ -2,24 +2,26 @@ package tk.avabin.tdg.beans.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
 
 /**
  * Created by Avabin on 13.03.2017.
  */
 @Component
+@Scope("prototype")
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "app_user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "user_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
 
     @Column(name = "username", nullable = false)
@@ -30,10 +32,4 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @OneToMany(targetEntity = Character.class, fetch = FetchType.EAGER, mappedBy = "owner")
-    private Set<Character> characters;
-
-    @ManyToMany(targetEntity = RPGSession.class, fetch = FetchType.EAGER)
-    private Set<RPGSession> sessions;
 }

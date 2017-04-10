@@ -1,6 +1,7 @@
 package tk.avabin.tdg.beans.Services;
 
 import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Entities.User;
 
 import java.util.List;
 
@@ -13,6 +14,10 @@ public interface CharacterService {
     void delete(Character c);
 
     Character getById(int id);
+
+    Character getByName(String name);
+
+    Character getByOwner(User owner);
 
     List getAll();
 }
