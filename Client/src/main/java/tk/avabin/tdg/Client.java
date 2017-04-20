@@ -3,6 +3,9 @@ package tk.avabin.tdg;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.extern.java.Log;
+import tk.avabin.tdg.beans.Entities.Feat;
+import tk.avabin.tdg.beans.Entities.Item;
+import tk.avabin.tdg.beans.Entities.Spell;
 import tk.avabin.tdg.beans.Entities.User;
 
 import java.util.concurrent.ExecutorService;
@@ -24,7 +27,24 @@ public class Client extends Application {
         u.setUsername("Avabino");
         u.setEmail("email@ok.pl");
         u.setPassword("wololo");
-        executor.submit(new ConnectionThread(server, port, "createuser?base64object=" + proccessor.objectToString(u)));
+
+        Item i = new Item();
+        i.setName("TestItem");
+        i.setPrice(900L);
+        i.setDesc("That is just testing item.");
+
+        Spell s = new Spell();
+        s.setName("Wololo");
+        s.setRank((short) 9);
+        s.setDesc("Wololo? Wololo!");
+
+        Feat f = new Feat();
+        f.setName("Almighty test strike!");
+        f.setDesc("As name says.");
+        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(u)));
+        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(i)));
+        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(s)));
+        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(f)));
 
         executor.awaitTermination(3, TimeUnit.SECONDS);
     }

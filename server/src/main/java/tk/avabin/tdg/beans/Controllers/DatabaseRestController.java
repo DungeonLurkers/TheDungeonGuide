@@ -22,24 +22,42 @@ import java.util.Set;
 public class DatabaseRestController {
     private final ApplicationContext ctx;
 
-    private final CharacterServiceImpl characterService;
+    private final CharacterService characterService;
 
-    private final UserServiceImpl userService;
+    private final CharacterAttackService characterAttackService;
 
-    private final RPGSessionServiceImpl sessionService;
+    private final FeatService featService;
 
-    private final ItemServiceImpl itemService;
+    private final ItemService itemService;
 
-    private final SpellServiceImpl spellService;
+    private final LanguageService languageService;
+
+    private final RPGClassAndLevelService rpgClassAndLevelService;
+
+    private final RPGSessionService sessionService;
+
+    private final SkillService skillService;
+
+    private final UserService userService;
+
+    private final SpellService spellService;
+
+    private final Base64Proccesor base64Proccesor;
 
     @Autowired
-    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SpellServiceImpl spellService) {
+    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, CharacterAttackService characterAttackService, FeatService featService, LanguageService languageService, RPGClassAndLevelService rpgClassAndLevelService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SkillService skillService, SpellServiceImpl spellService, Base64Proccesor base64Proccesor) {
         this.ctx = ctx;
         this.characterService = characterService;
+        this.characterAttackService = characterAttackService;
+        this.featService = featService;
+        this.languageService = languageService;
+        this.rpgClassAndLevelService = rpgClassAndLevelService;
         this.userService = userService;
         this.sessionService = sessionService;
         this.itemService = itemService;
+        this.skillService = skillService;
         this.spellService = spellService;
+        this.base64Proccesor = base64Proccesor;
     }
 
     @RequestMapping("/admin")
@@ -86,13 +104,52 @@ public class DatabaseRestController {
         return sessionService.getByName(session.getName()).toString();
     }
 
+    @RequestMapping(value = "/createobject", method = RequestMethod.GET)
+    public @ResponseBody
+    String createObjectInDatabase(
+            @RequestParam("b64ob") String b64ob
+    ) throws IOException, ClassNotFoundException {
+        Object o = base64Proccesor.fromString(b64ob);
+        Class obClass = o.getClass();
+        if (obClass.equals(Character.class)) {
+            characterService.saveOrUpdate((Character) o);
+        }
+        if (obClass.equals(CharacterAttack.class)) {
+            characterAttackService.saveOrUpdate((CharacterAttack) o);
+        }
+        if (obClass.equals(Feat.class)) {
+            featService.saveOrUpdate((Feat) o);
+        }
+        if (obClass.equals(Item.class)) {
+            itemService.saveOrUpdate((Item) o);
+        }
+        if (obClass.equals(Language.class)) {
+            languageService.saveOrUpdate((Language) o);
+        }
+        if (obClass.equals(RPGClassAndLevel.class)) {
+            rpgClassAndLevelService.saveOrUpdate((RPGClassAndLevel) o);
+        }
+        if (obClass.equals(RPGSession.class)) {
+            sessionService.saveOrUpdate((RPGSession) o);
+        }
+        if (obClass.equals(Skill.class)) {
+            skillService.saveOrUpdate((Skill) o);
+        }
+        if (obClass.equals(Spell.class)) {
+            spellService.saveOrUpdate((Spell) o);
+        }
+        if (obClass.equals(User.class)) {
+            userService.saveOrUpdate((User) o);
+        }
+
+        return o.toString();
+    }
+
     @RequestMapping(value = "/createuser", method = RequestMethod.GET)
     public @ResponseBody
     String createUserInDatabase(
             @RequestParam(name = "base64object") String object) throws IOException, ClassNotFoundException {
-        Base64Proccesor base64Proccesor = ctx.getBean(Base64Proccesor.class);
         Object o = base64Proccesor.fromString(object);
-
         return o.toString();
     }
 

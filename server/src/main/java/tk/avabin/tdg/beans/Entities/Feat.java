@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -22,6 +19,7 @@ import java.io.Serializable;
 @Table(name = "game_feat")
 public class Feat implements Serializable {
     @Id
+    @GeneratedValue
     private Integer id;
     @Column(length = 70)
     private String name;

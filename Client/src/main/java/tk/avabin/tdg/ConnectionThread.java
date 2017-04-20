@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 
 /**
  * Created by Avabin on 03.04.2017.
@@ -33,9 +34,12 @@ public class ConnectionThread implements Runnable {
     }
 
     private String connectAndGetResponse() {
+        urlParams = urlParams.replaceAll("/", "%2F");
+        urlParams = urlParams.replaceAll("\\+", "%2B");
+        urlParams = urlParams.replaceAll(" ", "%20");
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpGet httpGet = new HttpGet(serverURL + ":" + String.valueOf(port) + "/" + urlParams);
+            HttpGet httpGet = new HttpGet(URI.create(serverURL + ":" + String.valueOf(port) + "/" + urlParams));
             log.info("Executing request " + httpGet.getRequestLine());
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
                 log.info(httpResponse.getStatusLine().toString());
