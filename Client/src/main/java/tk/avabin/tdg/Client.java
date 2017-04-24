@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Log
 public class Client extends Application {
     public void start(Stage primaryStage) throws Exception {
-        Base64Proccessor proccessor = new Base64Proccessor();
+        Base64Processor processor = new Base64Processor();
         User u = new User();
         String server = "http://localhost";
         int port = 8080;
@@ -41,10 +41,10 @@ public class Client extends Application {
         Feat f = new Feat();
         f.setName("Almighty test strike!");
         f.setDesc("As name says.");
-        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(u)));
-        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(i)));
-        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(s)));
-        executor.submit(new ConnectionThread(server, port, "createobject?b64ob=" + proccessor.objectToString(f)));
+        executor.submit(new ConnectionThread(server, port, "saveorupdate?b64ob=" + processor.objectToString(u)));
+        executor.submit(new ConnectionThread(server, port, "saveorupdate?b64ob=" + processor.objectToString(i)));
+        executor.submit(new ConnectionThread(server, port, "saveorupdate?b64ob=" + processor.objectToString(s)));
+        executor.submit(new ConnectionThread(server, port, "saveorupdate?b64ob=" + processor.objectToString(f)));
 
         executor.awaitTermination(3, TimeUnit.SECONDS);
     }

@@ -6,7 +6,7 @@ import java.util.Base64;
 /**
  * Created by Avabin on 10.04.2017.
  */
-public class Base64Proccesor {
+public class Base64Processor {
     public Object fromString(String s) throws IOException,
             ClassNotFoundException {
         byte[] data = Base64.getDecoder().decode(s);

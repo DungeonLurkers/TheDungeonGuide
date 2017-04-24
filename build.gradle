@@ -42,6 +42,8 @@ project(':server') {
         compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
         compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'
         compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
+
 
         compile group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
 
@@ -64,8 +66,9 @@ project(':Client') {
         }
     }
     dependencies {
-        compile group: 'org.restlet.jee', name: 'org.restlet', version: '2.3.9'
         compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
+
 
         compileOnly('org.projectlombok:lombok:1.16.14')
 

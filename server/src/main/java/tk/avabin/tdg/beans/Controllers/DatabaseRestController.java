@@ -4,7 +4,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
-import tk.avabin.tdg.beans.Base64Proccesor;
+import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
@@ -42,10 +42,10 @@ public class DatabaseRestController {
 
     private final SpellService spellService;
 
-    private final Base64Proccesor base64Proccesor;
+    private final Base64Processor base64Processor;
 
     @Autowired
-    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, CharacterAttackService characterAttackService, FeatService featService, LanguageService languageService, RPGClassAndLevelService rpgClassAndLevelService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SkillService skillService, SpellServiceImpl spellService, Base64Proccesor base64Proccesor) {
+    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, CharacterAttackService characterAttackService, FeatService featService, LanguageService languageService, RPGClassAndLevelService rpgClassAndLevelService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SkillService skillService, SpellServiceImpl spellService, Base64Processor base64Processor) {
         this.ctx = ctx;
         this.characterService = characterService;
         this.characterAttackService = characterAttackService;
@@ -57,7 +57,7 @@ public class DatabaseRestController {
         this.itemService = itemService;
         this.skillService = skillService;
         this.spellService = spellService;
-        this.base64Proccesor = base64Proccesor;
+        this.base64Processor = base64Processor;
     }
 
     @RequestMapping("/admin")
@@ -104,12 +104,12 @@ public class DatabaseRestController {
         return sessionService.getByName(session.getName()).toString();
     }
 
-    @RequestMapping(value = "/createobject", method = RequestMethod.GET)
+    @RequestMapping(value = "/saveorupdate", method = RequestMethod.GET)
     public @ResponseBody
     String createObjectInDatabase(
             @RequestParam("b64ob") String b64ob
     ) throws IOException, ClassNotFoundException {
-        Object o = base64Proccesor.fromString(b64ob);
+        Object o = base64Processor.fromString(b64ob);
         Class obClass = o.getClass();
         if (obClass.equals(Character.class)) {
             characterService.saveOrUpdate((Character) o);
@@ -149,7 +149,7 @@ public class DatabaseRestController {
     public @ResponseBody
     String createUserInDatabase(
             @RequestParam(name = "base64object") String object) throws IOException, ClassNotFoundException {
-        Object o = base64Proccesor.fromString(object);
+        Object o = base64Processor.fromString(object);
         return o.toString();
     }
 

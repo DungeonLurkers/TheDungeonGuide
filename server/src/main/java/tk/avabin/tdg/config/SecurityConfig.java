@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import tk.avabin.tdg.beans.Controllers.RequestAwareAuthenticationSuccessHandler;
+import tk.avabin.tdg.beans.RestAuthenticationEntryPoint;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -13,6 +16,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    private final RequestAwareAuthenticationSuccessHandler requestAwareAuthenticationSuccessHandler;
+
+    @Autowired
+    public SecurityConfig(RestAuthenticationEntryPoint restAuthenticationEntryPoint, RequestAwareAuthenticationSuccessHandler requestAwareAuthenticationSuccessHandler) {
+        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+        this.requestAwareAuthenticationSuccessHandler = requestAwareAuthenticationSuccessHandler;
+    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("Avabin").password("test123").roles("ADMIN").roles("DBA");
@@ -20,6 +33,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/admin**").access("hasRole('ROLE_ADMIN')");
+        http
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin").authenticated()
+                .and()
+                .formLogin()
+                .successHandler(requestAwareAuthenticationSuccessHandler)
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .and()
+                .logout();
     }
 }

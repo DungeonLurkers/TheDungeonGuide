@@ -33,7 +33,7 @@ public class ConnectionThread implements Runnable {
         this.urlParams = urlParams;
     }
 
-    private String connectAndGetResponse() {
+    private void connectAndGetResponse() {
         urlParams = urlParams.replaceAll("/", "%2F");
         urlParams = urlParams.replaceAll("\\+", "%2B");
         urlParams = urlParams.replaceAll(" ", "%20");
@@ -58,19 +58,16 @@ public class ConnectionThread implements Runnable {
                             context.append((char) c);
                         }
                         context.append("\n");
-                        return context.toString();
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
     public void run() {
-        String s = connectAndGetResponse();
-        log.info(s);
+        connectAndGetResponse();
     }
 }
