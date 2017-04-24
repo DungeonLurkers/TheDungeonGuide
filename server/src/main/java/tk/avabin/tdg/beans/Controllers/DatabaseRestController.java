@@ -1,12 +1,14 @@
 package tk.avabin.tdg.beans.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.Base64Processor;
-import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
+import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Services.*;
 
 import java.io.IOException;
@@ -44,8 +46,10 @@ public class DatabaseRestController {
 
     private final Base64Processor base64Processor;
 
+    private final ObjectMapper mapper;
+
     @Autowired
-    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, CharacterAttackService characterAttackService, FeatService featService, LanguageService languageService, RPGClassAndLevelService rpgClassAndLevelService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SkillService skillService, SpellServiceImpl spellService, Base64Processor base64Processor) {
+    public DatabaseRestController(ApplicationContext ctx, CharacterServiceImpl characterService, CharacterAttackService characterAttackService, FeatService featService, LanguageService languageService, RPGClassAndLevelService rpgClassAndLevelService, UserServiceImpl userService, RPGSessionServiceImpl sessionService, ItemServiceImpl itemService, SkillService skillService, SpellServiceImpl spellService, Base64Processor base64Processor, ObjectMapper mapper) {
         this.ctx = ctx;
         this.characterService = characterService;
         this.characterAttackService = characterAttackService;
@@ -58,6 +62,7 @@ public class DatabaseRestController {
         this.skillService = skillService;
         this.spellService = spellService;
         this.base64Processor = base64Processor;
+        this.mapper = mapper;
     }
 
     @RequestMapping("/admin")
@@ -67,7 +72,7 @@ public class DatabaseRestController {
 
     @RequestMapping(value = "/testdb", method = RequestMethod.GET)
     public @ResponseBody
-    String testDb() {
+    String testDb() throws JsonProcessingException {
         User nu1 = ctx.getBean(User.class);
         nu1.setUsername("Admin");
         nu1.setEmail("test@test.pl");
@@ -101,7 +106,7 @@ public class DatabaseRestController {
         session.setCharacters(ch);
 
         sessionService.saveOrUpdate(session);
-        return sessionService.getByName(session.getName()).toString();
+        return mapper.writeValueAsString(session);
     }
 
     @RequestMapping(value = "/saveorupdate", method = RequestMethod.GET)
@@ -142,7 +147,7 @@ public class DatabaseRestController {
             userService.saveOrUpdate((User) o);
         }
 
-        return o.toString();
+        return mapper.writeValueAsString(o);
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.GET)

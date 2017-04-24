@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "tk.avabin.tdg.beans", entityManagerFactoryRef = "sessionFactory")
 public class HibernateConfig {
+
     @Autowired
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) {
@@ -38,7 +39,7 @@ public class HibernateConfig {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/tdgdb");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("pass");
+        dataSource.setPassword("");
 
         return dataSource;
     }

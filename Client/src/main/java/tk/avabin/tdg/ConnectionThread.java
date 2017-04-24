@@ -44,7 +44,6 @@ public class ConnectionThread implements Runnable {
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
                 log.info(httpResponse.getStatusLine().toString());
 
-                log.info("Ping!");
                 HttpEntity entity = httpResponse.getEntity();
 
 
@@ -58,6 +57,7 @@ public class ConnectionThread implements Runnable {
                             context.append((char) c);
                         }
                         context.append("\n");
+                        log.info(context.toString());
                     }
                 }
             }

@@ -11,7 +11,7 @@ public class PingRestController {
 
     @RequestMapping("/ping")
     public String ping() {
-        return "Ping!";
+        return "Pong!";
     }
 
     @RequestMapping("/pong")
