@@ -81,8 +81,8 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() throws UnsupportedEncodingException {
         byte[] salt = new byte[32];
-        String saltString = Base64.encodeBase64String(salt);
         secureRandom.nextBytes(salt);
+        String saltString = Base64.encodeBase64String(salt);
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
         u.setSalt(saltString);
