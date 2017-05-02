@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="tdg@localhost" uuid="d825133c-6ee6-421d-a915-6e58b1c973f9">
+    <data-source source="LOCAL" name="d9niuotninbq6t@ec2-54-75-249-162.eu-west-1.compute.amazonaws.com" uuid="f53fdcb6-74dd-457f-8a62-dcd69ce4db2c">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/tdg</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="tdgdb@localhost" uuid="9d83b615-6389-4550-b743-337ec0ce56e3">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/tdgdb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://ec2-54-75-249-162.eu-west-1.compute.amazonaws.com:5432/d9niuotninbq6t</jdbc-url>
+      <driver-properties>
+        <property name="ssl" value="true" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
+      </driver-properties>
     </data-source>
   </component>
 </project>
