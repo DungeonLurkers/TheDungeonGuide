@@ -46,11 +46,6 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public List findAllByName(String name) {
-        return repository.findAllByName(name);
-    }
-
-    @Override
     public List getAll() {
         return repository.findAll();
     }
