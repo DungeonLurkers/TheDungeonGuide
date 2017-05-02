@@ -3,8 +3,6 @@ package tk.avabin.tdg.beans.Controllers;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
@@ -13,8 +11,6 @@ import tk.avabin.tdg.beans.Services.*;
 
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -22,6 +18,8 @@ import java.util.Random;
 @RestController
 @Log
 public class DatabaseRestController {
+    private final SecureRandom secureRandom;
+
     private final ApplicationContext ctx;
 
     private final CharacterService characterService;
@@ -47,7 +45,8 @@ public class DatabaseRestController {
     private final Base64Processor base64Processor;
 
     @Autowired
-    public DatabaseRestController(ApplicationContext ctx,
+    public DatabaseRestController(SecureRandom secureRandom,
+                                  ApplicationContext ctx,
                                   CharacterServiceImpl characterService,
                                   CharacterAttackService characterAttackService,
                                   FeatService featService, LanguageService languageService,
@@ -58,6 +57,7 @@ public class DatabaseRestController {
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
                                   Base64Processor base64Processor) {
+        this.secureRandom = secureRandom;
         this.ctx = ctx;
         this.characterService = characterService;
         this.characterAttackService = characterAttackService;
@@ -78,9 +78,12 @@ public class DatabaseRestController {
 
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() {
+        byte[] salt = new byte[32];
+        String saltString = new String(salt);
+        secureRandom.nextBytes(salt);
         User u = ctx.getBean(User.class);
-        u.setUsername("Admin1");
-        u.setSalt(String.valueOf(ctx.getBean(Random.class).nextInt()));
+        u.setUsername("Admin1" + saltString);
+        u.setSalt(saltString);
         u.setPassword("test" + u.getSalt());
         u.setEmail("test@test.test");
         userService.saveOrUpdate(u);

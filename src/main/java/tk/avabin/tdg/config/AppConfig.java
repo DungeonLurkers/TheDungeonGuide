@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Scope;
 import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.SampleBean;
 
+import java.security.SecureRandom;
+
 /**
  * Created by Avabin on 06.03.2017.
  */
@@ -33,5 +35,10 @@ public class AppConfig {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         return mapper;
+    }
+    @Bean
+    @Scope(scopeName = "prototype")
+    public SecureRandom getSecureRandom() {
+        return new SecureRandom();
     }
 }
