@@ -13,14 +13,10 @@ import java.sql.SQLException;
  */
 public class DatabaseIntegrityTest {
     private String databaseURL;
-    private String databaseUsername;
-    private String databasePass;
 
     @Before
     public void beforeDatabaseTest() {
         databaseURL = System.getenv("DATABASE_URL_T");
-        databaseUsername = System.getenv("DATABASE_USERNAME");
-        databasePass = System.getenv("DATABASE_PASSWORD");
     }
 
     @Test
@@ -30,7 +26,7 @@ public class DatabaseIntegrityTest {
             DriverManager.registerDriver(driver);
 
             if (driver.acceptsURL(databaseURL)) {
-                Connection conn = DriverManager.getConnection(databaseURL, databaseUsername, databasePass);
+                Connection conn = DriverManager.getConnection(databaseURL);
                 conn.close();
             }
         } catch (SQLException e) {
