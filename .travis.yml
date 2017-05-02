@@ -6,6 +6,8 @@ services:
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+before_script:
+  - psql -c 'create database tdg;' -U postgres
 cache:
   directories:
   - "$HOME/.gradle/caches/"
