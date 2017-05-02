@@ -76,6 +76,7 @@ public class DatabaseRestController {
         u.setUsername("Admin" + KeyGenerators.secureRandom(8).toString());
         u.setSalt(KeyGenerators.secureRandom(32).toString());
         u.setPassword("test" + u.getSalt());
+        u.setEmail("test@test.test");
         userService.saveOrUpdate(u);
         return u;
     }
