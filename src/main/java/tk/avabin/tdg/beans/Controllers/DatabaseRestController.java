@@ -10,6 +10,7 @@ import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 
 /**
@@ -77,9 +78,9 @@ public class DatabaseRestController {
     }
 
     @RequestMapping("/testdb")
-    public @ResponseBody User testDB() {
+    public @ResponseBody User testDB() throws UnsupportedEncodingException {
         byte[] salt = new byte[32];
-        String saltString = new String(salt);
+        String saltString = new String(salt, "UTF-8");
         secureRandom.nextBytes(salt);
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
