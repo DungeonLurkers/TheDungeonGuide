@@ -68,6 +68,7 @@ project(':Client') {
     dependencies {
         compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
+        compile group: 'org.wildfly.swarm', name: 'javafx', version: '2017.4.0'
 
         compileOnly('org.projectlombok:lombok:1.16.14')
 
