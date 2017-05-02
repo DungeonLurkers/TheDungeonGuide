@@ -1,6 +1,7 @@
 package tk.avabin.tdg.beans.Controllers;
 
 import lombok.extern.java.Log;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +81,7 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() throws UnsupportedEncodingException {
         byte[] salt = new byte[32];
-        String saltString = new String(salt, "UTF-8");
+        String saltString = Base64.encodeBase64String(salt);
         secureRandom.nextBytes(salt);
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
