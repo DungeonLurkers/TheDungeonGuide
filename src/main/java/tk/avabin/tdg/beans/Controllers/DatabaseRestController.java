@@ -74,7 +74,7 @@ public class DatabaseRestController {
     public @ResponseBody User testDB() {
         User u = ctx.getBean(User.class);
         u.setUsername("Admin" + KeyGenerators.secureRandom(8).toString());
-        u.setSalt(KeyGenerators.secureRandom(32).toString());
+        u.setSalt(KeyGenerators.secureRandom(32-9).toString());
         u.setPassword(Encryptors.text("adminpass", u.getSalt()).toString());
         userService.saveOrUpdate(u);
         return u;
