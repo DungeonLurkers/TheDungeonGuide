@@ -37,9 +37,9 @@ public class HibernateConfig {
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/tdgdb");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("");
+        dataSource.setUrl(System.getenv("JDBC_DATABASE_URL"));
+        dataSource.setUsername(System.getenv("JDBC_DATABASE_USERNAME"));
+        dataSource.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
 
         return dataSource;
     }
