@@ -2,6 +2,9 @@ package tk.avabin.tdg.beans.Controllers;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
@@ -9,6 +12,7 @@ import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -16,6 +20,7 @@ import java.io.IOException;
 @RestController
 @Log
 public class DatabaseRestController {
+    private final ApplicationContext ctx;
 
     private final CharacterService characterService;
 
@@ -40,7 +45,8 @@ public class DatabaseRestController {
     private final Base64Processor base64Processor;
 
     @Autowired
-    public DatabaseRestController(CharacterServiceImpl characterService,
+    public DatabaseRestController(ApplicationContext ctx,
+                                  CharacterServiceImpl characterService,
                                   CharacterAttackService characterAttackService,
                                   FeatService featService, LanguageService languageService,
                                   RPGClassAndLevelService rpgClassAndLevelService,
@@ -50,6 +56,7 @@ public class DatabaseRestController {
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
                                   Base64Processor base64Processor) {
+        this.ctx = ctx;
         this.characterService = characterService;
         this.characterAttackService = characterAttackService;
         this.featService = featService;
@@ -61,6 +68,16 @@ public class DatabaseRestController {
         this.skillService = skillService;
         this.spellService = spellService;
         this.base64Processor = base64Processor;
+    }
+
+    @RequestMapping("/testdb")
+    public @ResponseBody User testDB() {
+        User u = ctx.getBean(User.class);
+        u.setUsername("Admin" + KeyGenerators.secureRandom(8).toString());
+        u.setSalt(KeyGenerators.secureRandom(32).toString());
+        u.setPassword(Encryptors.text("adminpass", u.getSalt()).toString());
+        userService.saveOrUpdate(u);
+        return u;
     }
 
     @RequestMapping("/admin")
