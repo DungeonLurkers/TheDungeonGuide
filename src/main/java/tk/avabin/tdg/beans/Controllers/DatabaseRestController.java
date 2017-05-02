@@ -69,6 +69,10 @@ public class DatabaseRestController {
         this.spellService = spellService;
         this.base64Processor = base64Processor;
     }
+    @RequestMapping("/test")
+    public @ResponseBody String test() {
+        return "Tested!";
+    }
 
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() {
