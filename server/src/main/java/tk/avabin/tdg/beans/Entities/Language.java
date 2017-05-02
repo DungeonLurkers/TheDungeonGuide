@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by Avabin on 10.04.2017.
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "language")
-public class Language {
+public class Language implements Serializable {
     @Id
     private Integer id;
     private String name;

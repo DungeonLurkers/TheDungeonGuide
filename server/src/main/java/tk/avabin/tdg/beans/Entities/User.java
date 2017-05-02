@@ -24,7 +24,7 @@ public class User implements Serializable {
     @GeneratedValue
     private int id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "email", nullable = false)
@@ -32,4 +32,7 @@ public class User implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "salt", nullable = false)
+    private String salt;
 }

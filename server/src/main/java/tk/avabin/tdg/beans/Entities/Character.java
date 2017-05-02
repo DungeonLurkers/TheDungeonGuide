@@ -23,7 +23,7 @@ public class Character implements Serializable {
     @GeneratedValue
     @Column(name = "character_id", nullable = false, unique = true)
     private int id;
-    @Column(name = "character_name", nullable = false)
+    @Column(name = "character_name", nullable = false, unique = true)
     private String name;
     @ManyToOne
     private User owner;
@@ -42,7 +42,7 @@ public class Character implements Serializable {
     private Integer skin;
     @Column(name = "hit_dice", length = 5)
     private String hitDice;
-    private Integer hitpoints;
+    private Integer hitPoints;
     private Integer initiative;
     private Integer speed;
     @Column(name = "base_attack_bonus")

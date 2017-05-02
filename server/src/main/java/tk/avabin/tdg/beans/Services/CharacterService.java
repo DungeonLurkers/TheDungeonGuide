@@ -17,7 +17,7 @@ public interface CharacterService {
 
     Character getByName(String name);
 
-    Character getByOwner(User owner);
+    Character getAllByOwner(User owner);
 
     List findAllByName(String name);
 

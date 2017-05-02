@@ -28,7 +28,7 @@ public class Character implements Serializable {
     private Integer hair;
     private Integer skin;
     private String hitDice;
-    private Integer hitpoints;
+    private Integer hitPoints;
     private Integer initiative;
     private Integer speed;
     private Integer baseAttackBonus;

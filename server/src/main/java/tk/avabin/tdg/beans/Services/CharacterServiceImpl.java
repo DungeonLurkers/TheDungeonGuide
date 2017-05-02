@@ -41,8 +41,8 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public Character getByOwner(User owner) {
-        return repository.findCharacterByOwner(owner);
+    public Character getAllByOwner(User owner) {
+        return repository.findAllByOwner(owner);
     }
 
     @Override
