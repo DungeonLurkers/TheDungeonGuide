@@ -1,10 +1,7 @@
 package tk.avabin.tdg;
 
 import org.junit.Test;
-import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.User;
-
-import java.util.HashSet;
 
 /**
  * Created by avabi on 13.03.2017.
