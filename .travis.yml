@@ -7,7 +7,7 @@ before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 before_install:
-  - gem update --system 1.8.30
+  - gem update --system
 cache:
   directories:
   - "$HOME/.gradle/caches/"
