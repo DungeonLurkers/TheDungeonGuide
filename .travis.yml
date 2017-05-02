@@ -1,12 +1,19 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 services:
-  - postgresql
+- postgresql
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+deploy:
+  provider: heroku
+  api_key:
+    secure: vBbljADpXYySqzkFwd4tP7I4Aqflj6n26TkMoNRQ+A2XG+6x2JrYzphQkYQq9EJ4lq5oNdD52xYvYx5PkFYwSnwHaN2CEDgC7rUabOyXBgRnt/kMQu55fjnxEnPJ7IYqAY/9AtFBz4FNUIeO5iFe4kxBwFdcdUWpm9gzp2k/iJc5zr7mWYbQzmUInOljVvEBKOcB2IlHUxVB2vS43ALr4yTLXFmW6OcUNQSjvfazeGCVxf7xw1e0GkJ5O+A6XSIYYtk+0vjXl4BvVQSM+ausewt5Vqx6ZnXVhhoVuONI3VrcNdNEZ8rTebXdBmENc2GqVIDglrx2VF6csqcR+5aCuARE7m6b35CW3usOc9ARq6QWiBIKJjWTXT3mDpj1rRhVPN8ptIiMZw3N/KzFircKcnHKCUSpLl7M54fs4PavOJ/eGmHN1F31mKZwe61nFEoOLgH+FS9j5cFxYaYTudL7lewMSm/UhitmxHH8vg5UUybaAtCgg8JWfKsr9MJgksvQYI/TTMDwMVfLrrbcv6CgFJe1St9XYJil3Y98mPXK+pJfPNPxVUZPdQ9lOB4VhTG7LwM8S4Cn11igx+j3OR0LD5+SuQk46RiyRhDv1NhHhWdNVxHCzYAqtVVQWy3+9lTwnKj5ICxmWG/BaPFxOvUGvXVAqogEowOEdBFdNt2D72Y=
+  app: TheDungeonGuide
+  on:
+    repo: Avabin/TheDungeonGuide
