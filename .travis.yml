@@ -7,7 +7,7 @@ before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 before_script:
-  - psql -c 'create database tdg;' -U postgres
+- psql -c 'create database tdg;' -U postgres
 cache:
   directories:
   - "$HOME/.gradle/caches/"
@@ -15,7 +15,7 @@ cache:
 deploy:
   provider: heroku
   api_key:
-    secure: vBbljADpXYySqzkFwd4tP7I4Aqflj6n26TkMoNRQ+A2XG+6x2JrYzphQkYQq9EJ4lq5oNdD52xYvYx5PkFYwSnwHaN2CEDgC7rUabOyXBgRnt/kMQu55fjnxEnPJ7IYqAY/9AtFBz4FNUIeO5iFe4kxBwFdcdUWpm9gzp2k/iJc5zr7mWYbQzmUInOljVvEBKOcB2IlHUxVB2vS43ALr4yTLXFmW6OcUNQSjvfazeGCVxf7xw1e0GkJ5O+A6XSIYYtk+0vjXl4BvVQSM+ausewt5Vqx6ZnXVhhoVuONI3VrcNdNEZ8rTebXdBmENc2GqVIDglrx2VF6csqcR+5aCuARE7m6b35CW3usOc9ARq6QWiBIKJjWTXT3mDpj1rRhVPN8ptIiMZw3N/KzFircKcnHKCUSpLl7M54fs4PavOJ/eGmHN1F31mKZwe61nFEoOLgH+FS9j5cFxYaYTudL7lewMSm/UhitmxHH8vg5UUybaAtCgg8JWfKsr9MJgksvQYI/TTMDwMVfLrrbcv6CgFJe1St9XYJil3Y98mPXK+pJfPNPxVUZPdQ9lOB4VhTG7LwM8S4Cn11igx+j3OR0LD5+SuQk46RiyRhDv1NhHhWdNVxHCzYAqtVVQWy3+9lTwnKj5ICxmWG/BaPFxOvUGvXVAqogEowOEdBFdNt2D72Y=
+    secure: FzD9KxGozsx4iH6Kjjc2vlpd9FR0JLosLOwm1QbWlSXucAW1ajuBOBe0sv/Qc04LW6orL7EQYqlVszDb2Vw4tt07OWB6LoB/N2GiMTgdUVKZ0RAOxKCty2RmE5W2pV2pzYR9ITnDWwV2Thjb8AnPHcOWB4ejR8FdeuY8RSQrLS15ihtwvg33WhGiO39ogewQ0RaXhUWr7wtVkSIrGYI4vLB+3CYUXRToAFuSEuglrCtXUJj7hXHCzPpJog4rxUpObLgkqWDbkxo1ERQBUCSqiusK7EcsaQ9araruo7i9nL6Pk/oeyPcYRvGXorZvlu56om5t39OJTB1wOKxfFpHSckhzK2g6zyvLXlI+sK4VI56H7Gmacfus9Xml3Smmcs1x5OEJcmbdKPPMxXWe6195oQQ7kZtjKPf2DsLFZDRO8Zqwhs43AtpnQcCH0C9FwI1S7GCx8gHrN3b15c3WkFHDqgAFMOlwp74j8HXBr2iBraFDYbErG37P1bFQpw2cGhi0/kGhXCBzrTFRbNhv1AChVeAnAc8gpULvhNoukDvWUszwamRuM+xqZQvd/gAPVm40AKC6xWuff00uOhbFiAv2367LeIiN4L+qCOmjj14sBSsJWsndEBVjbffHEAcubWnCaO3MY/9cH7GlXW2ygn3/iR33m1jn3t/tRgXzhGtZKlM=
   app: TheDungeonGuide
   on:
     repo: Avabin/TheDungeonGuide
