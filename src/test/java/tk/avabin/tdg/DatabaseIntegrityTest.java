@@ -31,6 +31,7 @@ public class DatabaseIntegrityTest {
 
             if (driver.acceptsURL(databaseURL)) {
                 Connection conn = DriverManager.getConnection(databaseURL, databaseUsername, databasePass);
+                conn.close();
             }
         } catch (SQLException e) {
             System.err.println("Could not load driver!");
