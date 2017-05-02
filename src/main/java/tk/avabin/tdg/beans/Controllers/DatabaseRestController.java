@@ -13,6 +13,8 @@ import tk.avabin.tdg.beans.Services.*;
 
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -77,8 +79,8 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() {
         User u = ctx.getBean(User.class);
-        u.setUsername("Admin" + KeyGenerators.secureRandom(8).toString());
-        u.setSalt(KeyGenerators.secureRandom(32).toString());
+        u.setUsername("Admin1");
+        u.setSalt(String.valueOf(ctx.getBean(Random.class).nextInt()));
         u.setPassword("test" + u.getSalt());
         u.setEmail("test@test.test");
         userService.saveOrUpdate(u);
