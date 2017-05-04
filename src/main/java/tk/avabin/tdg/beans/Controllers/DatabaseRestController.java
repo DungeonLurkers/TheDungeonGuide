@@ -91,6 +91,13 @@ public class DatabaseRestController {
         userService.saveOrUpdate(u);
         return u;
     }
+    @RequestMapping("/checkusername")
+    public @ResponseBody boolean checkUsernameInDatabase(
+            @RequestParam("username") String username
+    ) {
+        User u = userService.getByUsername(username);
+        return u != null;
+    }
 
     @RequestMapping("/admin")
     public String adminPage() {
