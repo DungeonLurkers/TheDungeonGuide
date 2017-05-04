@@ -93,10 +93,16 @@ public class DatabaseRestController {
     }
     @RequestMapping("/checkusername")
     public @ResponseBody boolean checkUsernameInDatabase(
-            @RequestParam("username") String username
+            @RequestParam("n") String username
     ) {
-        User u = userService.getByUsername(username);
-        return u != null;
+        return userService.getByUsername(username) != null;
+    }
+    
+    @RequestMapping("checkcharname")
+    public @ResponseBody boolean chechCharacterNameInDatabase(
+            @RequestParam("n") String name
+    ) {
+        return characterService.getByName(name) != null;
     }
 
     @RequestMapping("/admin")
