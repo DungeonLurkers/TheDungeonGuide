@@ -1,9 +1,10 @@
-package tk.avabin.tdg.beans.Services;
+package tk.avabin.tdg.beans.Services.Implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.avabin.tdg.beans.Entities.Language;
 import tk.avabin.tdg.beans.Repositories.LanguageRepository;
+import tk.avabin.tdg.beans.Services.LanguageService;
 
 import java.util.List;
 

@@ -9,6 +9,7 @@ import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
+import tk.avabin.tdg.beans.Services.Implementations.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

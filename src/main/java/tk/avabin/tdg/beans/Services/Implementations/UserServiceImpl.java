@@ -1,9 +1,10 @@
-package tk.avabin.tdg.beans.Services;
+package tk.avabin.tdg.beans.Services.Implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.avabin.tdg.beans.Entities.User;
 import tk.avabin.tdg.beans.Repositories.UserRepository;
+import tk.avabin.tdg.beans.Services.UserService;
 
 import java.util.List;
 
