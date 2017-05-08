@@ -14,7 +14,7 @@ public class ApplicationPropertiesService {
     private String SSLPassword;
 
     public ApplicationPropertiesService() {
-        this.SSLPassword = System.getenv("SSL_PASS");
+        this.SSLPassword = System.getenv("SSL_PASSWORD");
     }
 
 }
