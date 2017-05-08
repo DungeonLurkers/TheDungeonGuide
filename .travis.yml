@@ -5,16 +5,18 @@ before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
- directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.gradle/nodejs/
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.gradle/nodejs/"
   - node_modules
 deploy:
-  provider: heroku
-  api_key:
-    secure: FzD9KxGozsx4iH6Kjjc2vlpd9FR0JLosLOwm1QbWlSXucAW1ajuBOBe0sv/Qc04LW6orL7EQYqlVszDb2Vw4tt07OWB6LoB/N2GiMTgdUVKZ0RAOxKCty2RmE5W2pV2pzYR9ITnDWwV2Thjb8AnPHcOWB4ejR8FdeuY8RSQrLS15ihtwvg33WhGiO39ogewQ0RaXhUWr7wtVkSIrGYI4vLB+3CYUXRToAFuSEuglrCtXUJj7hXHCzPpJog4rxUpObLgkqWDbkxo1ERQBUCSqiusK7EcsaQ9araruo7i9nL6Pk/oeyPcYRvGXorZvlu56om5t39OJTB1wOKxfFpHSckhzK2g6zyvLXlI+sK4VI56H7Gmacfus9Xml3Smmcs1x5OEJcmbdKPPMxXWe6195oQQ7kZtjKPf2DsLFZDRO8Zqwhs43AtpnQcCH0C9FwI1S7GCx8gHrN3b15c3WkFHDqgAFMOlwp74j8HXBr2iBraFDYbErG37P1bFQpw2cGhi0/kGhXCBzrTFRbNhv1AChVeAnAc8gpULvhNoukDvWUszwamRuM+xqZQvd/gAPVm40AKC6xWuff00uOhbFiAv2367LeIiN4L+qCOmjj14sBSsJWsndEBVjbffHEAcubWnCaO3MY/9cH7GlXW2ygn3/iR33m1jn3t/tRgXzhGtZKlM=
-  app: thedungeonguide
+  provider: openshift
+  user: andrzej.piotrowski76@gmail.com
+  password:
+    secure: o+/3tyCJafLBn0erTqAFWlhvlJ0MXtdnC5f+lEF344y+l7+t9GkmWo8aLmPN1LuXJnZ2G6DrDaW+E9qQhIq2KHcgfTwGw9Cek/RWL6ZdCjLgAUQ4oVA+jDMZKl1quWszXhxPUfm2HvbL9FaGME4ISt67tIiOQcHd8QRiE4plWzWl/0AzIuZpkLzgdz4XUcpjrVdIADaedsPMVJRhPuoWIS4ZTjjStXd6tsoL1IhRuJVNeEWpRLRzb+yK2RCHOh324lEMrXiDBoRy0dFO1+mpn/ARUyjcJeqHodg3qL2JR4cpzb9UyiWMllgKi0rsqKvkiMnCXuPf3yuZiBp7sTNaHNtl8PdsZr8JZ4NvNnCo/HlOhnr7ZEBH0lyCMICGmm+OHNSJ7dFBrspEoTgTkhbmWxDUEVBdYlowPuScsDRm+sRRCA2KJ5icYU0yxp0jQR/0hGo1Mv3U6x403WN2hvC5QhlxT78yHGW31cskpphAmFNpqVhy3e82bPTkukT+HVrij7TZeR1ztKcorPOiFLqNI0hFPEEFEN89Eh1I9XLjGKjE0FgffKpHqKU6kzQBObKY0u62JLgLBbs68DGCCE/1ir3RM1D8o72ymi10+OLOw7ftyXmS376mTTf62vs15GzgQPwGFUPNlO7m3GRSQobaq/FaN97mhcIdEbem1t0zkn8=
+  app: TheDungeonGuide
+  domain: ''
   on:
     repo: Avabin/TheDungeonGuide
 notifications:
