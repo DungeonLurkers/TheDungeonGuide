@@ -14,5 +14,6 @@ public class ServerApplication {
 	public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+
     }
 }

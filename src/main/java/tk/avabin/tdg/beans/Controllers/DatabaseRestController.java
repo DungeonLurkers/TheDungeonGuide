@@ -9,6 +9,7 @@ import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
+import tk.avabin.tdg.beans.Services.Implementations.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -90,6 +91,19 @@ public class DatabaseRestController {
         u.setEmail("test@test.test");
         userService.saveOrUpdate(u);
         return u;
+    }
+    @RequestMapping("/checkusername")
+    public @ResponseBody boolean checkUsernameInDatabase(
+            @RequestParam("n") String username
+    ) {
+        return userService.getByUsername(username) != null;
+    }
+    
+    @RequestMapping("checkcharname")
+    public @ResponseBody boolean chechCharacterNameInDatabase(
+            @RequestParam("n") String name
+    ) {
+        return characterService.getByName(name) != null;
     }
 
     @RequestMapping("/admin")
