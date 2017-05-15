@@ -81,9 +81,7 @@ public class DatabaseRestController {
     @RequestMapping("/test")
     public @ResponseBody String test() {
         User u = userService.getByUsername("Avabin");
-        if(u != null) {
-            log.info("Admin account exists");
-        } else {
+        if(u == null) {
             log.info("Admin account does not exists!");
             String saltString = null;
             try {
