@@ -80,6 +80,29 @@ public class DatabaseRestController {
     }
     @RequestMapping("/test")
     public @ResponseBody String test() {
+        User u = userService.getByUsername("Avabin");
+        if(u != null) {
+            log.info("Admin account exists");
+        } else {
+            log.info("Admin account does not exists!");
+            String saltString = null;
+            try {
+                saltString = saltGeneratorService.nextSaltAsString();
+                u = ctx.getBean(User.class);
+                u.setUsername("Admin");
+                u.setEmail("admin@this");
+                u.setSalt(saltString);
+                try {
+                    u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String("testpass", saltString));
+                    userService.saveOrUpdate(u);
+                    log.info("Admin account created!");
+                } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return "Tested!";
     }
 
