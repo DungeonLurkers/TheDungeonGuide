@@ -30,7 +30,7 @@ public class SaltGeneratorService {
 
     public String nextSaltAsString() throws IOException {
         byte[] salt = bytesKeyGenerator.generateKey();
-        return base64Processor.objectToString(salt);
+        return new String(salt, "UTF-8");
     }
 
 }
