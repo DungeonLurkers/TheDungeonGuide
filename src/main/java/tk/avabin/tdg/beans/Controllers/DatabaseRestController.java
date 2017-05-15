@@ -21,6 +21,8 @@ import java.security.SecureRandom;
 @RestController
 @Log
 public class DatabaseRestController {
+    private final SaltGeneratorService saltGeneratorService;
+
     private final SecureRandom secureRandom;
 
     private final ApplicationContext ctx;
@@ -48,7 +50,8 @@ public class DatabaseRestController {
     private final Base64Processor base64Processor;
 
     @Autowired
-    public DatabaseRestController(SecureRandom secureRandom,
+    public DatabaseRestController(SaltGeneratorService saltGeneratorService,
+                                  SecureRandom secureRandom,
                                   ApplicationContext ctx,
                                   CharacterServiceImpl characterService,
                                   CharacterAttackService characterAttackService,
@@ -60,6 +63,7 @@ public class DatabaseRestController {
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
                                   Base64Processor base64Processor) {
+        this.saltGeneratorService = saltGeneratorService;
         this.secureRandom = secureRandom;
         this.ctx = ctx;
         this.characterService = characterService;
@@ -146,9 +150,9 @@ public class DatabaseRestController {
             spellService.saveOrUpdate((Spell) o);
         }
         if (obClass.equals(User.class)) {
+            (User.class.cast(o)).setSalt(saltGeneratorService.nextSaltAsString());
             userService.saveOrUpdate((User) o);
         }
-
         return o;
     }
 }
