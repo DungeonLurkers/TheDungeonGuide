@@ -7,7 +7,6 @@ import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
-import tk.avabin.tdg.beans.Base64SerializableProcessor;
 
 import java.io.IOException;
 
@@ -22,7 +21,7 @@ public class SaltGeneratorService {
     private int keyLength;
 
     @Autowired
-    public SaltGeneratorService(Base64SerializableProcessor base64SerializableProcessor) {
+    public SaltGeneratorService(Base64SerializableProcessorService base64SerializableProcessorService) {
         keyLength = 8;
         bytesKeyGenerator = KeyGenerators.secureRandom(keyLength);
     }

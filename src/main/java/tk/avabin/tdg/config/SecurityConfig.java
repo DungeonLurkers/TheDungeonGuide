@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/admin").authenticated()
+                .antMatchers("/admin", "/db*").authenticated()
                 .and()
                 .formLogin()
                 .successHandler(requestAwareAuthenticationSuccessHandler)

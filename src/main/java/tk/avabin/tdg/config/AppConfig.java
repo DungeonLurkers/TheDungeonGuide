@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-import tk.avabin.tdg.beans.Base64SerializableProcessor;
+import tk.avabin.tdg.beans.Services.Base64SerializableProcessorService;
 import tk.avabin.tdg.beans.SampleBean;
 
 import java.security.SecureRandom;
@@ -18,8 +18,8 @@ import java.security.SecureRandom;
 @Configuration
 public class AppConfig {
     @Bean(name = "base64Processor")
-    public Base64SerializableProcessor getBase64Processor() {
-        return new Base64SerializableProcessor();
+    public Base64SerializableProcessorService getBase64Processor() {
+        return new Base64SerializableProcessorService();
     }
 
     @Bean

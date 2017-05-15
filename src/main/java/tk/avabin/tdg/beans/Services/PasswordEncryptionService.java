@@ -1,6 +1,7 @@
 package tk.avabin.tdg.beans.Services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -15,12 +16,15 @@ import java.util.Arrays;
 @Service
 public class PasswordEncryptionService {
 
-    public boolean authenticate(String attemptedPass, byte[] encryptedPass, byte[] salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        byte[] encryptedAttemptedPass = getEncryptedPass(attemptedPass, salt);
+    public boolean authenticate(String attemptedPass, String b64EncryptedPass, String b64Salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        byte[] encryptedPass = Base64Utils.decodeFromString(b64EncryptedPass);
+        byte[] salt = Base64Utils.decodeFromString(b64Salt);
+        byte[] encryptedAttemptedPass = getEncryptedPass(attemptedPass, Base64Utils.encodeToString(salt));
         return Arrays.equals(encryptedAttemptedPass, encryptedPass);
     }
 
-    public byte[] getEncryptedPass(String pass, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public byte[] getEncryptedPass(String pass, String b64Salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] salt = Base64Utils.decodeFromString(b64Salt);
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLen = 160;
         int iterations = 10000;
@@ -30,5 +34,9 @@ public class PasswordEncryptionService {
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
 
         return keyFactory.generateSecret(spec).getEncoded();
+    }
+
+    public String getEncryptedPassAsB64String(String pass, String b64Salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        return Base64Utils.encodeToString(getEncryptedPass(pass, b64Salt));
     }
 }

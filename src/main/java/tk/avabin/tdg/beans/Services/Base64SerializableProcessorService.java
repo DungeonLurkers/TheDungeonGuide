@@ -1,4 +1,4 @@
-package tk.avabin.tdg.beans;
+package tk.avabin.tdg.beans.Services;
 
 import org.springframework.util.Base64Utils;
 
@@ -8,7 +8,7 @@ import java.util.Base64;
 /**
  * Created by Avabin on 10.04.2017.
  */
-public class Base64SerializableProcessor {
+public class Base64SerializableProcessorService {
     public Object fromString(String s) throws IOException,
             ClassNotFoundException {
         byte[] data = Base64Utils.decodeFromString(s);
