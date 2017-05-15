@@ -23,7 +23,7 @@ public class SaltGeneratorService {
 
     @Autowired
     public SaltGeneratorService(Base64Processor base64Processor) {
-        keyLength = 16;
+        keyLength = 8;
         bytesKeyGenerator = KeyGenerators.secureRandom(keyLength);
         this.base64Processor = base64Processor;
     }
@@ -31,6 +31,10 @@ public class SaltGeneratorService {
     public String nextSaltAsString() throws IOException {
         byte[] salt = bytesKeyGenerator.generateKey();
         return new String(salt, "US-ASCII");
+    }
+
+    public byte[] nextSalt() {
+        return bytesKeyGenerator.generateKey();
     }
 
 }

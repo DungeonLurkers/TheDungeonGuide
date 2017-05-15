@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.Base64Processor;
 import tk.avabin.tdg.beans.Entities.Character;
@@ -13,7 +14,9 @@ import tk.avabin.tdg.beans.Services.Implementations.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -21,6 +24,8 @@ import java.security.SecureRandom;
 @RestController
 @Log
 public class DatabaseRestController {
+    private final PasswordEncryptionService passwordEncryptionService;
+
     private final SaltGeneratorService saltGeneratorService;
 
     private final SecureRandom secureRandom;
@@ -62,7 +67,8 @@ public class DatabaseRestController {
                                   ItemServiceImpl itemService,
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
-                                  Base64Processor base64Processor) {
+                                  Base64Processor base64Processor,
+                                  PasswordEncryptionService passwordEncryptionService) {
         this.saltGeneratorService = saltGeneratorService;
         this.secureRandom = secureRandom;
         this.ctx = ctx;
@@ -77,6 +83,7 @@ public class DatabaseRestController {
         this.skillService = skillService;
         this.spellService = spellService;
         this.base64Processor = base64Processor;
+        this.passwordEncryptionService = passwordEncryptionService;
     }
     @RequestMapping("/test")
     public @ResponseBody String test() {
@@ -87,14 +94,18 @@ public class DatabaseRestController {
     public @ResponseBody String testSalt() throws IOException { return saltGeneratorService.nextSaltAsString(); }
 
     @RequestMapping("/testdb")
-    public @ResponseBody User testDB() throws UnsupportedEncodingException {
+    public @ResponseBody User testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         byte[] salt = new byte[32];
         secureRandom.nextBytes(salt);
         String saltString = Base64.encodeBase64String(salt);
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
         u.setSalt(saltString);
-        u.setPassword("test" + u.getSalt());
+        u.setPassword(
+                Base64Utils.encodeToString(
+                        passwordEncryptionService.getEncryptedPass("pass", saltGeneratorService.nextSalt())
+                )
+        );
         u.setEmail("test@test.test");
         userService.saveOrUpdate(u);
         return u;
