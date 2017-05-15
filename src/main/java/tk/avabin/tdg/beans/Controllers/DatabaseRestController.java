@@ -88,16 +88,11 @@ public class DatabaseRestController {
 
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        byte[] salt = saltGeneratorService.nextSalt();
-        String saltString = Base64Utils.encodeToString(salt);
+        String saltString = saltGeneratorService.nextSaltAsString();
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
         u.setSalt(saltString);
-        u.setPassword(
-                Base64Utils.encodeToString(
-                        passwordEncryptionService.getEncryptedPass("pass", salt)
-                )
-        );
+        u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String("pass", saltString));
         u.setEmail("test@test.test");
         userService.saveOrUpdate(u);
         return u;
@@ -157,9 +152,9 @@ public class DatabaseRestController {
         }
         if (obClass.equals(User.class)) {
             User u = (User) o;
-            byte[] salt = saltGeneratorService.nextSalt();
-            u.setSalt(Base64Utils.encodeToString(salt));
-            u.setPassword(Base64Utils.encodeToString(passwordEncryptionService.getEncryptedPass(u.getPassword(), salt)));
+            String saltString = saltGeneratorService.nextSaltAsString();
+            u.setSalt(saltString);
+            u.setPassword(Base64Utils.encodeToString(passwordEncryptionService.getEncryptedPass(u.getPassword(), saltString)));
             userService.saveOrUpdate((User) o);
         }
         return o;
@@ -176,5 +171,6 @@ public class DatabaseRestController {
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }
