@@ -83,6 +83,9 @@ public class DatabaseRestController {
         return "Tested!";
     }
 
+    @RequestMapping("/testsalt")
+    public @ResponseBody String testSalt() throws IOException { return saltGeneratorService.nextSaltAsString(); }
+
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() throws UnsupportedEncodingException {
         byte[] salt = new byte[32];
