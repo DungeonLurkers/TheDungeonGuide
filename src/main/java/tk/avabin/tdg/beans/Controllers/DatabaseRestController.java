@@ -95,15 +95,14 @@ public class DatabaseRestController {
 
     @RequestMapping("/testdb")
     public @ResponseBody User testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        byte[] salt = new byte[32];
-        secureRandom.nextBytes(salt);
-        String saltString = Base64.encodeBase64String(salt);
+        byte[] salt = saltGeneratorService.nextSalt();
+        String saltString = Base64Utils.encodeToString(salt);
         User u = ctx.getBean(User.class);
         u.setUsername("Admin1" + saltString);
         u.setSalt(saltString);
         u.setPassword(
                 Base64Utils.encodeToString(
-                        passwordEncryptionService.getEncryptedPass("pass", saltGeneratorService.nextSalt())
+                        passwordEncryptionService.getEncryptedPass("pass", salt)
                 )
         );
         u.setEmail("test@test.test");
