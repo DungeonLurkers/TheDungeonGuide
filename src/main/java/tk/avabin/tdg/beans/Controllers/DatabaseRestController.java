@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
-import tk.avabin.tdg.beans.Base64SerializableProcessor;
+import tk.avabin.tdg.beans.Services.Base64SerializableProcessorService;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
@@ -13,7 +13,6 @@ import tk.avabin.tdg.beans.Services.Implementations.*;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 /**
@@ -25,8 +24,6 @@ public class DatabaseRestController {
     private final PasswordEncryptionService passwordEncryptionService;
 
     private final SaltGeneratorService saltGeneratorService;
-
-    private final SecureRandom secureRandom;
 
     private final ApplicationContext ctx;
 
@@ -50,11 +47,10 @@ public class DatabaseRestController {
 
     private final SpellService spellService;
 
-    private final Base64SerializableProcessor base64SerializableProcessor;
+    private final Base64SerializableProcessorService base64SerializableProcessorService;
 
     @Autowired
     public DatabaseRestController(SaltGeneratorService saltGeneratorService,
-                                  SecureRandom secureRandom,
                                   ApplicationContext ctx,
                                   CharacterServiceImpl characterService,
                                   CharacterAttackService characterAttackService,
@@ -65,10 +61,9 @@ public class DatabaseRestController {
                                   ItemServiceImpl itemService,
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
-                                  Base64SerializableProcessor base64SerializableProcessor,
+                                  Base64SerializableProcessorService base64SerializableProcessorService,
                                   PasswordEncryptionService passwordEncryptionService) {
         this.saltGeneratorService = saltGeneratorService;
-        this.secureRandom = secureRandom;
         this.ctx = ctx;
         this.characterService = characterService;
         this.characterAttackService = characterAttackService;
@@ -80,7 +75,7 @@ public class DatabaseRestController {
         this.itemService = itemService;
         this.skillService = skillService;
         this.spellService = spellService;
-        this.base64SerializableProcessor = base64SerializableProcessor;
+        this.base64SerializableProcessorService = base64SerializableProcessorService;
         this.passwordEncryptionService = passwordEncryptionService;
     }
     @RequestMapping("/test")
@@ -130,8 +125,8 @@ public class DatabaseRestController {
     public @ResponseBody
     Object createObjectInDatabase(
             @RequestParam("b64ob") String b64ob
-    ) throws IOException, ClassNotFoundException {
-        Object o = base64SerializableProcessor.fromString(b64ob);
+    ) throws IOException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
+        Object o = base64SerializableProcessorService.fromString(b64ob);
         Class obClass = o.getClass();
         if (obClass.equals(Character.class)) {
             characterService.saveOrUpdate((Character) o);
@@ -161,9 +156,25 @@ public class DatabaseRestController {
             spellService.saveOrUpdate((Spell) o);
         }
         if (obClass.equals(User.class)) {
-            (User.class.cast(o)).setSalt(saltGeneratorService.nextSaltAsString());
+            User u = (User) o;
+            byte[] salt = saltGeneratorService.nextSalt();
+            u.setSalt(Base64Utils.encodeToString(salt));
+            u.setPassword(Base64Utils.encodeToString(passwordEncryptionService.getEncryptedPass(u.getPassword(), salt)));
             userService.saveOrUpdate((User) o);
         }
         return o;
+    }
+
+    @RequestMapping(name = "/login", method = RequestMethod.POST)
+    public @ResponseBody boolean authenticate(
+            @RequestParam("username") String username,
+            @RequestParam("attpass") String attemptedPass
+    ) {
+        User u = userService.getByUsername(username);
+        try {
+            return passwordEncryptionService.authenticate(attemptedPass, u.getPassword(), u.getSalt());
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 }

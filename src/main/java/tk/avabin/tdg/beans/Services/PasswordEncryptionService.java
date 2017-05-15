@@ -1,6 +1,7 @@
 package tk.avabin.tdg.beans.Services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -15,7 +16,9 @@ import java.util.Arrays;
 @Service
 public class PasswordEncryptionService {
 
-    public boolean authenticate(String attemptedPass, byte[] encryptedPass, byte[] salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public boolean authenticate(String attemptedPass, String b64EncryptedPass, String b64Salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        byte[] encryptedPass = Base64Utils.decodeFromString(b64EncryptedPass);
+        byte[] salt = Base64Utils.decodeFromString(b64Salt);
         byte[] encryptedAttemptedPass = getEncryptedPass(attemptedPass, salt);
         return Arrays.equals(encryptedAttemptedPass, encryptedPass);
     }
