@@ -1,19 +1,17 @@
 package tk.avabin.tdg.beans.Controllers;
 
 import lombok.extern.java.Log;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
-import tk.avabin.tdg.beans.Base64Processor;
+import tk.avabin.tdg.beans.Base64SerializableProcessor;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
 import tk.avabin.tdg.beans.Services.Implementations.*;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -52,7 +50,7 @@ public class DatabaseRestController {
 
     private final SpellService spellService;
 
-    private final Base64Processor base64Processor;
+    private final Base64SerializableProcessor base64SerializableProcessor;
 
     @Autowired
     public DatabaseRestController(SaltGeneratorService saltGeneratorService,
@@ -67,7 +65,7 @@ public class DatabaseRestController {
                                   ItemServiceImpl itemService,
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
-                                  Base64Processor base64Processor,
+                                  Base64SerializableProcessor base64SerializableProcessor,
                                   PasswordEncryptionService passwordEncryptionService) {
         this.saltGeneratorService = saltGeneratorService;
         this.secureRandom = secureRandom;
@@ -82,7 +80,7 @@ public class DatabaseRestController {
         this.itemService = itemService;
         this.skillService = skillService;
         this.spellService = spellService;
-        this.base64Processor = base64Processor;
+        this.base64SerializableProcessor = base64SerializableProcessor;
         this.passwordEncryptionService = passwordEncryptionService;
     }
     @RequestMapping("/test")
@@ -133,7 +131,7 @@ public class DatabaseRestController {
     Object createObjectInDatabase(
             @RequestParam("b64ob") String b64ob
     ) throws IOException, ClassNotFoundException {
-        Object o = base64Processor.fromString(b64ob);
+        Object o = base64SerializableProcessor.fromString(b64ob);
         Class obClass = o.getClass();
         if (obClass.equals(Character.class)) {
             characterService.saveOrUpdate((Character) o);

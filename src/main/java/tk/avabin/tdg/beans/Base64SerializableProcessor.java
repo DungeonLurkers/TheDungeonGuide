@@ -1,15 +1,17 @@
 package tk.avabin.tdg.beans;
 
+import org.springframework.util.Base64Utils;
+
 import java.io.*;
 import java.util.Base64;
 
 /**
  * Created by Avabin on 10.04.2017.
  */
-public class Base64Processor {
+public class Base64SerializableProcessor {
     public Object fromString(String s) throws IOException,
             ClassNotFoundException {
-        byte[] data = Base64.getDecoder().decode(s);
+        byte[] data = Base64Utils.decodeFromString(s);
         ObjectInputStream ois = new ObjectInputStream(
                 new ByteArrayInputStream(data));
         Object o = ois.readObject();
@@ -22,6 +24,6 @@ public class Base64Processor {
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
         oos.close();
-        return Base64.getEncoder().encodeToString(baos.toByteArray());
+        return Base64Utils.encodeToString(baos.toByteArray());
     }
 }

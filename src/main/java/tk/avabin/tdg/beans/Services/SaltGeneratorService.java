@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
-import tk.avabin.tdg.beans.Base64Processor;
+import org.springframework.util.Base64Utils;
+import tk.avabin.tdg.beans.Base64SerializableProcessor;
 
 import java.io.IOException;
 
@@ -15,22 +16,20 @@ import java.io.IOException;
  */
 @Service
 public class SaltGeneratorService {
-    private final Base64Processor base64Processor;
     private BytesKeyGenerator bytesKeyGenerator;
     @Getter
     @Setter
     private int keyLength;
 
     @Autowired
-    public SaltGeneratorService(Base64Processor base64Processor) {
+    public SaltGeneratorService(Base64SerializableProcessor base64SerializableProcessor) {
         keyLength = 8;
         bytesKeyGenerator = KeyGenerators.secureRandom(keyLength);
-        this.base64Processor = base64Processor;
     }
 
     public String nextSaltAsString() throws IOException {
         byte[] salt = bytesKeyGenerator.generateKey();
-        return new String(salt, "US-ASCII");
+        return Base64Utils.encodeToString(salt);
     }
 
     public byte[] nextSalt() {
