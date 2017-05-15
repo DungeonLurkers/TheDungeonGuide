@@ -23,7 +23,7 @@ public class SaltGeneratorService {
 
     @Autowired
     public SaltGeneratorService(Base64Processor base64Processor) {
-        keyLength = 64;
+        keyLength = 16;
         bytesKeyGenerator = KeyGenerators.secureRandom(keyLength);
         this.base64Processor = base64Processor;
     }
