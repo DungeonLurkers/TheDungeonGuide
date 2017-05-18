@@ -3,8 +3,8 @@ package tk.avabin.tdg.beans.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
-import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
 import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 import tk.avabin.tdg.beans.Services.Implementations.SaltGeneratorServiceImpl;
@@ -104,6 +104,7 @@ public class ApiRestController {
             @RequestParam("email") String email,
             @RequestParam("password") String password) {
         User u = new User();
+        return "Created";
     }
 
 
