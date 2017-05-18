@@ -181,7 +181,8 @@ public class DatabaseRestController {
         return o;
     }
 
-    @RequestMapping(name = "/auth*", method = RequestMethod.POST)
+    /*
+    @RequestMapping(name = "/notlogged/auth*", method = RequestMethod.POST)
     public @ResponseBody boolean authenticate(
             @RequestParam("username") String username,
             @RequestParam("attpass") String attemptedPass
@@ -193,5 +194,5 @@ public class DatabaseRestController {
             e.printStackTrace();
         }
         return false;
-    }
+    }*/
 }
