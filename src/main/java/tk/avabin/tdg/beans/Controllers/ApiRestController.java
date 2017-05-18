@@ -99,12 +99,23 @@ public class ApiRestController {
     }
 
     @RequestMapping(value = "/api/createuser", method = RequestMethod.POST)
-    public @ResponseBody String createUser(
+    public @ResponseBody
+    User createUser(
             @RequestParam("username") String username,
             @RequestParam("email") String email,
             @RequestParam("password") String password) {
         User u = new User();
-        return "Created";
+        try {
+            String salt = saltGeneratorService.nextSaltAsString();
+            u.setUsername(username);
+            u.setEmail(email);
+            u.setSalt(salt);
+            u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String(password, salt));
+            userService.saveOrUpdate(u);
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
 
