@@ -118,14 +118,14 @@ public class DatabaseRestController {
         userService.saveOrUpdate(u);
         return u;
     }
-    @RequestMapping("/checkusername")
+    @RequestMapping("/api/checkusername")
     public @ResponseBody boolean checkUsernameInDatabase(
             @RequestParam("n") String username
     ) {
         return userService.getByUsername(username) != null;
     }
     
-    @RequestMapping("checkcharname")
+    @RequestMapping("/api/checkcharname")
     public @ResponseBody boolean chechCharacterNameInDatabase(
             @RequestParam("n") String name
     ) {
@@ -137,7 +137,7 @@ public class DatabaseRestController {
         return "Yes, you are an admin.";
     }
 
-    @RequestMapping(value = "/saveorupdate", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/saveorupdate", method = RequestMethod.GET)
     public @ResponseBody
     Object createObjectInDatabase(
             @RequestParam("b64ob") String b64ob
@@ -181,7 +181,7 @@ public class DatabaseRestController {
         return o;
     }
 
-    @RequestMapping(name = "/login", method = RequestMethod.POST)
+    @RequestMapping(name = "/auth*", method = RequestMethod.POST)
     public @ResponseBody boolean authenticate(
             @RequestParam("username") String username,
             @RequestParam("attpass") String attemptedPass
