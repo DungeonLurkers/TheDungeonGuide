@@ -1,5 +1,6 @@
 package tk.avabin.tdg.beans.Services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
@@ -14,7 +15,7 @@ import java.util.Arrays;
  * Created by Avabin on 15.05.2017.
  */
 @Service
-public class PasswordEncryptionService {
+public class PasswordEncryptionService{
 
     public boolean authenticate(String attemptedPass, String b64EncryptedPass, String b64Salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
         byte[] encryptedPass = Base64Utils.decodeFromString(b64EncryptedPass);

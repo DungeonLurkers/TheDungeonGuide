@@ -3,13 +3,17 @@ package tk.avabin.tdg.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-import tk.avabin.tdg.beans.Services.Base64SerializableProcessorService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
+import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 import tk.avabin.tdg.beans.SampleBean;
 
+import javax.sql.DataSource;
 import java.security.SecureRandom;
 
 /**
@@ -18,8 +22,8 @@ import java.security.SecureRandom;
 @Configuration
 public class AppConfig {
     @Bean(name = "base64Processor")
-    public Base64SerializableProcessorService getBase64Processor() {
-        return new Base64SerializableProcessorService();
+    public Base64SerializableProcessorServiceImpl getBase64Processor() {
+        return new Base64SerializableProcessorServiceImpl();
     }
 
     @Bean
@@ -40,5 +44,14 @@ public class AppConfig {
     @Scope(scopeName = "prototype")
     public SecureRandom getSecureRandom() {
         return new SecureRandom();
+    }
+
+    @Bean
+    @Autowired
+    public JdbcClientDetailsServiceBuilder jdbcClientDetailsServiceBuilder(DataSource dataSource, SecureRandom random) {
+        JdbcClientDetailsServiceBuilder serviceBuilder = new JdbcClientDetailsServiceBuilder();
+        serviceBuilder.dataSource(dataSource);
+        serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(256, random));
+        return serviceBuilder;
     }
 }

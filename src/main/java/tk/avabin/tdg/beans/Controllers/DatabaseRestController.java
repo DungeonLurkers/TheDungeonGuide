@@ -3,10 +3,8 @@ package tk.avabin.tdg.beans.Controllers;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
-import tk.avabin.tdg.beans.Services.Base64SerializableProcessorService;
-import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 import tk.avabin.tdg.beans.Entities.*;
 import tk.avabin.tdg.beans.Services.*;
 import tk.avabin.tdg.beans.Services.Implementations.*;
@@ -23,7 +21,7 @@ import java.security.spec.InvalidKeySpecException;
 public class DatabaseRestController {
     private final PasswordEncryptionService passwordEncryptionService;
 
-    private final SaltGeneratorService saltGeneratorService;
+    private final SaltGeneratorServiceImpl saltGeneratorService;
 
     private final ApplicationContext ctx;
 
@@ -47,10 +45,10 @@ public class DatabaseRestController {
 
     private final SpellService spellService;
 
-    private final Base64SerializableProcessorService base64SerializableProcessorService;
+    private final Base64SerializableProcessorServiceImpl base64SerializableProcessorService;
 
     @Autowired
-    public DatabaseRestController(SaltGeneratorService saltGeneratorService,
+    public DatabaseRestController(SaltGeneratorServiceImpl saltGeneratorService,
                                   ApplicationContext ctx,
                                   CharacterServiceImpl characterService,
                                   CharacterAttackService characterAttackService,
@@ -61,7 +59,7 @@ public class DatabaseRestController {
                                   ItemServiceImpl itemService,
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
-                                  Base64SerializableProcessorService base64SerializableProcessorService,
+                                  Base64SerializableProcessorServiceImpl base64SerializableProcessorService,
                                   PasswordEncryptionService passwordEncryptionService) {
         this.saltGeneratorService = saltGeneratorService;
         this.ctx = ctx;
@@ -118,68 +116,13 @@ public class DatabaseRestController {
         userService.saveOrUpdate(u);
         return u;
     }
-    @RequestMapping("/api/checkusername")
-    public @ResponseBody boolean checkUsernameInDatabase(
-            @RequestParam("n") String username
-    ) {
-        return userService.getByUsername(username) != null;
-    }
-    
-    @RequestMapping("/api/checkcharname")
-    public @ResponseBody boolean chechCharacterNameInDatabase(
-            @RequestParam("n") String name
-    ) {
-        return characterService.getByName(name) != null;
-    }
 
     @RequestMapping("/admin")
     public String adminPage() {
         return "Yes, you are an admin.";
     }
 
-    @RequestMapping(value = "/api/saveorupdate", method = RequestMethod.GET)
-    public @ResponseBody
-    Object createObjectInDatabase(
-            @RequestParam("b64ob") String b64ob
-    ) throws IOException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
-        Object o = base64SerializableProcessorService.fromString(b64ob);
-        Class obClass = o.getClass();
-        if (obClass.equals(Character.class)) {
-            characterService.saveOrUpdate((Character) o);
-        }
-        if (obClass.equals(CharacterAttack.class)) {
-            characterAttackService.saveOrUpdate((CharacterAttack) o);
-        }
-        if (obClass.equals(Feat.class)) {
-            featService.saveOrUpdate((Feat) o);
-        }
-        if (obClass.equals(Item.class)) {
-            itemService.saveOrUpdate((Item) o);
-        }
-        if (obClass.equals(Language.class)) {
-            languageService.saveOrUpdate((Language) o);
-        }
-        if (obClass.equals(RPGClassAndLevel.class)) {
-            rpgClassAndLevelService.saveOrUpdate((RPGClassAndLevel) o);
-        }
-        if (obClass.equals(RPGSession.class)) {
-            sessionService.saveOrUpdate((RPGSession) o);
-        }
-        if (obClass.equals(Skill.class)) {
-            skillService.saveOrUpdate((Skill) o);
-        }
-        if (obClass.equals(Spell.class)) {
-            spellService.saveOrUpdate((Spell) o);
-        }
-        if (obClass.equals(User.class)) {
-            User u = (User) o;
-            String saltString = saltGeneratorService.nextSaltAsString();
-            u.setSalt(saltString);
-            u.setPassword(Base64Utils.encodeToString(passwordEncryptionService.getEncryptedPass(u.getPassword(), saltString)));
-            userService.saveOrUpdate((User) o);
-        }
-        return o;
-    }
+
 
     /*
     @RequestMapping(name = "/notlogged/auth*", method = RequestMethod.POST)
