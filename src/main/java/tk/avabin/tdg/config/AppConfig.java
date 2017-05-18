@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
-import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 import tk.avabin.tdg.beans.SampleBean;
+import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 
 import javax.sql.DataSource;
 import java.security.SecureRandom;
@@ -51,7 +51,7 @@ public class AppConfig {
     public JdbcClientDetailsServiceBuilder jdbcClientDetailsServiceBuilder(DataSource dataSource, SecureRandom random) {
         JdbcClientDetailsServiceBuilder serviceBuilder = new JdbcClientDetailsServiceBuilder();
         serviceBuilder.dataSource(dataSource);
-        serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(256, random));
+        serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(31, random));
         return serviceBuilder;
     }
 }
