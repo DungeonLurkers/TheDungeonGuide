@@ -25,7 +25,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserApprovalHandler userApprovalHandler;
     @Autowired
-    @Qualifier("authenticationManager")
+    @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
     @Override
