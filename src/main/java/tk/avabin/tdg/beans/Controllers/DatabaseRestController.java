@@ -122,6 +122,7 @@ public class DatabaseRestController {
             Character c = ctx.getBean(Character.class);
             c.setName("Lelo" + i);
             chars.add(c);
+
         }
         RPGSession session = ctx.getBean(RPGSession.class);
         session.setCharacters(chars);

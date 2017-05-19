@@ -3,7 +3,6 @@ package tk.avabin.tdg.beans.DTO;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import tk.avabin.tdg.beans.Entities.User;
 
 import java.io.Serializable;
 
@@ -12,13 +11,12 @@ import java.io.Serializable;
  */
 @Component
 @Data
-
 @Scope("prototype")
 public class CharacterDto implements Serializable {
     private int id;
     private String name;
-    private User owner;
-    private String classesAndLevelsIds;
+    private int ownerId;
+    private int[] classesAndLevelsIds;
     private String race;
     private String alignment;
     private String deity;
@@ -43,8 +41,8 @@ public class CharacterDto implements Serializable {
     private Integer intelligence;
     private Integer wisdom;
     private Integer charisma;
-    private String itemsIds;
-    private String spellsIds;
+    private int[] itemsIds;
+    private int[] spellsIds;
     private Integer rank0SpellsPerDay;
     private Integer rank1SpellsPerDay;
     private Integer rank2SpellsPerDay;
@@ -55,7 +53,7 @@ public class CharacterDto implements Serializable {
     private Integer rank7SpellsPerDay;
     private Integer rank8SpellsPerDay;
     private Integer rank9SpellsPerDay;
-    private String skillsIds;
-    private String featsIds;
-    private String languagesIds;
+    private int[] skillsIds;
+    private int[] featsIds;
+    private int[] languagesIds;
 }
