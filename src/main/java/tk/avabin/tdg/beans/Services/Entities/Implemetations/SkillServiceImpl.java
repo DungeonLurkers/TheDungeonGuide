@@ -1,10 +1,10 @@
-package tk.avabin.tdg.beans.Services.Implementations;
+package tk.avabin.tdg.beans.Services.Entities.Implemetations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.avabin.tdg.beans.Entities.Skill;
 import tk.avabin.tdg.beans.Repositories.SkillRepository;
-import tk.avabin.tdg.beans.Services.SkillService;
+import tk.avabin.tdg.beans.Services.Entities.SkillService;
 
 import java.util.List;
 

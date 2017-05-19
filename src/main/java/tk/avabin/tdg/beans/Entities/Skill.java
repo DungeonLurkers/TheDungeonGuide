@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * Created by Avabin on 10.04.2017.
@@ -18,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "skill")
-public class Skill implements Serializable {
+public class Skill {
     @Id
     @GeneratedValue
     @NotNull

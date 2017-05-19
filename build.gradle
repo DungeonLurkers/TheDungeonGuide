@@ -38,6 +38,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-social-linkedin')
     compile('org.springframework.boot:spring-boot-starter-social-twitter')
     compile('org.springframework.boot:spring-boot-starter-validation')
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.8'
+
 
     compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.3.7.RELEASE'

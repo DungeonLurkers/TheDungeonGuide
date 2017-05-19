@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-public class RPGSession implements Serializable {
+public class RPGSession {
     @Id
     @GeneratedValue
     @NotNull

@@ -1,4 +1,4 @@
-package tk.avabin.tdg.beans.Services;
+package tk.avabin.tdg.beans.Services.Entities;
 
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.User;

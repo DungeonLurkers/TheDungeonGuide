@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by Avabin on 13.03.2017.
@@ -17,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "app_user")
-public class User implements Serializable {
+public class User {
 
     @Id
     @Column(name = "user_id", nullable = false)

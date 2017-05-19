@@ -1,10 +1,10 @@
-package tk.avabin.tdg.beans.Services.Implementations;
+package tk.avabin.tdg.beans.Services.Entities.Implemetations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.avabin.tdg.beans.Entities.Feat;
 import tk.avabin.tdg.beans.Repositories.FeatRepository;
-import tk.avabin.tdg.beans.Services.FeatService;
+import tk.avabin.tdg.beans.Services.Entities.FeatService;
 
 import java.util.List;
 

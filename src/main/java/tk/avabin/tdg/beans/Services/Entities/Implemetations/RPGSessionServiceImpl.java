@@ -1,10 +1,10 @@
-package tk.avabin.tdg.beans.Services.Implementations;
+package tk.avabin.tdg.beans.Services.Entities.Implemetations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.avabin.tdg.beans.Entities.RPGSession;
 import tk.avabin.tdg.beans.Repositories.RPGSessionRepository;
-import tk.avabin.tdg.beans.Services.RPGSessionService;
+import tk.avabin.tdg.beans.Services.Entities.RPGSessionService;
 
 import java.util.List;
 

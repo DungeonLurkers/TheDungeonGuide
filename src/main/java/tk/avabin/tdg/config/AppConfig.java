@@ -3,6 +3,7 @@ package tk.avabin.tdg.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,5 +54,10 @@ public class AppConfig {
         serviceBuilder.dataSource(dataSource);
         serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(31, random));
         return serviceBuilder;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

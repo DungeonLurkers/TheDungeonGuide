@@ -3,11 +3,20 @@ package tk.avabin.tdg.beans.Controllers;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import tk.avabin.tdg.beans.DTO.CharacterAttackDto;
+import tk.avabin.tdg.beans.Entities.Character;
+import tk.avabin.tdg.beans.Entities.CharacterAttack;
+import tk.avabin.tdg.beans.Entities.Item;
+import tk.avabin.tdg.beans.Entities.User;
+import tk.avabin.tdg.beans.Services.DTO.CharacterAttackDtoService;
+import tk.avabin.tdg.beans.Services.Entities.*;
+import tk.avabin.tdg.beans.Services.Entities.Implemetations.*;
 import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
-import tk.avabin.tdg.beans.Entities.*;
-import tk.avabin.tdg.beans.Services.*;
-import tk.avabin.tdg.beans.Services.Implementations.*;
+import tk.avabin.tdg.beans.Services.Implementations.SaltGeneratorServiceImpl;
+import tk.avabin.tdg.beans.Services.PasswordEncryptionService;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -106,15 +115,21 @@ public class DatabaseRestController {
     public @ResponseBody String testSalt() throws IOException { return saltGeneratorService.nextSaltAsString(); }
 
     @RequestMapping("/testdb")
-    public @ResponseBody User testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        String saltString = saltGeneratorService.nextSaltAsString();
-        User u = ctx.getBean(User.class);
-        u.setUsername("Admin1" + saltString);
-        u.setSalt(saltString);
-        u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String("pass", saltString));
-        u.setEmail("test@test.test");
-        userService.saveOrUpdate(u);
-        return u;
+    public @ResponseBody
+    Object testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
+        Item i = ctx.getBean(Item.class);
+        i.setName("TestItem");
+        i.setPrice(999);
+        i.setDesc("Test item lel");
+        itemService.saveOrUpdate(i);
+        Character c = characterService.getByName("Test");
+        CharacterAttack ca = ctx.getBean(CharacterAttack.class);
+        ca.setOwner(c);
+        ca.setAttackItem(itemService.getByName("TestItem"));
+        characterAttackService.saveOrUpdate(ca);
+        CharacterAttackDtoService dtoService = ctx.getBean(CharacterAttackDtoService.class);
+        CharacterAttackDto dto = dtoService.entityToDto(ca);
+        return dto;
     }
 
     @RequestMapping("/admin")

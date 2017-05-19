@@ -5,9 +5,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.*;
-import tk.avabin.tdg.beans.Services.*;
+import tk.avabin.tdg.beans.Services.Entities.*;
 import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
 import tk.avabin.tdg.beans.Services.Implementations.SaltGeneratorServiceImpl;
+import tk.avabin.tdg.beans.Services.PasswordEncryptionService;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
