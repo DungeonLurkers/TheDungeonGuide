@@ -22,6 +22,8 @@ public class RPGSessionConverter extends AbstractConverter<RPGSession, RPGSessio
 
     @Override
     protected RPGSessionDto convert(RPGSession source) {
+        if (source.getName() != null)
+            dto.setName(source.getName());
         if (source.getGameMaster() != null)
             dto.setGameMasterId(source.getGameMaster().getId());
         if (source.getCharacters() != null)
