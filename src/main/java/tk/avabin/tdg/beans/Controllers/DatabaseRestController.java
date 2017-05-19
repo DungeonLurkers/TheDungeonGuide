@@ -117,16 +117,25 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody
     Object testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        HashSet<Character> chars = new HashSet<>(2);
+        HashSet<Character> chars = new HashSet<>();
+        HashSet<User> players = new HashSet<>();
         for (int i = 0; i < 10; i++) {
             Character c = ctx.getBean(Character.class);
             c.setId(i);
             c.setName("Lelo" + i);
             chars.add(c);
-
+            User u = ctx.getBean(User.class);
+            u.setId(i);
+            u.setUsername("Woooop" + i);
+            u.setEmail("test" + i + "@test.pl");
+            u.setPassword("dupa123" + 1);
+            u.setSalt("salt" + i);
+            c.setOwner(u);
+            players.add(u);
         }
         RPGSession session = ctx.getBean(RPGSession.class);
         session.setCharacters(chars);
+        session.setPlayers(players);
         session.setGameMaster(userService.getByUsername("Admin"));
         session.setName("Test:o");
         GenericDtoService dtoService = ctx.getBean(GenericDtoService.class);
