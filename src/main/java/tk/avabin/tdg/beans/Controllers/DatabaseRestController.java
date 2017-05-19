@@ -6,10 +6,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import tk.avabin.tdg.beans.DTO.RPGSessionDto;
 import tk.avabin.tdg.beans.Entities.Character;
-import tk.avabin.tdg.beans.Entities.CharacterAttack;
+import tk.avabin.tdg.beans.Entities.RPGSession;
 import tk.avabin.tdg.beans.Entities.User;
-import tk.avabin.tdg.beans.Services.DTO.CharacterAttackDtoService;
+import tk.avabin.tdg.beans.Services.DTO.GenericDtoService;
 import tk.avabin.tdg.beans.Services.Entities.*;
 import tk.avabin.tdg.beans.Services.Entities.Implemetations.*;
 import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
@@ -19,6 +20,7 @@ import tk.avabin.tdg.beans.Services.PasswordEncryptionService;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.HashSet;
 
 /**
  * Created by Avabin on 09.04.2017.
@@ -115,13 +117,19 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody
     Object testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        Character c = characterService.getByName("Test");
-        CharacterAttack ca = ctx.getBean(CharacterAttack.class);
-        ca.setOwner(c);
-        ca.setAttackItem(itemService.getByName("TestItem1"));
-        characterAttackService.saveOrUpdate(ca);
-        CharacterAttackDtoService dtoService = ctx.getBean(CharacterAttackDtoService.class);
-        return dtoService.entityToDto(ca);
+        HashSet<Character> chars = new HashSet<>(2);
+        for (int i = 0; i < 10; i++) {
+            Character c = ctx.getBean(Character.class);
+            c.setName("Lelo" + i);
+            chars.add(c);
+        }
+        RPGSession session = ctx.getBean(RPGSession.class);
+        session.setCharacters(chars);
+        session.setGameMaster(userService.getByUsername("Admin"));
+        session.setName("Test:o");
+        sessionService.saveOrUpdate(session);
+        GenericDtoService dtoService = ctx.getBean(GenericDtoService.class);
+        return dtoService.convertEntityToDto(session, RPGSessionDto.class);
     }
 
     @RequestMapping("/admin")

@@ -18,6 +18,6 @@ public class GenericDtoServiceImpl implements GenericDtoService {
 
     @Override
     public Object convertEntityToDto(Object entity, Class dtoClass) {
-        return null;
+        return modelMapper.map(entity, dtoClass);
     }
 }
