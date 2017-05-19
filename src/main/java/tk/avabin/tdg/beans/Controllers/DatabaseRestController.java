@@ -6,10 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import tk.avabin.tdg.beans.DTO.CharacterAttackDto;
 import tk.avabin.tdg.beans.Entities.Character;
 import tk.avabin.tdg.beans.Entities.CharacterAttack;
-import tk.avabin.tdg.beans.Entities.Item;
 import tk.avabin.tdg.beans.Entities.User;
 import tk.avabin.tdg.beans.Services.DTO.CharacterAttackDtoService;
 import tk.avabin.tdg.beans.Services.Entities.*;
@@ -117,19 +115,13 @@ public class DatabaseRestController {
     @RequestMapping("/testdb")
     public @ResponseBody
     Object testDB() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        Item i = ctx.getBean(Item.class);
-        i.setName("TestItem");
-        i.setPrice(999);
-        i.setDesc("Test item lel");
-        itemService.saveOrUpdate(i);
         Character c = characterService.getByName("Test");
         CharacterAttack ca = ctx.getBean(CharacterAttack.class);
         ca.setOwner(c);
-        ca.setAttackItem(itemService.getByName("TestItem"));
+        ca.setAttackItem(itemService.getByName("TestItem1"));
         characterAttackService.saveOrUpdate(ca);
         CharacterAttackDtoService dtoService = ctx.getBean(CharacterAttackDtoService.class);
-        CharacterAttackDto dto = dtoService.entityToDto(ca);
-        return dto;
+        return dtoService.entityToDto(ca);
     }
 
     @RequestMapping("/admin")
