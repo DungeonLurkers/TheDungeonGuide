@@ -127,7 +127,6 @@ public class DatabaseRestController {
         session.setCharacters(chars);
         session.setGameMaster(userService.getByUsername("Admin"));
         session.setName("Test:o");
-        sessionService.saveOrUpdate(session);
         GenericDtoService dtoService = ctx.getBean(GenericDtoService.class);
         return dtoService.convertEntityToDto(session, RPGSessionDto.class);
     }
