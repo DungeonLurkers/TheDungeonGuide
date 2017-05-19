@@ -20,9 +20,12 @@ public class RPGSessionConverter extends AbstractConverter<RPGSession, RPGSessio
 
     @Override
     protected RPGSessionDto convert(RPGSession source) {
-        dto.setGameMasterId(source.getGameMaster().getId());
-        dto.setCharactersIds(source.getCharacters().stream().mapToInt(Character::getId).toArray());
-        dto.setPlayersIds(source.getPlayers().stream().mapToInt(User::getId).toArray());
-        return null;
+        if (source.getGameMaster() != null)
+            dto.setGameMasterId(source.getGameMaster().getId());
+        if (!source.getCharacters().isEmpty())
+            dto.setCharactersIds(source.getCharacters().stream().mapToInt(Character::getId).toArray());
+        if (!source.getPlayers().isEmpty())
+            dto.setPlayersIds(source.getPlayers().stream().mapToInt(User::getId).toArray());
+        return dto;
     }
 }

@@ -120,6 +120,7 @@ public class DatabaseRestController {
         HashSet<Character> chars = new HashSet<>(2);
         for (int i = 0; i < 10; i++) {
             Character c = ctx.getBean(Character.class);
+            c.setId(i);
             c.setName("Lelo" + i);
             chars.add(c);
 
