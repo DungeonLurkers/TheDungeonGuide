@@ -1,6 +1,7 @@
 package tk.avabin.tdg.beans.Converters;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.modelmapper.AbstractConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import tk.avabin.tdg.beans.Entities.User;
  */
 @Component
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class RPGSessionConverter extends AbstractConverter<RPGSession, RPGSessionDto> {
     @Autowired
     private RPGSessionDto dto;
@@ -22,9 +24,9 @@ public class RPGSessionConverter extends AbstractConverter<RPGSession, RPGSessio
     protected RPGSessionDto convert(RPGSession source) {
         if (source.getGameMaster() != null)
             dto.setGameMasterId(source.getGameMaster().getId());
-        if (!source.getCharacters().isEmpty())
+        if (source.getCharacters() != null)
             dto.setCharactersIds(source.getCharacters().stream().mapToInt(Character::getId).toArray());
-        if (!source.getPlayers().isEmpty())
+        if (source.getPlayers() != null)
             dto.setPlayersIds(source.getPlayers().stream().mapToInt(User::getId).toArray());
         return dto;
     }
