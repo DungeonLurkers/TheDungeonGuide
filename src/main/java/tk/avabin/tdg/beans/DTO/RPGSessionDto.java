@@ -11,5 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class RPGSessionDto {
-
+    private int id;
+    private String name;
+    private int gameMasterId;
+    private int[] CharactersIds;
+    private int[] playersIds;
 }
