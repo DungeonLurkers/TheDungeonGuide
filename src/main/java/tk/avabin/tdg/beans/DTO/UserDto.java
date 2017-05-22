@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 /**
- * Created by Avabin on 18.05.2017.
+ * @author Avabin
  */
 @Component
 @Data

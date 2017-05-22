@@ -84,8 +84,17 @@ public class ApiRestController {
     public @ResponseBody
     String createObjectInDatabase(
             @RequestParam("o") String o
-    ) throws IOException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
-        Object i = base64SerializableProcessorService.fromString(o);
+    ) {
+        Object i = null;
+        try {
+            i = base64SerializableProcessorService.fromString(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "IO Exception!";
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return "Class not found!";
+        }
         Class iClass = i.getClass();
         if (iClass.equals(CharacterDto.class))
             characterService.saveOrUpdate((Character) dtoService.convertDtoToEntity(i, Character.class));
@@ -107,8 +116,17 @@ public class ApiRestController {
             spellService.saveOrUpdate((Spell) dtoService.convertDtoToEntity(i, Spell.class));
         if (iClass.equals(UserDto.class)) {
             User u = (User) dtoService.convertDtoToEntity(i, User.class);
-            u.setSalt(saltGeneratorService.nextSaltAsString());
-            u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String(u.getPassword(), u.getSalt()));
+            try {
+                u.setSalt(saltGeneratorService.nextSaltAsString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "IO Exception!";
+            }
+            try {
+                u.setPassword(passwordEncryptionService.getEncryptedPassAsB64String(u.getPassword(), u.getSalt()));
+            } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             userService.saveOrUpdate(u);
         }
         return "ok";
