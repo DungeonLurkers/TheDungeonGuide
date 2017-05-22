@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * Created by Avabin on 09.04.2017.
+ * @author Avabin
  */
 @Configuration
 @EnableTransactionManagement
@@ -40,7 +40,6 @@ public class HibernateConfig {
         dataSource.setUrl(System.getenv("DATABASE_URL_T"));
         dataSource.setUsername(System.getenv("DATABASE_USERNAME"));
         dataSource.setPassword(System.getenv("DATABASE_PASSWORD"));
-
         return dataSource;
     }
 

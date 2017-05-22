@@ -13,20 +13,23 @@ import org.springframework.security.oauth2.provider.approval.UserApprovalHandler
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
- * Created by Avabin on 16.05.2017.
+ * @author Avabin
  */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+    private static final String REALM = "THEDUNGEONGUIDE_REALM";
+    private final TokenStore tokenStore;
+    private final UserApprovalHandler userApprovalHandler;
+    private final AuthenticationManager authenticationManager;
+
     @Autowired
-    private static String REALM = "THEDUNGEONGUIDE_REALM";
-    @Autowired
-    private TokenStore tokenStore;
-    @Autowired
-    private UserApprovalHandler userApprovalHandler;
-    @Autowired
-    @Qualifier("authenticationManagerBean")
-    private AuthenticationManager authenticationManager;
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public AuthorizationServerConfig(TokenStore tokenStore, UserApprovalHandler userApprovalHandler, @Qualifier(value = "authenticationManagerBean") AuthenticationManager authenticationManager) {
+        this.tokenStore = tokenStore;
+        this.userApprovalHandler = userApprovalHandler;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

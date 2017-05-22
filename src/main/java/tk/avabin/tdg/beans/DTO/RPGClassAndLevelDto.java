@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Scope("prototype")
 public class RPGClassAndLevelDto implements Serializable {
     private int id;
-    private String characterId;
+    private int characterId;
     private String rpgClass;
     private Integer level;
 

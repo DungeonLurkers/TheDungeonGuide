@@ -45,7 +45,7 @@ public class Character {
     private Integer initiative;
     private Integer speed;
     @Column(name = "base_attack_bonus")
-    private Integer baseAttackBonus;
+    private String baseAttackBonus;
     @Column(name = "spell_resistance")
     private Integer spellResistance;
     @Column(name = "armor_class")

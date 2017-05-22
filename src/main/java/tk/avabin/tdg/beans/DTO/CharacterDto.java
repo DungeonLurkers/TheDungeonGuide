@@ -32,7 +32,7 @@ public class CharacterDto implements Serializable {
     private Integer hitPoints;
     private Integer initiative;
     private Integer speed;
-    private Integer baseAttackBonus;
+    private String baseAttackBonus;
     private Integer spellResistance;
     private Integer armorClass;
     private Integer strength;
