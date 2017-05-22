@@ -11,6 +11,7 @@ import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorS
 import tk.avabin.tdg.beans.Services.PasswordEncryptionService;
 import tk.avabin.tdg.beans.Services.SaltGeneratorService;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -85,9 +86,11 @@ public class ApiRestController {
     String createObjectInDatabase(
             @RequestParam("o") String o
     ) {
-        Object i = null;
+        Object i;
         try {
             i = base64SerializableProcessorService.fromString(o);
+        } catch (EOFException e) {
+            return "End of file exception!";
         } catch (IOException e) {
             e.printStackTrace();
             return "IO Exception!";
