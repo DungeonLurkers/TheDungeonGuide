@@ -40,7 +40,6 @@ public class HibernateConfig {
         dataSource.setUrl(System.getenv("DATABASE_URL_T"));
         dataSource.setUsername(System.getenv("DATABASE_USER"));
         dataSource.setPassword(System.getenv("DATABASE_PASSWORD"));
-
         return dataSource;
     }
 
