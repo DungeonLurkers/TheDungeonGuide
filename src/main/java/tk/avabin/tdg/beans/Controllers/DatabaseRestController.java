@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tk.avabin.tdg.beans.DTO.RPGSessionDto;
@@ -29,32 +30,21 @@ import java.util.HashSet;
 @Log
 public class DatabaseRestController {
     private final PasswordEncryptionService passwordEncryptionService;
-
     private final SaltGeneratorServiceImpl saltGeneratorService;
-
     private final ApplicationContext ctx;
-
     private final CharacterService characterService;
-
     private final CharacterAttackService characterAttackService;
-
     private final FeatService featService;
-
     private final ItemService itemService;
-
     private final LanguageService languageService;
-
     private final RPGClassAndLevelService rpgClassAndLevelService;
-
     private final RPGSessionService sessionService;
-
     private final SkillService skillService;
-
     private final UserService userService;
-
     private final SpellService spellService;
-
     private final Base64SerializableProcessorServiceImpl base64SerializableProcessorService;
+    @Autowired
+    private GenericDtoService dtoService;
 
     @Autowired
     public DatabaseRestController(SaltGeneratorServiceImpl saltGeneratorService,
@@ -111,6 +101,12 @@ public class DatabaseRestController {
         return "Tested!";
     }
 
+    @RequestMapping(value = "/testsession", method = RequestMethod.POST)
+    public @ResponseBody
+    RPGSessionDto testSession() {
+        return (RPGSessionDto) dtoService.convertEntityToDto(sessionService.getById(110), RPGSessionDto.class);
+    }
+
     @RequestMapping("/testsalt")
     public @ResponseBody String testSalt() throws IOException { return saltGeneratorService.nextSaltAsString(); }
 
@@ -138,7 +134,6 @@ public class DatabaseRestController {
         session.setPlayers(players);
         session.setGameMaster(userService.getByUsername("Admin"));
         session.setName("Test:o");
-        GenericDtoService dtoService = ctx.getBean(GenericDtoService.class);
         return dtoService.convertEntityToDto(session, RPGSessionDto.class);
     }
 
