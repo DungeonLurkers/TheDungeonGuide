@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
+import tk.avabin.tdg.beans.Converters.CharacterConverter;
 import tk.avabin.tdg.beans.Converters.RPGSessionConverter;
 import tk.avabin.tdg.beans.SampleBean;
 import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
@@ -59,9 +60,10 @@ public class AppConfig {
 
     @Bean
     @Autowired
-    public ModelMapper modelMapper(RPGSessionConverter rpgSessionConverter) {
+    public ModelMapper modelMapper(RPGSessionConverter rpgSessionConverter, CharacterConverter characterConverter) {
         ModelMapper mapper = new ModelMapper();
         mapper.addConverter(rpgSessionConverter);
+        mapper.addConverter(characterConverter);
         return mapper;
     }
 }

@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Component
 @Data
 public class UserDto implements Serializable {
-    private int userId;
-    private String userName;
-    private String userMail;
-    private String userPassword;
-    private String userSalt;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String salt;
 }

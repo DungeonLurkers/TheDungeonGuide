@@ -24,5 +24,5 @@ public class RPGClassAndLevel {
 
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
 }
