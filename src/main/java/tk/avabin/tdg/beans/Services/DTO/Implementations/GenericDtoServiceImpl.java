@@ -11,15 +11,15 @@ import tk.avabin.tdg.beans.Services.DTO.GenericDtoService;
 @Service
 public class GenericDtoServiceImpl implements GenericDtoService {
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
 
     @Override
     public Object convertDtoToEntity(Object dto, Class entityClass) {
-        return modelMapper.map(dto, entityClass);
+        return mapper.map(dto, entityClass);
     }
 
     @Override
     public Object convertEntityToDto(Object entity, Class dtoClass) {
-        return modelMapper.map(entity, dtoClass);
+        return mapper.map(entity, dtoClass);
     }
 }
