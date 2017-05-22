@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * Created by Avabin on 18.05.2017.
+ * @author Avabin
  */
 @RestController()
 @RequestMapping("/api")

@@ -2,6 +2,7 @@ package tk.avabin.tdg.beans.DTO;
 
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 @Component
 @Data
+@Scope("prototype")
 public class UserDto implements Serializable {
     private int id;
     private String name;
