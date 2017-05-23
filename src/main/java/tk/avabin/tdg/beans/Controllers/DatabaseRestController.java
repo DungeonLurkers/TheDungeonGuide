@@ -24,7 +24,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.HashSet;
 
 /**
- * Created by Avabin on 09.04.2017.
+ * @author Avabin
  */
 @RestController
 @Log
@@ -43,8 +43,7 @@ public class DatabaseRestController {
     private final UserService userService;
     private final SpellService spellService;
     private final Base64SerializableProcessorServiceImpl base64SerializableProcessorService;
-    @Autowired
-    private GenericDtoService dtoService;
+    private final GenericDtoService dtoService;
 
     @Autowired
     public DatabaseRestController(SaltGeneratorServiceImpl saltGeneratorService,
@@ -59,7 +58,7 @@ public class DatabaseRestController {
                                   SkillService skillService,
                                   SpellServiceImpl spellService,
                                   Base64SerializableProcessorServiceImpl base64SerializableProcessorService,
-                                  PasswordEncryptionService passwordEncryptionService) {
+                                  PasswordEncryptionService passwordEncryptionService, GenericDtoService dtoService) {
         this.saltGeneratorService = saltGeneratorService;
         this.ctx = ctx;
         this.characterService = characterService;
@@ -74,6 +73,7 @@ public class DatabaseRestController {
         this.spellService = spellService;
         this.base64SerializableProcessorService = base64SerializableProcessorService;
         this.passwordEncryptionService = passwordEncryptionService;
+        this.dtoService = dtoService;
     }
     @RequestMapping("/test")
     public @ResponseBody String test() {
