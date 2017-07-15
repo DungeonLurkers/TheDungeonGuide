@@ -1,6 +1,8 @@
 package tk.avabin.tdg.beans.Controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import tk.avabin.tdg.beans.DTO.*;
 import tk.avabin.tdg.beans.Entities.Character;
@@ -22,6 +24,8 @@ import java.security.spec.InvalidKeySpecException;
 @RestController()
 @RequestMapping("/api")
 public class ApiRestController {
+    private final ApplicationContext ctx;
+    private final ModelMapper modelMapper;
     private final GenericDtoService dtoService;
     private final CharacterService characterService;
     private final CharacterAttackService characterAttackService;
@@ -49,7 +53,9 @@ public class ApiRestController {
                              SkillService skillService,
                              SpellService spellService,
                              SaltGeneratorService saltGeneratorService,
-                             PasswordEncryptionService passwordEncryptionService) {
+                             PasswordEncryptionService passwordEncryptionService,
+                             ModelMapper modelMapper,
+                             ApplicationContext ctx) {
         this.characterService = characterService;
         this.base64SerializableProcessorService = base64SerializableProcessorService;
         this.userService = userService;
@@ -64,6 +70,8 @@ public class ApiRestController {
         this.spellService = spellService;
         this.saltGeneratorService = saltGeneratorService;
         this.passwordEncryptionService = passwordEncryptionService;
+        this.modelMapper = modelMapper;
+        this.ctx = ctx;
     }
 
     @RequestMapping("/checkName/user")
@@ -79,6 +87,19 @@ public class ApiRestController {
             @RequestParam("n") String name
     ) {
         return characterService.getByName(name) != null;
+    }
+
+    @RequestMapping("/user/by")
+    public @ResponseBody
+    UserDto getUserByName(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "id", required = false) Integer id
+    ) {
+        if (!name.equals(""))
+            return modelMapper.map(userService.getByUsername(name), UserDto.class);
+        if (id != null)
+            return modelMapper.map(userService.getById(id), UserDto.class);
+        return ctx.getBean(UserDto.class);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
