@@ -98,6 +98,7 @@ public class ApiRestController {
             e.printStackTrace();
             return "Class not found!";
         }
+
         Class iClass = i.getClass();
         if (iClass.equals(CharacterDto.class))
             characterService.saveOrUpdate((Character) dtoService.convertDtoToEntity(i, Character.class));
@@ -132,6 +133,6 @@ public class ApiRestController {
             }
             userService.saveOrUpdate(u);
         }
-        return "ok";
+        return "{message: \"ok\"}";
     }
 }
