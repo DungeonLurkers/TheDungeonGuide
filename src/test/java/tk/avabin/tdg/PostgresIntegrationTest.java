@@ -18,6 +18,7 @@ public class PostgresIntegrationTest {
     @Test
     public void testConnection() {
         Session session = sessionFactory.getCurrentSession();
+
         assert (session.isConnected());
     }
 }
