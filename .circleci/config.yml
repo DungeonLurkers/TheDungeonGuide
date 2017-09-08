@@ -4,9 +4,10 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk
         environment:
-            POSTGRES_USER: test
-            POSTGRES_DB: tdg_test
-            POSTGRES_PASSWORD: ""
+          POSTGRES_URL: "jdbc:postgresql://localhost:5432/"
+          POSTGRES_USER: test
+          POSTGRES_DB: tdg_test
+          POSTGRES_PASSWORD: ""
 
       - image: postgres:9.6.2-alpine
         environment:
