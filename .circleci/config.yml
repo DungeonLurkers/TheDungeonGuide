@@ -3,6 +3,16 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_DB: tdg_test
+            POSTGRES_PASSWORD: ""
+
+      - image: postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: test
+          POSTGRES_DB: tdg_test
+          POSTGRES_PASSWORD: ""
 
     working_directory: ~/repo
 
@@ -12,6 +22,10 @@ jobs:
 
     steps:
       - checkout
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - restore_cache:
           keys:
