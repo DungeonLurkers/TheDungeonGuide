@@ -23,7 +23,7 @@ buildscript {
 }
 jar {
     baseName = 'server'
-    version = '0.0.1-SNAPSHOT'
+    version = 'devel'
 }
 
 apply plugin: 'eclipse'

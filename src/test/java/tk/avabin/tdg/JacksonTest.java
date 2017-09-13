@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
-import tk.avabin.tdg.beans.Entities.User;
+import tk.avabin.tdg.beans.entities.User;
 
 import java.io.IOException;
 

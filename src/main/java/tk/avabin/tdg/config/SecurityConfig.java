@@ -16,8 +16,7 @@ import org.springframework.security.oauth2.provider.approval.TokenStoreUserAppro
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import tk.avabin.tdg.beans.Controllers.RequestAwareAuthenticationSuccessHandler;
+import tk.avabin.tdg.beans.controllers.RequestAwareAuthenticationSuccessHandler;
 import tk.avabin.tdg.beans.RestAuthenticationEntryPoint;
 
 /**

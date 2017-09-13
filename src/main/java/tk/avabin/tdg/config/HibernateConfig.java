@@ -24,7 +24,7 @@ public class HibernateConfig {
     @Bean(name = "sessionFactory")
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-        sessionBuilder.scanPackages("tk.avabin.tdg.beans.Entities");
+        sessionBuilder.scanPackages("tk.avabin.tdg.beans.entities");
         sessionBuilder.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.PostgreSQL9Dialect");
         sessionBuilder.setProperty(AvailableSettings.USE_NEW_ID_GENERATOR_MAPPINGS, "false");
         sessionBuilder.setProperty(AvailableSettings.HBM2DDL_AUTO, "update");
@@ -38,6 +38,7 @@ public class HibernateConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(System.getenv("POSTGRES_URL"));
+        dataSource.setSchema(System.getenv("POSTGRES_DB"));
         dataSource.setUsername(System.getenv("POSTGRES_USER"));
         dataSource.setPassword(System.getenv("POSTGRES_PASSWORD"));
         return dataSource;

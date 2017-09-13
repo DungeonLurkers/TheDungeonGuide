@@ -1,7 +1,7 @@
 package tk.avabin.tdg;
 
 import org.junit.Test;
-import tk.avabin.tdg.beans.Entities.User;
+import tk.avabin.tdg.beans.entities.User;
 
 /**
  * Created by avabi on 13.03.2017.

@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
-import tk.avabin.tdg.beans.Converters.CharacterConverter;
-import tk.avabin.tdg.beans.Converters.RPGSessionConverter;
+import tk.avabin.tdg.beans.converters.CharacterConverter;
+import tk.avabin.tdg.beans.converters.RPGSessionConverter;
 import tk.avabin.tdg.beans.SampleBean;
-import tk.avabin.tdg.beans.Services.Implementations.Base64SerializableProcessorServiceImpl;
+import tk.avabin.tdg.beans.services.Implementations.Base64SerializableProcessorServiceImpl;
 
 import javax.sql.DataSource;
 import java.security.SecureRandom;
