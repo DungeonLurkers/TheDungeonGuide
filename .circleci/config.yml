@@ -40,12 +40,14 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
+      - run: gradle test
       - run:
         name: Testing with JUnit
         command: |
           mkdir -p ~/test-results
           mkdir -p ~/artifacts
-          gradle test
+          find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/ \;
+        when: always
         - store_test_results:
             path: ~/test-results
         - store_artifacts:
