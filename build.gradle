@@ -33,7 +33,6 @@ jar {
 }
 
 apply plugin: 'eclipse'
-apply plugin: "org.jetbrains.kotlin.kapt"
 
 
 dependencies {
