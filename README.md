@@ -1,4 +1,4 @@
-![Build status](https://circleci.com/gh/Avabin/TheDungeonGuide.png)
+[![CircleCI](https://circleci.com/gh/Avabin/TheDungeonGuide/tree/master.svg?style=svg)](https://circleci.com/gh/Avabin/TheDungeonGuide/tree/master)
 # TheDungeonGuide
-#### D&D management server writen in JVM languages using Spring and Hibernate
+#### D&D management server written in JVM languages using Spring and Hibernate
 
