@@ -35,10 +35,6 @@ jar {
 apply plugin: 'eclipse'
 apply plugin: "org.jetbrains.kotlin.kapt"
 
-provided "org.projectlombok:lombok:1.16.14"
-annotationProcessor "org.projectlombok:lombok:1.16.14"
-kapt "org.projectlombok:lombok:1.16.14"
-
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
