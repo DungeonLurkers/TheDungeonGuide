@@ -1,7 +1,7 @@
 package tk.avabin.tdg.beans.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class UserDto implements Serializable {
     private int id;
     private String username;
     private String email;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String salt;
 }

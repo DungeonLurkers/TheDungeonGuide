@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.config.annotation.builders.JdbcClient
 import tk.avabin.tdg.beans.converters.CharacterConverter;
 import tk.avabin.tdg.beans.converters.RPGSessionConverter;
 import tk.avabin.tdg.beans.SampleBean;
-import tk.avabin.tdg.beans.services.Implementations.Base64SerializableProcessorServiceImpl;
+import tk.avabin.tdg.beans.services.implementations.Base64SerializableProcessorServiceImpl;
 
 import javax.sql.DataSource;
 import java.security.SecureRandom;
