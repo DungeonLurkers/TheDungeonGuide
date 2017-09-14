@@ -42,5 +42,5 @@ jobs:
 
       - run: gradle test
 
-      - store_test_result:
-              path: /tmp/test-results
+      - type: test-results-store
+          path: /tmp/test-results
