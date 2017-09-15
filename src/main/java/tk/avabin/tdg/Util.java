@@ -1,6 +1,9 @@
 package tk.avabin.tdg;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -89,6 +92,10 @@ public class Util {
 
     public static String padLeft(String s, int n) {
         return String.format("%1$" + n + "s", s);
+    }
+
+    public static ResponseEntity notFound() {
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 }
