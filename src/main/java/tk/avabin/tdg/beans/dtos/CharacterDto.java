@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by Avabin on 18.05.2017.
@@ -15,8 +16,8 @@ import java.io.Serializable;
 public class CharacterDto implements Serializable {
     private int id;
     private String name;
-    private int ownerId;
-    private int[] classesAndLevelsIds;
+    private UserDto owner;
+    private Set<RPGClassAndLevelDto> classesAndLevels;
     private String race;
     private String alignment;
     private String deity;
@@ -41,8 +42,8 @@ public class CharacterDto implements Serializable {
     private Integer intelligence;
     private Integer wisdom;
     private Integer charisma;
-    private int[] itemsIds;
-    private int[] spellsIds;
+    private Set<ItemDto> items;
+    private Set<SpellDto> spells;
     private Integer rank0SpellsPerDay;
     private Integer rank1SpellsPerDay;
     private Integer rank2SpellsPerDay;
@@ -53,7 +54,7 @@ public class CharacterDto implements Serializable {
     private Integer rank7SpellsPerDay;
     private Integer rank8SpellsPerDay;
     private Integer rank9SpellsPerDay;
-    private int[] skillsIds;
-    private int[] featsIds;
-    private int[] languagesIds;
+    private Set<SkillDto> skills;
+    private Set<FeatDto> feats;
+    private Set<LanguageDto> languages;
 }

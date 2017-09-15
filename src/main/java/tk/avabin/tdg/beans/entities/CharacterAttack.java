@@ -21,8 +21,6 @@ public class CharacterAttack {
     @GeneratedValue
     private Integer id;
     @ManyToOne
-    private Character owner;
-    @ManyToOne
     private Item attackItem;
     @Column(name = "attack_bonus")
     private Integer attackBonus;

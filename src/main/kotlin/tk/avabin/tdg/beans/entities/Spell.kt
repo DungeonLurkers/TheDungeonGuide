@@ -13,7 +13,7 @@ import javax.persistence.*
 @NoArgsConstructor
 @Entity
 @Table(name = "spell")
-internal data class Spell (
+data class Spell(
     @Id
     @Column(name = "spell_id", nullable = false)
     @GeneratedValue

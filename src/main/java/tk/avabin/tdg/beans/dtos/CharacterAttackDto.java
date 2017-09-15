@@ -14,8 +14,7 @@ import java.io.Serializable;
 @Scope("prototype")
 public class CharacterAttackDto implements Serializable {
     private Integer id;
-    private int ownerId;
-    private int attackItemId;
+    private ItemDto attackItem;
     private Integer attackBonus;
     private String damage;
     private String crit;

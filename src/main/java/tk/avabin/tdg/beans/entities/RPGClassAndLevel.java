@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by Avabin on 10.04.2017.
@@ -17,8 +20,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rpg_class")
 public class RPGClassAndLevel {
-    @ManyToOne
-    private Character character;
     private String rpgClass;
     private Integer level;
 

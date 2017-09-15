@@ -4,19 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
-import tk.avabin.tdg.beans.converters.CharacterConverter;
-import tk.avabin.tdg.beans.converters.RPGSessionConverter;
 import tk.avabin.tdg.beans.SampleBean;
 import tk.avabin.tdg.beans.services.implementations.Base64SerializableProcessorServiceImpl;
 
-import javax.sql.DataSource;
 import java.security.SecureRandom;
 
 /**
@@ -50,20 +44,7 @@ public class AppConfig {
     }
 
     @Bean
-    @Autowired
-    public JdbcClientDetailsServiceBuilder jdbcClientDetailsServiceBuilder(DataSource dataSource, SecureRandom random) {
-        JdbcClientDetailsServiceBuilder serviceBuilder = new JdbcClientDetailsServiceBuilder();
-        serviceBuilder.dataSource(dataSource);
-        serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(31, random));
-        return serviceBuilder;
-    }
-
-    @Bean
-    @Autowired
-    public ModelMapper modelMapper(RPGSessionConverter rpgSessionConverter, CharacterConverter characterConverter) {
-        ModelMapper mapper = new ModelMapper();
-        mapper.addConverter(rpgSessionConverter);
-        mapper.addConverter(characterConverter);
-        return mapper;
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

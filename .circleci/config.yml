@@ -26,7 +26,7 @@ jobs:
 
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+          command: dockerize -wait tcp://localhost:5432 -timeout 2m
 
       - restore_cache:
           keys:

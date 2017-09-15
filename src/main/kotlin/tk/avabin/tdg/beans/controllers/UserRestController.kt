@@ -5,11 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import tk.avabin.tdg.beans.dtos.CharacterDto
 import tk.avabin.tdg.beans.dtos.UserDto
+import tk.avabin.tdg.beans.entities.Character
 import tk.avabin.tdg.beans.entities.User
 import tk.avabin.tdg.beans.services.PasswordEncryptionService
 import tk.avabin.tdg.beans.services.SaltGeneratorService
+import tk.avabin.tdg.beans.services.entities.CharacterService
 import tk.avabin.tdg.beans.services.entities.UserService
+import kotlin.streams.toList
 
 /**
  * Created by Avabin on 18.05.2017.
@@ -19,6 +23,7 @@ import tk.avabin.tdg.beans.services.entities.UserService
 class UserRestController(
         private @Autowired val mapper: ModelMapper,
         private @Autowired val userService: UserService,
+        private @Autowired val characterService: CharacterService,
         private @Autowired val saltGeneratorService: SaltGeneratorService,
         private @Autowired val passwordEncryptionService: PasswordEncryptionService) {
 
@@ -60,4 +65,17 @@ class UserRestController(
         return ResponseEntity(body, HttpStatus.OK)
 
     }
+
+    @RequestMapping(value = "/get/{name}/characters", method = arrayOf(RequestMethod.GET))
+    fun getCharactersByUser(@PathVariable name: String): ResponseEntity<List<CharacterDto>> {
+        return try {
+            val owner = userService.getByUsername(name)
+            val charArray: ArrayList<Character> = ArrayList(characterService.getAllByOwner(owner))
+            val respArray = charArray.stream().map { character: Character? -> mapper.map(character, CharacterDto::class.java) }.toList()
+            ResponseEntity(respArray, HttpStatus.OK)
+        } catch (e: Exception) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
 }

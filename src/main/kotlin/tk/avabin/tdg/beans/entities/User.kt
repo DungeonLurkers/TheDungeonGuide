@@ -1,6 +1,5 @@
 package tk.avabin.tdg.beans.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import lombok.NoArgsConstructor
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -15,7 +14,7 @@ import javax.persistence.*
 @NoArgsConstructor
 @Entity
 @Table(name = "app_user")
-internal data class User(
+data class User(
 
     @Id
     @Column(name = "user_id", nullable = false)

@@ -8,16 +8,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.security.SecureRandom;
 
 /**
  * @author Avabin
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "tk.avabin.tdg.beans", entityManagerFactoryRef = "sessionFactory")
+@EnableJpaRepositories(basePackages = "tk.avabin.tdg.beans.repositories", entityManagerFactoryRef = "sessionFactory")
 public class HibernateConfig {
 
     @Autowired
@@ -32,6 +35,15 @@ public class HibernateConfig {
         // sessionBuilder.setProperty(AvailableSettings.SHOW_SQL, "true");
         // sessionBuilder.setProperty(AvailableSettings.FORMAT_SQL, "true");
         return sessionBuilder.buildSessionFactory();
+    }
+
+    @Bean
+    @Autowired
+    public JdbcClientDetailsServiceBuilder jdbcClientDetailsServiceBuilder(DataSource dataSource, SecureRandom random) {
+        JdbcClientDetailsServiceBuilder serviceBuilder = new JdbcClientDetailsServiceBuilder();
+        serviceBuilder.dataSource(dataSource);
+        serviceBuilder.passwordEncoder(new BCryptPasswordEncoder(31, random));
+        return serviceBuilder;
     }
 
     @Bean(name = "dataSource")

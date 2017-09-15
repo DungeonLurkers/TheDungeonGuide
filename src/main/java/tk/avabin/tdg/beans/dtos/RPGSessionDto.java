@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 /**
  * Created by Avabin on 18.05.2017.
  */
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class RPGSessionDto {
     private int id;
     private String name;
-    private int gameMasterId;
-    private int[] CharactersIds;
-    private int[] playersIds;
+    private UserDto gameMaster;
+    private Set<CharacterDto> characters;
+    private Set<UserDto> players;
 }

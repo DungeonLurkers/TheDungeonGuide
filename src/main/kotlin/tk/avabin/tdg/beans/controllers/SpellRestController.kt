@@ -1,6 +1,5 @@
 package tk.avabin.tdg.beans.controllers
 
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
