@@ -1,0 +1,21 @@
+- message: Add user
+  method: POST
+  payload:
+    username: TestUser
+    email: mail.com@pl.com
+    password: testpass
+    salt: ''
+  response:
+    username: TestUser
+    email: mail.com@pl.com
+    password: false
+    salt: true
+
+- message: Get user
+  method: GET
+  payload: {}
+  response:
+    username: TestUser
+    email: mail.com@pl.com
+    password: false
+    salt: true

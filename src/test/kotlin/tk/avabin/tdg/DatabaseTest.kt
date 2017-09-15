@@ -12,7 +12,7 @@ import tk.avabin.tdg.beans.dtos.UserDto
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+@DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
 class UserRestTest {
     private @Autowired lateinit var userRestController: UserRestController
 
@@ -25,13 +25,7 @@ class UserRestTest {
                 salt = "salteyeyeye"
         )
         val response = userRestController.addUser(user)
-
-        println("########\n" +
-                "### USER: $user\n" +
-                "#####\n" +
-                "### RESP: $response\n" +
-                "########")
-        assert(response.statusCode == HttpStatus.OK)
+        assert(response.statusCode in listOf(HttpStatus.OK, HttpStatus.FOUND))
         assert(response.body.password != user.password)
 
     }

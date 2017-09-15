@@ -17,4 +17,6 @@ public interface UserService {
     User getByUsername(String username);
 
     List getAll();
+
+    boolean contains(String name);
 }

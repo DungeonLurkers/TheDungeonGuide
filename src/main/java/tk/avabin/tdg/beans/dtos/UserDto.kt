@@ -13,10 +13,10 @@ import java.io.Serializable
 @Component
 @Scope("prototype")
 data class UserDto(
-        var id: Int = 0,
-        var username: String = "",
-        var email: String = "",
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        var password: String = "",
-        var salt: String = ""
+    var id: Int = 0,
+    var username: String = "",
+    var email: String = "",
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    var password: String = "",
+    var salt: String = ""
 ) : Serializable

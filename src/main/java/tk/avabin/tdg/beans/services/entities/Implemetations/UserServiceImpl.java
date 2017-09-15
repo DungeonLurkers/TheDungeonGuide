@@ -44,4 +44,13 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findUserByUsername(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

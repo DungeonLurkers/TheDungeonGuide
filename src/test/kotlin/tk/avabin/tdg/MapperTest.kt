@@ -57,14 +57,6 @@ class MapperTest {
 
         val characterMapped = modelMapper.map(character, CharacterDto::class.java)
         val classAndLevelMapped = modelMapper.map(rpgClassAndLevel, RPGClassAndLevelDto::class.java)
-        println("#######\n" +
-                "### MAPPED: $characterMapped\n" +
-                "### ORIGINAL: $character\n" +
-                "#######\n" +
-                "### MAPPED: $classAndLevelMapped\n" +
-                "### ORIGINAL: $rpgClassAndLevel\n" +
-                "#######"
-        )
 
         assert(characterMapped.id == character.id)
         assert(characterMapped.name == character.name)
