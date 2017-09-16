@@ -44,7 +44,7 @@ jobs:
 
       - run: gradle test
 
-      - run: gradle bootRun
+      - run: sh ~/repo/jobs/run_tests.sh
 
       - run:
           name: Save test results
