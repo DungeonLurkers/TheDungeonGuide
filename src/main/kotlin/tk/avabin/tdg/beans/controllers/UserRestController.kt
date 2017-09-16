@@ -36,11 +36,11 @@ class UserRestController(
             val newPass = passwordEncryptionService.getEncryptedPassAsB64String(user.password, user.salt)
             user.password = newPass
         } else {
-            val respbody = mapper.map(
+            val responseBody = mapper.map(
                     userService.getByUsername(user.username),
                     UserDto::class.java
             )
-            return ResponseEntity(respbody, HttpStatus.FOUND)
+            return ResponseEntity(responseBody, HttpStatus.FOUND)
         }
         try {
             userService.saveOrUpdate(user)
