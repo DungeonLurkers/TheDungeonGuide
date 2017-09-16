@@ -46,7 +46,7 @@ jobs:
 
       - run: |
         gradle bootRun
-        python -m pytest ~/repo/python-tests/src/test_rest_user.py | tee ~/pytest.log
+        python -m pytest ~/repo/python-tests/src/test_rest_user.py | tee ~/pytest.log;
 
       - run:
           name: Save test results
