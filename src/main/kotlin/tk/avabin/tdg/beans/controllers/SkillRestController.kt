@@ -21,10 +21,11 @@ class SkillRestController(
 
     @RequestMapping("/add")
     fun addSkill(@RequestBody skillDto: SkillDto): ResponseEntity<SkillDto> {
+        if (skillService.contains(skillDto.name)) return ResponseEntity(skillDto, HttpStatus.UNPROCESSABLE_ENTITY)
         return try {
             val skill: Skill = modelMapper.map(skillDto, Skill::class.java)
             skillService.saveOrUpdate(skill)
-            ResponseEntity(HttpStatus.CREATED)
+            ResponseEntity(skillDto, HttpStatus.CREATED)
         } catch (e: Exception) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }

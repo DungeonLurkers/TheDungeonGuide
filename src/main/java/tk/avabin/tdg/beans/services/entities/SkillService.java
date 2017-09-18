@@ -17,4 +17,6 @@ public interface SkillService {
     Skill getByName(String name);
 
     List getAll();
+
+    boolean contains(String name);
 }

@@ -16,8 +16,9 @@ def execute_request(request):
     payload = request["payload"]
     response = None
 
-    print("Executing {} method on {}".format(method, endpoint))
-    logger.debug("Message {} with method {} on {} with data {}".format(message, method, endpoint, payload))
+    print("+------------------------")
+    print("| Executing {} method on {}".format(method, endpoint))
+    logger.debug("|- Message {} with method {} on {} with data {}".format(message, method, endpoint, payload))
 
     try:
         if method == "GET":
@@ -29,14 +30,13 @@ def execute_request(request):
         if method == "DELETE":
             response = put(URL + endpoint, json=payload)
     except Exception:
-        print("Connection on {} refused".format(URL + endpoint))
-        pass
+        print("|-- Connection on {} refused".format(URL + endpoint))
 
-    print("Response {}".format(response.status_code))
-    logger.debug("Response headers: {}\n Response data: {}".format(response.headers, response.json()))
+    print("| Response {}".format(response.status_code))
+    logger.debug("|- Response headers: {}\n Response data: {}".format(response.headers, response.json()))
 
     required_in_response.subscribe(
-        lambda key: print("{} in response: {}".format(key, request["response"][key] in response.text))
+        lambda key: print("| {} in response: {}".format(str(key), str(request["response"][key]) in response.text))
     )
 
 

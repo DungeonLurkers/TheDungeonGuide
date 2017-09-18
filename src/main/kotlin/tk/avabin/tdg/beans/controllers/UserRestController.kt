@@ -40,7 +40,7 @@ class UserRestController(
                     userService.getByUsername(user.username),
                     UserDto::class.java
             )
-            return ResponseEntity(responseBody, HttpStatus.FOUND)
+            return ResponseEntity(responseBody, HttpStatus.UNPROCESSABLE_ENTITY)
         }
         try {
             userService.saveOrUpdate(user)
@@ -83,6 +83,16 @@ class UserRestController(
             val respArray = charArray.stream().map { character: Character? -> mapper.map(character, CharacterDto::class.java) }.toList()
             ResponseEntity(respArray, HttpStatus.OK)
         } catch (e: Exception) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
+    @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))
+    fun deleteUser(@PathVariable name: String): ResponseEntity<Any> {
+        return if (userService.contains(name)) {
+            userService.delete(userService.getByUsername(name))
+            ResponseEntity(HttpStatus.OK)
+        } else {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }

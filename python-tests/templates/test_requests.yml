@@ -13,27 +13,33 @@
 - message: Get user
   method: GET
   endpoint: /user/get/TestUser
-  payload: {}
+  payload:
   response:
     username: TestUser
     email: mail.com@pl.com
 
-- message: Add Spell
+- message: Delete user
+  method: DELETE
+  endpoint: /user/del/TestUser
+  payload: {}
+  response: {}
+
+- message: Add Skill
   method: POST
   endpoint: /skill/add
   payload:
     name: TestSkill
-    bonusAttributePosition: 3
-    rank: 9
-    otherBonuses: 2
+    bonusAttributePosition: 5
+    rank: 4
+    otherBonuses: 4
   response: {}
 
-- message: Get Spell
+- message: Get Skill
   method: GET
   endpoint: /skill/get/TestSkill
   payload: {}
   response:
     name: TestSkill
-    bonusAttributePosition: 3
-    rank: 9
-    otherBonuses: 2
+    bonusAttributePosition: 5
+    rank: 4
+    otherBonuses: 4
