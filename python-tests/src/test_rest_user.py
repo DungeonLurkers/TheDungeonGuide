@@ -1,7 +1,8 @@
-import yaml
-from requests import post, get, put, delete
-from rx import Observable
 from logging import getLogger
+
+import yaml
+from requests import post, get, put
+from rx import Observable
 
 URL = "http://localhost:8080"
 logger = getLogger(__name__)
@@ -34,7 +35,9 @@ def execute_request(request):
     print("Response {}".format(response.status_code))
     logger.debug("Response headers: {}\n Response data: {}".format(response.headers, response.json()))
 
-    required_in_response.subscribe(lambda key: print("key in response: {}".format(request[key] in response)))
+    required_in_response.subscribe(
+        lambda key: print("{} in response: {}".format(key, request["response"][key] in response.text))
+    )
 
 
 class RequestParser:
@@ -52,8 +55,8 @@ class RequestParser:
 
 def main():
     p = RequestParser()
-    print("Template: ../templates/rest_user.yml")
-    p.set_template("../templates/rest_user.yml")
+    print("Template: ../templates/test_requests.yml")
+    p.set_template("../templates/test_requests.yml")
     p.execute()
 
 

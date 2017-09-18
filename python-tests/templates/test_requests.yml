@@ -1,0 +1,39 @@
+- message: Add user
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestUser
+    email: mail.com@pl.com
+    password: testpass
+    salt: ''
+  response:
+    username: TestUser
+    email: mail.com@pl.com
+
+- message: Get user
+  method: GET
+  endpoint: /user/get/TestUser
+  payload: {}
+  response:
+    username: TestUser
+    email: mail.com@pl.com
+
+- message: Add Spell
+  method: POST
+  endpoint: /skill/add
+  payload:
+    name: TestSkill
+    bonusAttributePosition: 3
+    rank: 9
+    otherBonuses: 2
+  response: {}
+
+- message: Get Spell
+  method: GET
+  endpoint: /skill/get/TestSkill
+  payload: {}
+  response:
+    name: TestSkill
+    bonusAttributePosition: 3
+    rank: 9
+    otherBonuses: 2
