@@ -1,7 +1,8 @@
+import sys
 from logging import getLogger
 
 import yaml
-from requests import post, get, put
+from requests import post, get, put, RequestException
 from rx import Observable
 
 URL = "http://localhost:8080"
@@ -29,8 +30,9 @@ def execute_request(request):
             response = put(URL + endpoint, json=payload)
         if method == "DELETE":
             response = put(URL + endpoint, json=payload)
-    except Exception:
-        print("|-- Connection on {} refused".format(URL + endpoint))
+    except RequestException:
+        print("|-- Error with connection on {}".format(URL + endpoint))
+        sys.exit(1)
 
     print("| Response {}".format(response.status_code))
     logger.debug("|- Response headers: {}\n Response data: {}".format(response.headers, response.json()))

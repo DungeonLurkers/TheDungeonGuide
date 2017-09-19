@@ -1,6 +1,8 @@
 language: java
 jdk:
 - oraclejdk8
+python:
+- "3.6"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -10,6 +12,8 @@ cache:
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.gradle/nodejs/"
   - node_modules
+script:
+- python3 python-tests/src/test_rest.py
 deploy:
   provider: heroku
   api_key:
