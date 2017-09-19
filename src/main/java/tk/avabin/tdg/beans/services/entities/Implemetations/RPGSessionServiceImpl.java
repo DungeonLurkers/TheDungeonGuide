@@ -44,4 +44,13 @@ public class RPGSessionServiceImpl implements RPGSessionService {
     public List getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findRPGSessionByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

@@ -7,4 +7,5 @@ import tk.avabin.tdg.beans.entities.RPGClassAndLevel;
  * Created by Avabin on 10.04.2017.
  */
 public interface RPGClassAndLevelRepository extends JpaRepository<RPGClassAndLevel, Integer> {
+    RPGClassAndLevel findRPGClassAndLevelByRpgClass(String name);
 }

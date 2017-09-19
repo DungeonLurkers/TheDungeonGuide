@@ -39,4 +39,13 @@ public class RPGClassAndLevelServiceimpl implements RPGClassAndLevelService {
     public List getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findRPGClassAndLevelByRpgClass(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
