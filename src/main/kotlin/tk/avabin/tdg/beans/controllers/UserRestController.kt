@@ -13,7 +13,6 @@ import tk.avabin.tdg.beans.services.PasswordEncryptionService
 import tk.avabin.tdg.beans.services.SaltGeneratorService
 import tk.avabin.tdg.beans.services.entities.CharacterService
 import tk.avabin.tdg.beans.services.entities.UserService
-import java.sql.SQLException
 import kotlin.streams.toList
 
 /**
@@ -30,31 +29,24 @@ class UserRestController(
 
     @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
     fun addUser(@RequestBody userBody: UserDto): ResponseEntity<UserDto> {
-        val user: User = mapper.map<User>(userBody, User::class.java)
-        if( !userService.contains(user.username)) {
-            user.salt = saltGeneratorService.nextSaltAsString()
-            val newPass = passwordEncryptionService.getEncryptedPassAsB64String(user.password, user.salt)
-            user.password = newPass
+        var mapped = mapper.map(userBody, User::class.java)
+        return if (!userService.contains(mapped.username)) {
+            mapped.salt = saltGeneratorService.nextSaltAsString()
+            mapped.password = passwordEncryptionService.getEncryptedPassAsB64String(mapped.password, mapped.salt)
+            mapped = userService.saveOrUpdate(mapped)
+            ResponseEntity(mapper.map(mapped, UserDto::class.java), HttpStatus.CREATED)
         } else {
-            val responseBody = mapper.map(
-                    userService.getByUsername(user.username),
-                    UserDto::class.java
-            )
-            return ResponseEntity(responseBody, HttpStatus.UNPROCESSABLE_ENTITY)
+            mapped = userService.getByUsername(mapped.username)
+            ResponseEntity(mapper.map(mapped, UserDto::class.java), HttpStatus.UNPROCESSABLE_ENTITY)
         }
-        try {
-            userService.saveOrUpdate(user)
-        } catch (e: SQLException) {
-            return ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-        return ResponseEntity(mapper.map(user, UserDto::class.java), HttpStatus.CREATED)
     }
 
     @RequestMapping(value = "/get/{name}", method = arrayOf(RequestMethod.GET))
     fun getUserByName(@PathVariable name: String): ResponseEntity<UserDto> {
-        val user: User? = userService.getByUsername(name)
+        val user: User?
         val body: UserDto
         try {
+            user = userService.getByUsername(name)
             body = mapper.map(user, UserDto::class.java)
         } catch (e: Exception) {
             return ResponseEntity(HttpStatus.NOT_FOUND)

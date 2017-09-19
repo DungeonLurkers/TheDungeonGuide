@@ -4,10 +4,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import tk.avabin.tdg.beans.dtos.SkillDto
 import tk.avabin.tdg.beans.entities.Skill
 import tk.avabin.tdg.beans.services.entities.SkillService
@@ -51,6 +48,16 @@ class SkillRestController(
                             SkillDto::class.java), HttpStatus.OK
             )
         } catch (e: Exception) {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
+    @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))
+    fun deleteSkill(@PathVariable name: String): ResponseEntity<Any> {
+        return if (skillService.contains(name)) {
+            skillService.delete(skillService.getByName(name))
+            ResponseEntity(HttpStatus.OK)
+        } else {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }

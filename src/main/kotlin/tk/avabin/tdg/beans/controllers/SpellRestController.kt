@@ -51,4 +51,13 @@ class SpellRestController(
         }
     }
 
+    @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))
+    fun deleteSpell(@PathVariable name: String): ResponseEntity<Any> {
+        return if (spellService.contains(name)) {
+            spellService.delete(spellService.getByName(name))
+            ResponseEntity(HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
 }

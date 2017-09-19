@@ -1,66 +1,60 @@
-import sys
-from logging import getLogger
-
+import os
 import yaml
-from requests import post, get, put, RequestException
+from requests import Request, Session
 from rx import Observable
+from unittest import TestCase
 
-URL = "http://localhost:8080"
-logger = getLogger(__name__)
+template_dir = "../templates"
+url = "http://localhost:8080"
+
+
+def is_template(string):
+    return string.endswith(".yml")
+
+
+def get_templates():
+    templates = []
+    Observable.from_(os.listdir(template_dir)) \
+        .filter(is_template) \
+        .subscribe(templates.append)
+    return templates
+
+
+def template_as_yaml(template):
+    with open(template_dir + "/" + template) as stream:
+        try:
+            return yaml.load(stream)
+        except yaml.YAMLError:
+            pass
+
+
+def prepare_request_from(template, wtf):
+    message = template["message"]
+    method = template["method"]
+    endpoint = url + template["endpoint"]
+    payload = template["payload"]
+    return Request(method, endpoint, data=payload)
 
 
 def execute_request(request):
-    required_in_response = Observable.from_(request["response"])
-    message = request["message"]
-    method = request["method"]
-    endpoint = request["endpoint"]
-    payload = request["payload"]
-    response = None
-
-    print("+------------------------")
-    print("| Executing {} method on {}".format(method, endpoint))
-    logger.debug("|- Message {} with method {} on {} with data {}".format(message, method, endpoint, payload))
-
-    try:
-        if method == "GET":
-            response = get(URL + endpoint, json=payload)
-        if method == "POST":
-            response = post(URL + endpoint, json=payload)
-        if method == "PUT":
-            response = put(URL + endpoint, json=payload)
-        if method == "DELETE":
-            response = put(URL + endpoint, json=payload)
-    except RequestException:
-        print("|-- Error with connection on {}".format(URL + endpoint))
-        sys.exit(1)
-
-    print("| Response {}".format(response.status_code))
-    logger.debug("|- Response headers: {}\n Response data: {}".format(response.headers, response.json()))
-
-    required_in_response.subscribe(
-        lambda key: print("| {} in response: {}".format(str(key), str(request["response"][key]) in response.text))
-    )
+    assert isinstance(request, Request)
 
 
-class RequestParser:
-    def __init__(self):
-        self.template = None
-        self.actions = None
-
-    def set_template(self, template_file):
-        self.template = template_file
-        self.actions = Observable.from_(yaml.load(open(template_file, "r")))
-
-    def execute(self):
-        self.actions.subscribe(execute_request)
+def check_response(response):
+    pass
 
 
-def main():
-    p = RequestParser()
-    print("Template: ../templates/test_requests.yml")
-    p.set_template("../templates/test_requests.yml")
-    p.execute()
+class RestTests(TestCase):
+    templates = []
+    request_list = []
+    session = Session()
 
+    @classmethod
+    def setup_class(cls):
+        Observable.from_(get_templates()) \
+            .map(template_as_yaml) \
+            .map(prepare_request_from) \
+            .subscribe(cls.request_list.append)
 
-if __name__ == '__main__':
-    main()
+    def test_requests(self):
+        print(self.request_list)

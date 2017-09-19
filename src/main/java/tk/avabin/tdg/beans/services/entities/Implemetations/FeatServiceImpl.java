@@ -21,8 +21,8 @@ public class FeatServiceImpl implements FeatService {
     }
 
     @Override
-    public void saveOrUpdate(Feat c) {
-        repository.save(c);
+    public Feat saveOrUpdate(Feat c) {
+        return repository.save(c);
     }
 
     @Override

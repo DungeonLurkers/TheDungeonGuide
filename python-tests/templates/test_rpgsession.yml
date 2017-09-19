@@ -1,0 +1,36 @@
+- message: Add RPGSession, Character, User, Item, Skill, Feat, Spell
+  method: POST
+  endpoint: /rpgsession/add
+  payload:
+    name: TestSession
+    gameMaster:
+      username: TestGameMaster
+      email: game@master.rpg
+      password: testPass
+      salt: ''
+    characters:
+      - name: TestCharacter
+        owner:
+          username: TestCharacterOwner
+          email: owner@character.test
+          password: test
+          salt: ''
+        age: 20
+        speed: 9
+        items:
+          - name: TestCharacterItem
+            price: 999
+            desc: TestItem for Character
+        skills:
+          - name: TestCharacterSkill
+            bonusAttributePosition: 2
+            rank: 2
+            otherBonuses: 10
+        feats:
+          - name: TestCharacterFeat
+            desc: Testing feats for character
+        spells:
+          - name: TestCharacterSpell
+            rank: 9
+            desc: Testing spells for characters
+  response: {}

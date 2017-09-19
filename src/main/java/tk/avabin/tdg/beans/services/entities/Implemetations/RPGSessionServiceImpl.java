@@ -21,8 +21,8 @@ public class RPGSessionServiceImpl implements RPGSessionService {
     }
 
     @Override
-    public void saveOrUpdate(RPGSession r) {
-        repository.save(r);
+    public RPGSession saveOrUpdate(RPGSession r) {
+        return repository.save(r);
     }
 
     @Override

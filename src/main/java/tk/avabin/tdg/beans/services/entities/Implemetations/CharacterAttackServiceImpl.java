@@ -22,8 +22,8 @@ public class CharacterAttackServiceImpl implements CharacterAttackService {
 
 
     @Override
-    public void saveOrUpdate(CharacterAttack c) {
-        repository.save(c);
+    public CharacterAttack saveOrUpdate(CharacterAttack c) {
+        return repository.save(c);
     }
 
     @Override
@@ -37,7 +37,21 @@ public class CharacterAttackServiceImpl implements CharacterAttackService {
     }
 
     @Override
+    public CharacterAttack getByName(String name) {
+        return repository.findCharacterAttackByName(name);
+    }
+
+    @Override
     public List getAll() {
         return null;
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findCharacterAttackByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -68,7 +68,7 @@ class MapperTest {
         val remappedCharacter = modelMapper.map(characterMapped, Character::class.java)
 
         assert(remappedCharacter == character)
-        assert(rpgClassAndLevel in remappedCharacter.classesAndLevels)
+        assert(rpgClassAndLevel in remappedCharacter.classesAndLevels!!)
     }
 
 }

@@ -21,8 +21,8 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void saveOrUpdate(Language c) {
-        repository.save(c);
+    public Language saveOrUpdate(Language c) {
+        return repository.save(c);
     }
 
     @Override

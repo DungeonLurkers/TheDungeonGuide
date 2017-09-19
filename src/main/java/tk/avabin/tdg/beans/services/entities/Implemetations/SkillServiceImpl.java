@@ -21,8 +21,8 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public void saveOrUpdate(Skill c) {
-        repository.save(c);
+    public Skill saveOrUpdate(Skill c) {
+        return repository.save(c);
     }
 
     @Override

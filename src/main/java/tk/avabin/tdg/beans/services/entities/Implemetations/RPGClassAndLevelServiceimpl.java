@@ -21,8 +21,8 @@ public class RPGClassAndLevelServiceimpl implements RPGClassAndLevelService {
     }
 
     @Override
-    public void saveOrUpdate(RPGClassAndLevel c) {
-        repository.save(c);
+    public RPGClassAndLevel saveOrUpdate(RPGClassAndLevel c) {
+        return repository.save(c);
     }
 
     @Override
