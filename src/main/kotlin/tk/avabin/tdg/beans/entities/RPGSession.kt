@@ -15,12 +15,12 @@ data class RPGSession(
         @Id
         @GeneratedValue
         @NotNull
-        private val id: Int = 0,
-        private val name: String = "",
+        var id: Int = 0,
+        var name: String = "",
         @ManyToOne
-        private val gameMaster: User? = null,
+        var gameMaster: User? = null,
         @OneToMany(targetEntity = Character::class, fetch = FetchType.EAGER)
-        private val Characters: Set<Character> = HashSet(),
+        var Characters: Set<Character> = HashSet(),
         @ManyToMany(targetEntity = User::class, fetch = FetchType.EAGER)
-        private val players: Set<User> = HashSet()
+        var players: Set<User> = HashSet()
 )

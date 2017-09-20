@@ -44,4 +44,13 @@ public class ItemServiceImpl implements ItemService {
     public List getAll() {
         return null;
     }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findItemByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

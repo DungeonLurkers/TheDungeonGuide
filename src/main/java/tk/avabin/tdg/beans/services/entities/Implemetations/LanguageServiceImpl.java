@@ -44,4 +44,13 @@ public class LanguageServiceImpl implements LanguageService {
     public List getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findLanguageByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

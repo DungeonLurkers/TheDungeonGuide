@@ -3,18 +3,8 @@
   endpoint: /rpgsession/add
   payload:
     name: TestSession
-    gameMaster:
-      username: TestGameMaster
-      email: game@master.rpg
-      password: testPass
-      salt: ''
     characters:
       - name: TestCharacter
-        owner:
-          username: TestCharacterOwner
-          email: owner@character.test
-          password: test
-          salt: ''
         age: 20
         speed: 9
         items:
@@ -33,4 +23,36 @@
           - name: TestCharacterSpell
             rank: 9
             desc: Testing spells for characters
+  response: {}
+
+- message: Add Session Game Master
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestGameMaster
+    email: game@master.rpg
+    password: testPass
+    salt: ''
+  response: {}
+
+- message: Add Character Owner
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestCharacterOwner
+    email: owner@character.test
+    password: test
+    salt: ''
+  response: {}
+
+- message: Connect Character And User
+  method: PUT
+  endpoint: /character/owner/TestCharacter/TestCharacterOwner
+  payload: {}
+  response: {}
+
+- message: Get character
+  method: GET
+  endpoint: /character/get/TestCharacter
+  payload: {}
   response: {}
