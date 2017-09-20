@@ -9,7 +9,7 @@ import java.io.Serializable
  */
 @Component
 @Scope("prototype")
-class RPGClassAndLevelDto(
+data class RPGClassAndLevelDto(
         var id: Int = 0,
         var rpgClass: String = "",
         var level: Int = 0

@@ -9,7 +9,7 @@ import java.io.Serializable
  */
 @Component
 @Scope("prototype")
-class LanguageDto(
+data class LanguageDto(
         var id: Int = 0,
         var name: String = ""
 ) : Serializable

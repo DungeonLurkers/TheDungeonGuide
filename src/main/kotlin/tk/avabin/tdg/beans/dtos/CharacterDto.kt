@@ -9,7 +9,7 @@ import java.io.Serializable
  */
 @Component
 @Scope("prototype")
-class CharacterDto(
+data class CharacterDto(
         var id: Int = 0,
         var name: String = "",
         var owner: UserDto? = null,

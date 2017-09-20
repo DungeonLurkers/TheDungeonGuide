@@ -9,7 +9,7 @@ import java.io.Serializable
  */
 @Component
 @Scope("prototype")
-class ItemDto(
+data class ItemDto(
         var id: Int = 0,
         var name: String = "",
         var desc: String = "",
