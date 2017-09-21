@@ -48,4 +48,25 @@
 - message: Get Session
   method: GET
   endpoint: /rpgsession/get/TestSession
+  response:
+    name: TestSession
+    name: SessionTestCharacter
+    username: TestCharacterOwner
+    username: TestGameMaster
+
+- message: Delete Session
+  method: DELETE
+  endpoint: /rpgsession/del/TestSession
+
+- message: Clean Game Master
+  method: DELETE
+  endpoint: /user/del/TestGameMaster
+
+- message: Clean Character
+  method: DELETE
+  endpoint: /character/del/SessionTestCharacter
+
+- message: Clean Player
+  method: DELETE
+  endpoint: /user/del/TestCharacterOwner
 

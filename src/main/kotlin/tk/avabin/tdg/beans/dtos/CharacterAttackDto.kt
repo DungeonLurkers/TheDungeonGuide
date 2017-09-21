@@ -11,6 +11,7 @@ import java.io.Serializable
 @Scope("prototype")
 data class CharacterAttackDto(
         var id: Int = 0,
+        var name: String = "",
         var attackItem: ItemDto? = null,
         var attackBonus: Int = 0,
         var damage: String = "",

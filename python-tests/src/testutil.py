@@ -71,7 +71,7 @@ def check_response(response: dict):
 
     if req_resp is not None:
         for key, value in req_resp.items():
-            assert str(value) in str(resp.text)
+            assert str(value) in str(resp.text), "{} not {}".format(value, resp.text)
 
     print("###\n{} with response code {}, {} on {}".format(template["message"],
                                                            resp.status_code, response["method"], resp.url))
