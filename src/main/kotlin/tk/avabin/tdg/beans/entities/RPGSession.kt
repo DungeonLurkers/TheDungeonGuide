@@ -20,7 +20,7 @@ data class RPGSession(
         @ManyToOne
         var gameMaster: User? = null,
         @OneToMany(targetEntity = Character::class, fetch = FetchType.EAGER)
-        var Characters: Set<Character> = HashSet(),
+        var characters: Set<Character> = HashSet(),
         @ManyToMany(targetEntity = User::class, fetch = FetchType.EAGER)
         var players: Set<User> = HashSet()
 )

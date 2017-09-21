@@ -16,7 +16,6 @@ class RestTests(TestCase):
             .from_(get_templates()) \
             .map(template_as_yaml) \
             .map(prepare_requests) \
-            .map(lambda req_list: [cls.session.prepare_request(req) for req in req_list]) \
             .subscribe(cls.request_list.append)
 
     def test_requests(self):

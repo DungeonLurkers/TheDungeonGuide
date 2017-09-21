@@ -6,12 +6,10 @@
     bonusAttributePosition: 5
     rank: 4
     otherBonuses: 4
-  response: {}
 
 - message: Get Skill
   method: GET
   endpoint: /skill/get/TestSkill
-  payload: {}
   response:
     name: TestSkill
     bonusAttributePosition: 5
@@ -21,5 +19,3 @@
 - message: Delete Skill
   method: DELETE
   endpoint: /skill/del/TestSkill
-  payload: {}
-  response: {}

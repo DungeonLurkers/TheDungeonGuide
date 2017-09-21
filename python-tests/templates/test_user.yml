@@ -6,14 +6,10 @@
     email: mail.com@pl.com
     password: testpass
     salt: ''
-  response:
-    username: TestUser
-    email: mail.com@pl.com
 
 - message: Get user
   method: GET
   endpoint: /user/get/TestUser
-  payload:
   response:
     username: TestUser
     email: mail.com@pl.com
@@ -21,5 +17,3 @@
 - message: Delete user
   method: DELETE
   endpoint: /user/del/TestUser
-  payload: {}
-  response: {}

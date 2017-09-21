@@ -12,7 +12,6 @@
 - message: Get Item
   method: GET
   endpoint: /item/get/TestItem
-  payload: {}
   response:
     name: TestItem
     price: 999
@@ -20,5 +19,3 @@
 - message: Delete Item
   method: DELETE
   endpoint: /item/del/TestItem
-  payload: {}
-  response: {}

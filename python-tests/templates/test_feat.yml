@@ -4,17 +4,13 @@
   payload:
     name: TestFeat
     desc: Feat with testing purposes
-  response: {}
 
 - message: Get Feat
   method: GET
   endpoint: /feat/get/TestFeat
-  payload: {}
   response:
     name: TestFeat
 
 - message: Delete Feat
   method: DELETE
   endpoint: /feat/del/TestFeat
-  payload: {}
-  response: {}

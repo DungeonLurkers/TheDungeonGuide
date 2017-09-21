@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import tk.avabin.tdg.beans.dtos.RPGSessionDto
 import tk.avabin.tdg.beans.entities.RPGSession
+import tk.avabin.tdg.beans.services.entities.CharacterService
 import tk.avabin.tdg.beans.services.entities.RPGSessionService
 import tk.avabin.tdg.beans.services.entities.UserService
 
@@ -15,7 +16,8 @@ import tk.avabin.tdg.beans.services.entities.UserService
 class RPGSessionRestController(
         private @Autowired val modelMapper: ModelMapper,
         private @Autowired val rpgSessionService: RPGSessionService,
-        private @Autowired val userService: UserService
+        private @Autowired val userService: UserService,
+        private @Autowired val characterService: CharacterService
 ) {
     @RequestMapping("/add")
     fun addSkill(@RequestBody rpgSessionDto: RPGSessionDto): ResponseEntity<RPGSessionDto> {
@@ -53,18 +55,51 @@ class RPGSessionRestController(
         }
     }
 
-    @RequestMapping(value = "/gm/{session}/{user}", method = arrayOf(RequestMethod.PUT))
+    @RequestMapping(value = "/gm/{user}/{session}", method = arrayOf(RequestMethod.PUT))
     fun setGameMaster(
             @PathVariable session: String,
             @PathVariable user: String
     ): ResponseEntity<Any> {
-        return try {
+        return if (rpgSessionService.contains(session) && userService.contains(user)) {
             val sessionObject = rpgSessionService.getByName(session)
             val userObject = userService.getByUsername(user)
             sessionObject.gameMaster = userObject
-            rpgSessionService.saveOrUpdate(sessionObject)
-            ResponseEntity(modelMapper.map(sessionObject, RPGSessionDto::class.java), HttpStatus.OK)
-        } catch (e: Exception) {
+            val modded = rpgSessionService.saveOrUpdate(sessionObject)
+            ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
+    @RequestMapping(value = "/player/{player}/{session}", method = arrayOf(RequestMethod.PUT))
+    fun addPlayer(
+            @PathVariable session: String,
+            @PathVariable player: String
+    ): ResponseEntity<Any> {
+        return if (rpgSessionService.contains(session) && userService.contains(player)) {
+            val sessionObject = rpgSessionService.getByName(session)
+            val userObject = userService.getByUsername(player)
+            sessionObject.players += userObject
+            val modded = rpgSessionService.saveOrUpdate(sessionObject)
+            ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
+    @RequestMapping(value = "/character/{character}/{session}", method = arrayOf(RequestMethod.PUT))
+    fun addCharacter(
+            @PathVariable session: String,
+            @PathVariable character: String
+    ): ResponseEntity<Any> {
+        return if (rpgSessionService.contains(session) && characterService.contains(character)) {
+            val sessionObject = rpgSessionService.getByName(session)
+            val characterObject = characterService.getByName(character)
+            if (characterObject.owner !in sessionObject.players) return ResponseEntity(HttpStatus.NOT_FOUND)
+            sessionObject.characters += characterObject
+            val modded = rpgSessionService.saveOrUpdate(sessionObject)
+            ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
+        } else {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }

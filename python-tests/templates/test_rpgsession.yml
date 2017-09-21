@@ -1,29 +1,8 @@
-- message: Add RPGSession, Character, User, Item, Skill, Feat, Spell
+- message: Add RPGSession
   method: POST
   endpoint: /rpgsession/add
   payload:
     name: TestSession
-    characters:
-      - name: TestCharacter
-        age: 20
-        speed: 9
-        items:
-          - name: TestCharacterItem
-            price: 999
-            desc: TestItem for Character
-        skills:
-          - name: TestCharacterSkill
-            bonusAttributePosition: 2
-            rank: 2
-            otherBonuses: 10
-        feats:
-          - name: TestCharacterFeat
-            desc: Testing feats for character
-        spells:
-          - name: TestCharacterSpell
-            rank: 9
-            desc: Testing spells for characters
-  response: {}
 
 - message: Add Session Game Master
   method: POST
@@ -33,7 +12,6 @@
     email: game@master.rpg
     password: testPass
     salt: ''
-  response: {}
 
 - message: Add Character Owner
   method: POST
@@ -43,16 +21,31 @@
     email: owner@character.test
     password: test
     salt: ''
-  response: {}
 
-- message: Connect Character And User
+- message: Add Character
+  method: POST
+  endpoint: /character/add
+  payload:
+    name: SessionTestCharacter
+    age: 26
+
+- message: Connect Character And Owner
   method: PUT
-  endpoint: /character/owner/TestCharacter/TestCharacterOwner
-  payload: {}
-  response: {}
+  endpoint: /character/owner/SessionTestCharacter/TestCharacterOwner
 
-- message: Get character
+- message: Connect Session And Game Master
+  method: PUT
+  endpoint: /rpgsession/gm/TestGameMaster/TestSession
+
+- message: Connect Player And Session
+  method: PUT
+  endpoint: /rpgsession/player/TestCharacterOwner/TestSession
+
+- message: Connect Character And Session
+  method: PUT
+  endpoint: /rpgsession/character/SessionTestCharacter/TestSession
+
+- message: Get Session
   method: GET
-  endpoint: /character/get/TestCharacter
-  payload: {}
-  response: {}
+  endpoint: /rpgsession/get/TestSession
+
