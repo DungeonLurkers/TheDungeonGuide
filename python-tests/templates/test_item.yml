@@ -1,0 +1,21 @@
+- message: Add Item
+  method: POST
+  endpoint: /item/add
+  payload:
+    name: TestItem
+    price: 999
+    desc: Test item created for testing purposes
+  response:
+    name: TestItem
+    price: 999
+
+- message: Get Item
+  method: GET
+  endpoint: /item/get/TestItem
+  response:
+    name: TestItem
+    price: 999
+
+- message: Delete Item
+  method: DELETE
+  endpoint: /item/del/TestItem

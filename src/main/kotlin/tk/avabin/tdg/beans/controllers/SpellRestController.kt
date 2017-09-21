@@ -18,12 +18,13 @@ class SpellRestController(
 
     @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
     fun addSpell(@RequestBody spellDto: SpellDto): ResponseEntity<SpellDto> {
-        return try {
-            val spell: Spell = modelMapper.map(spellDto, Spell::class.java)
-            spellService.saveOrUpdate(spell)
-            ResponseEntity(HttpStatus.CREATED)
-        } catch (e: Exception) {
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        var mapped = modelMapper.map(spellDto, Spell::class.java)
+        return if (!spellService.contains(mapped.name)) {
+            mapped = spellService.saveOrUpdate(mapped)
+            ResponseEntity(modelMapper.map(mapped, SpellDto::class.java), HttpStatus.CREATED)
+        } else {
+            mapped = spellService.getByName(mapped.name)
+            ResponseEntity(modelMapper.map(mapped, SpellDto::class.java), HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
 
@@ -51,4 +52,13 @@ class SpellRestController(
         }
     }
 
+    @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))
+    fun deleteSpell(@PathVariable name: String): ResponseEntity<Any> {
+        return if (spellService.contains(name)) {
+            spellService.delete(spellService.getByName(name))
+            ResponseEntity(HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
 }

@@ -21,8 +21,8 @@ public class SpellServiceImpl implements SpellService {
     }
 
     @Override
-    public void saveOrUpdate(Spell s) {
-        repository.save(s);
+    public Spell saveOrUpdate(Spell s) {
+        return repository.save(s);
     }
 
     @Override
@@ -43,5 +43,14 @@ public class SpellServiceImpl implements SpellService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findSpellByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

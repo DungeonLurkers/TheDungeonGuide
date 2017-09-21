@@ -2,13 +2,15 @@ package tk.avabin.tdg.beans.services.entities;
 
 import tk.avabin.tdg.beans.entities.RPGSession;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by Avabin on 09.04.2017.
  */
+@Transactional
 public interface RPGSessionService {
-    void saveOrUpdate(RPGSession r);
+    RPGSession saveOrUpdate(RPGSession r);
 
     void delete(RPGSession r);
 
@@ -17,4 +19,6 @@ public interface RPGSessionService {
     RPGSession getByName(String name);
 
     List getAll();
+
+    boolean contains(String name);
 }

@@ -1,0 +1,47 @@
+- message: Add Character
+  method: POST
+  endpoint: /character/add
+  payload:
+    name: TestCharacter
+    age: 10
+
+- message: Get Character
+  method: GET
+  endpoint: /character/get/TestCharacter
+  response:
+    name: TestCharacter
+    age: 10
+
+- message: Add Item for Character
+  method: POST
+  endpoint: /item/add
+  payload:
+    name: TestCharacterItem
+    price: 999
+    desc: Just a test item
+
+- message: Add owner for Character
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestingCharacterOwner
+    email: test
+    password: "wobloblob"
+
+- message: Connect Owner and Character
+  method: PUT
+  endpoint: /character/owner/TestCharacter/TestingCharacterOwner
+
+- message: Connect Character And Item
+  method: PUT
+  endpoint: /character/item/TestCharacter/TestCharacterItem
+  response:
+    name: TestCharacter
+
+- message: Delete Character
+  method: DELETE
+  endpoint: /character/del/TestCharacter
+
+- message: Clean User
+  method: DELETE
+  endpoint: /user/del/TestingCharacterOwner

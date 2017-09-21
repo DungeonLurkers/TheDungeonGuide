@@ -1,0 +1,19 @@
+- message: Add user
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestUser
+    email: mail.com@pl.com
+    password: testpass
+    salt: ''
+
+- message: Get user
+  method: GET
+  endpoint: /user/get/TestUser
+  response:
+    username: TestUser
+    email: mail.com@pl.com
+
+- message: Delete user
+  method: DELETE
+  endpoint: /user/del/TestUser

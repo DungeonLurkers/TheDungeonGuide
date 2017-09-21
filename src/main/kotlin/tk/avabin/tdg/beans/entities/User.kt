@@ -16,20 +16,20 @@ import javax.persistence.*
 @Table(name = "app_user")
 data class User(
 
-    @Id
+        @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue
     var id: Int = 0,
 
-    @Column(name = "username", nullable = false, unique = true)
-    var username: String? = null,
+        @Column(name = "username", nullable = false, unique = true)
+        var username: String = "",
 
-    @Column(name = "email", nullable = false)
-    var email: String? = null,
+        @Column(name = "email", nullable = false)
+        var email: String = "",
 
-    @Column(name = "password", nullable = false)
-    var password: String? = null,
+        @Column(name = "password", nullable = false)
+        var password: String = "",
 
-    @Column(name = "salt", nullable = false)
-    var salt: String? = null
+        @Column(name = "salt", nullable = false)
+        var salt: String = ""
 )

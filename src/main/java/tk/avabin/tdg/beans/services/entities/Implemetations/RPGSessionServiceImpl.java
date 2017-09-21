@@ -21,8 +21,8 @@ public class RPGSessionServiceImpl implements RPGSessionService {
     }
 
     @Override
-    public void saveOrUpdate(RPGSession r) {
-        repository.save(r);
+    public RPGSession saveOrUpdate(RPGSession r) {
+        return repository.save(r);
     }
 
     @Override
@@ -43,5 +43,14 @@ public class RPGSessionServiceImpl implements RPGSessionService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findRPGSessionByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

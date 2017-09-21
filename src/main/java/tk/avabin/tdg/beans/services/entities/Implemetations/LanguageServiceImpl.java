@@ -21,8 +21,8 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public void saveOrUpdate(Language c) {
-        repository.save(c);
+    public Language saveOrUpdate(Language c) {
+        return repository.save(c);
     }
 
     @Override
@@ -43,5 +43,14 @@ public class LanguageServiceImpl implements LanguageService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findLanguageByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

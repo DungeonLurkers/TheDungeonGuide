@@ -21,8 +21,8 @@ public class FeatServiceImpl implements FeatService {
     }
 
     @Override
-    public void saveOrUpdate(Feat c) {
-        repository.save(c);
+    public Feat saveOrUpdate(Feat c) {
+        return repository.save(c);
     }
 
     @Override
@@ -43,5 +43,14 @@ public class FeatServiceImpl implements FeatService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findFeatByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

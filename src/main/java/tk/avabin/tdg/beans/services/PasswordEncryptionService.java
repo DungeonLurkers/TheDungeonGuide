@@ -27,7 +27,7 @@ public class PasswordEncryptionService{
         byte[] salt = Base64Utils.decodeFromString(b64Salt);
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLen = 160;
-        int iterations = 10000;
+        int iterations = 1000;
 
         KeySpec spec = new PBEKeySpec(pass.toCharArray(), salt, iterations, derivedKeyLen);
 

@@ -1,0 +1,51 @@
+- message: Add RPGSession
+  method: POST
+  endpoint: /rpgsession/add
+  payload:
+    name: TestSession
+
+- message: Add Session Game Master
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestGameMaster
+    email: game@master.rpg
+    password: testPass
+    salt: ''
+
+- message: Add Character Owner
+  method: POST
+  endpoint: /user/add
+  payload:
+    username: TestCharacterOwner
+    email: owner@character.test
+    password: test
+    salt: ''
+
+- message: Add Character
+  method: POST
+  endpoint: /character/add
+  payload:
+    name: SessionTestCharacter
+    age: 26
+
+- message: Connect Character And Owner
+  method: PUT
+  endpoint: /character/owner/SessionTestCharacter/TestCharacterOwner
+
+- message: Connect Session And Game Master
+  method: PUT
+  endpoint: /rpgsession/gm/TestGameMaster/TestSession
+
+- message: Connect Player And Session
+  method: PUT
+  endpoint: /rpgsession/player/TestCharacterOwner/TestSession
+
+- message: Connect Character And Session
+  method: PUT
+  endpoint: /rpgsession/character/SessionTestCharacter/TestSession
+
+- message: Get Session
+  method: GET
+  endpoint: /rpgsession/get/TestSession
+

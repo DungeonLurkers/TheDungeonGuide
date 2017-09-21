@@ -21,8 +21,8 @@ public class RPGClassAndLevelServiceimpl implements RPGClassAndLevelService {
     }
 
     @Override
-    public void saveOrUpdate(RPGClassAndLevel c) {
-        repository.save(c);
+    public RPGClassAndLevel saveOrUpdate(RPGClassAndLevel c) {
+        return repository.save(c);
     }
 
     @Override
@@ -38,5 +38,14 @@ public class RPGClassAndLevelServiceimpl implements RPGClassAndLevelService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findRPGClassAndLevelByRpgClass(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

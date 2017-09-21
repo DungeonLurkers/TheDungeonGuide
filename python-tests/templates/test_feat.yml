@@ -1,0 +1,16 @@
+- message: Add Feat
+  method: POST
+  endpoint: /feat/add
+  payload:
+    name: TestFeat
+    desc: Feat with testing purposes
+
+- message: Get Feat
+  method: GET
+  endpoint: /feat/get/TestFeat
+  response:
+    name: TestFeat
+
+- message: Delete Feat
+  method: DELETE
+  endpoint: /feat/del/TestFeat

@@ -22,8 +22,8 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public void saveOrUpdate(Character c) {
-        repository.save(c);
+    public Character saveOrUpdate(Character c) {
+        return repository.save(c);
     }
 
     @Override
@@ -49,5 +49,14 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public List getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findCharacterByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

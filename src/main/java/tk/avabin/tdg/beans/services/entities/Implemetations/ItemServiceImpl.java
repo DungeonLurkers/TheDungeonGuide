@@ -21,8 +21,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void saveOrUpdate(Item i) {
-        repository.save(i);
+    public Item saveOrUpdate(Item i) {
+        return repository.save(i);
     }
 
     @Override
@@ -43,5 +43,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List getAll() {
         return null;
+    }
+
+    @Override
+    public boolean contains(String name) {
+        try {
+            return repository.findItemByName(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

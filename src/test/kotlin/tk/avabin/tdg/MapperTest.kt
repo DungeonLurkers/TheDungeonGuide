@@ -53,7 +53,7 @@ class MapperTest {
         rpgClassAndLevel.id = 2
         rpgClassAndLevel.rpgClass = "Warrior"
 
-        character.classesAndLevels = setOf(rpgClassAndLevel)
+        character.classesAndLevels = HashSet(setOf(rpgClassAndLevel))
 
         val characterMapped = modelMapper.map(character, CharacterDto::class.java)
         val classAndLevelMapped = modelMapper.map(rpgClassAndLevel, RPGClassAndLevelDto::class.java)
@@ -68,7 +68,7 @@ class MapperTest {
         val remappedCharacter = modelMapper.map(characterMapped, Character::class.java)
 
         assert(remappedCharacter == character)
-        assert(rpgClassAndLevel in remappedCharacter.classesAndLevels)
+        assert(rpgClassAndLevel in remappedCharacter.classesAndLevels!!)
     }
 
 }

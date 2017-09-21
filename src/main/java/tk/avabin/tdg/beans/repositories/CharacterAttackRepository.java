@@ -7,4 +7,5 @@ import tk.avabin.tdg.beans.entities.CharacterAttack;
  * Created by Avabin on 10.04.2017.
  */
 public interface CharacterAttackRepository extends JpaRepository<CharacterAttack, Integer> {
+    CharacterAttack findCharacterAttackByName(String name);
 }
