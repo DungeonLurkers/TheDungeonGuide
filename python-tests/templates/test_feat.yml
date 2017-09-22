@@ -9,7 +9,7 @@
   method: GET
   endpoint: /feat/get/TestFeat
   response:
-    name: TestFeat
+    $.name: TestFeat
 
 - message: Delete Feat
   method: DELETE

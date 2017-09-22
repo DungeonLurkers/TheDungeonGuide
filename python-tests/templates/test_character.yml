@@ -9,8 +9,8 @@
   method: GET
   endpoint: /character/get/TestCharacter
   response:
-    name: TestCharacter
-    age: 10
+    $.name: TestCharacter
+    $.age: 10
 
 - message: Add Item for Character
   method: POST
@@ -31,12 +31,16 @@
 - message: Connect Owner and Character
   method: PUT
   endpoint: /character/owner/TestCharacter/TestingCharacterOwner
+  response:
+    $.name: TestCharacter
+    $.owner.username: TestingCharacterOwner
 
 - message: Connect Character And Item
   method: PUT
   endpoint: /character/item/TestCharacter/TestCharacterItem
   response:
-    name: TestCharacter
+    $.name: TestCharacter
+    $.items[0].name: TestCharacterItem
 
 - message: Delete Character
   method: DELETE

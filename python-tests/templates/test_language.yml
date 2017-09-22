@@ -1,0 +1,15 @@
+- message: Add Language
+  method: POST
+  endpoint: /language/add
+  payload:
+    name: Testish
+
+- message: Get Language
+  method: GET
+  endpoint: /language/get/Testish
+  response:
+    $.name: Testish
+
+- message: Delete Language
+  method: DELETE
+  endpoint: /language/del/Testish

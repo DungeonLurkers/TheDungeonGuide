@@ -1,0 +1,28 @@
+- message: Add Character Attack
+  method: POST
+  endpoint: /attack/add
+  payload:
+    name: TestAttack
+
+- message: Add Attack Item
+  method: POST
+  endpoint: /item/add
+  payload:
+    name: TestAttackItem
+    price: 999
+    desc: TestAttackItem
+
+- message: Connect Character Attack and Item
+  method: PUT
+  endpoint: /attack/item/TestAttack/TestAttackItem
+
+- message: Get Character Attack
+  method: GET
+  endpoint: /attack/get/TestAttack
+  response:
+    $.name: TestAttack
+    $.attackItem.name: TestAttackItem
+
+- message: Delete Feat
+  method: DELETE
+  endpoint: /attack/del/TestAttack

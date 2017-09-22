@@ -11,10 +11,10 @@
   method: GET
   endpoint: /skill/get/TestSkill
   response:
-    name: TestSkill
-    bonusAttributePosition: 5
-    rank: 4
-    otherBonuses: 4
+    $.name: TestSkill
+    $.bonusAttributePosition: 5
+    $.rank: 4
+    $.otherBonuses: 4
 
 - message: Delete Skill
   method: DELETE

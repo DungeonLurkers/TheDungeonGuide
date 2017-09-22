@@ -11,8 +11,8 @@
   method: GET
   endpoint: /user/get/TestUser
   response:
-    username: TestUser
-    email: mail.com@pl.com
+    $.username: TestUser
+    $.email: mail.com@pl.com
 
 - message: Delete user
   method: DELETE
