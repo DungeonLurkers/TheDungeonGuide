@@ -1,0 +1,14 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+decorator==4.1.2
+idna==2.6
+jsonpath-rw==1.4.0
+ply==3.10
+py==1.4.34
+pyaml==17.8.0
+pytest==3.2.2
+PyYAML==3.12
+requests==2.18.4
+Rx==1.5.9
+six==1.11.0
+urllib3==1.22
