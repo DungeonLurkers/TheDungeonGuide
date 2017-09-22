@@ -1,8 +1,7 @@
 package tk.avabin.tdg;
 
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -94,8 +93,8 @@ public class Util {
         return String.format("%1$" + n + "s", s);
     }
 
-    public static ResponseEntity notFound() {
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    public static void logError(Throwable e, Logger logger) {
+        logger.error(e.getLocalizedMessage(), e);
     }
 
 }

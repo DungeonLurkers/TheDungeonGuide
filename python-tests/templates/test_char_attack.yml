@@ -20,8 +20,8 @@
   method: GET
   endpoint: /attack/get/TestAttack
   response:
-    name: TestAttack
-    name: TestAttackItem
+    $.name: TestAttack
+    $.attackItem.name: TestAttackItem
 
 - message: Delete Feat
   method: DELETE

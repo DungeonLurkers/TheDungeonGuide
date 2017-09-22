@@ -1,10 +1,12 @@
 package tk.avabin.tdg.beans.controllers
 
 import org.modelmapper.ModelMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import tk.avabin.tdg.Util
 import tk.avabin.tdg.beans.dtos.LanguageDto
 import tk.avabin.tdg.beans.entities.Language
 import tk.avabin.tdg.beans.services.entities.LanguageService
@@ -15,6 +17,7 @@ class LanguageRestController(
         private @Autowired val languageService: LanguageService,
         private @Autowired val modelMapper: ModelMapper
 ) {
+    private val log = LoggerFactory.getLogger(LanguageRestController::class.java)
 
     @RequestMapping("/add")
     fun add(@RequestBody languageDto: LanguageDto): ResponseEntity<LanguageDto> {
@@ -36,6 +39,7 @@ class LanguageRestController(
                             LanguageDto::class.java), HttpStatus.OK
             )
         } catch (e: Exception) {
+            Util.logError(e, log)
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
@@ -48,6 +52,7 @@ class LanguageRestController(
                             LanguageDto::class.java), HttpStatus.OK
             )
         } catch (e: Exception) {
+            Util.logError(e, log)
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }

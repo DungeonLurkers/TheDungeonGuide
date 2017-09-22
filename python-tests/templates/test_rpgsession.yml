@@ -32,14 +32,23 @@
 - message: Connect Character And Owner
   method: PUT
   endpoint: /character/owner/SessionTestCharacter/TestCharacterOwner
+  response:
+    $.name: SessionTestCharacter
+    $.owner.username: TestCharacterOwner
 
 - message: Connect Session And Game Master
   method: PUT
   endpoint: /rpgsession/gm/TestGameMaster/TestSession
+  response:
+    $.name: TestSession
+    $.gameMaster.username: TestGameMaster
 
 - message: Connect Player And Session
   method: PUT
   endpoint: /rpgsession/player/TestCharacterOwner/TestSession
+  response:
+    $.name: TestSession
+    $.players[0].username: TestCharacterOwner
 
 - message: Connect Character And Session
   method: PUT
@@ -49,10 +58,10 @@
   method: GET
   endpoint: /rpgsession/get/TestSession
   response:
-    name: TestSession
-    name: SessionTestCharacter
-    username: TestCharacterOwner
-    username: TestGameMaster
+    $.name: TestSession
+    $.characters[0].name: SessionTestCharacter
+    $.gameMaster.username: TestGameMaster
+    $.players[0].username: TestCharacterOwner
 
 - message: Delete Session
   method: DELETE

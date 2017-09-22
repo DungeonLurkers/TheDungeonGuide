@@ -8,7 +8,7 @@
   method: GET
   endpoint: /language/get/Testish
   response:
-    name: Testish
+    $.name: Testish
 
 - message: Delete Language
   method: DELETE
