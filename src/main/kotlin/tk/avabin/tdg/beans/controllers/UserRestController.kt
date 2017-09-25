@@ -34,13 +34,13 @@ class UserRestController(
     @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
     fun addUser(@RequestBody userBody: UserDto): ResponseEntity<UserDto> {
         var mapped = mapper.map(userBody, User::class.java)
-        return if (!userService.contains(mapped.username)) {
+        return if (!userService.contains(mapped.name)) {
             mapped.salt = saltGeneratorService.nextSaltAsString()
             mapped.password = passwordEncryptionService.getEncryptedPassAsB64String(mapped.password, mapped.salt)
             mapped = userService.saveOrUpdate(mapped)
             ResponseEntity(mapper.map(mapped, UserDto::class.java), HttpStatus.CREATED)
         } else {
-            mapped = userService.getByUsername(mapped.username)
+            mapped = userService.getByName(mapped.name)
             ResponseEntity(mapper.map(mapped, UserDto::class.java), HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
@@ -50,7 +50,7 @@ class UserRestController(
         val user: User?
         val body: UserDto
         try {
-            user = userService.getByUsername(name)
+            user = userService.getByName(name)
             body = mapper.map(user, UserDto::class.java)
         } catch (e: Exception) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
@@ -74,7 +74,7 @@ class UserRestController(
     @RequestMapping(value = "/get/{name}/characters", method = arrayOf(RequestMethod.GET))
     fun getCharactersByUser(@PathVariable name: String): ResponseEntity<List<CharacterDto>> {
         return try {
-            val owner = userService.getByUsername(name)
+            val owner = userService.getByName(name)
             val charArray: ArrayList<Character> = ArrayList(characterService.getAllByOwner(owner))
             val respArray = charArray.stream().map { character: Character? -> mapper.map(character, CharacterDto::class.java) }.toList()
             ResponseEntity(respArray, HttpStatus.OK)
@@ -86,7 +86,7 @@ class UserRestController(
     @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))
     fun deleteUser(@PathVariable name: String): ResponseEntity<Any> {
         return if (userService.contains(name)) {
-            userService.delete(userService.getByUsername(name))
+            userService.delete(userService.getByName(name))
             ResponseEntity(HttpStatus.OK)
         } else {
             ResponseEntity(HttpStatus.NOT_FOUND)

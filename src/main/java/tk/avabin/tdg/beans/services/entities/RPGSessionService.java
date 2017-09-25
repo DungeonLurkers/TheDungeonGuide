@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface RPGSessionService {
+public interface RPGSessionService extends IEntityService {
     RPGSession saveOrUpdate(RPGSession r);
 
     void delete(RPGSession r);

@@ -9,14 +9,14 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface UserService {
+public interface UserService extends IEntityService {
     User saveOrUpdate(User u);
 
     void delete(User u);
 
     User getById(int id);
 
-    User getByUsername(String username);
+    User getByName(String name);
 
     List getAll();
 

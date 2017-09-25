@@ -24,8 +24,8 @@ data class User(
     @GeneratedValue
     var id: Int = 0,
 
-        @Column(name = "username", nullable = false, unique = true)
-        var username: String = "",
+    @Column(name = "name", nullable = false, unique = true)
+    var name: String = "",
 
         @Column(name = "email", nullable = false)
         var email: String = "",

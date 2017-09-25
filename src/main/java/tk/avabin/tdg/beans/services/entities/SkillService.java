@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface SkillService {
+public interface SkillService extends IEntityService {
     Skill saveOrUpdate(Skill c);
 
     void delete(Skill c);

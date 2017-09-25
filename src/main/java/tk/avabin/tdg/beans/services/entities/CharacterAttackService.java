@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface CharacterAttackService {
+public interface CharacterAttackService extends IEntityService {
     CharacterAttack saveOrUpdate(CharacterAttack c);
 
     void delete(CharacterAttack c);

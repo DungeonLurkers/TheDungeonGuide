@@ -31,14 +31,14 @@ class MapperTest {
     fun userMappingTest() {
         val user = User(
                 id = 0,
-                username = "Test",
+            name = "Test",
                 email = "email@m.ail",
                 password = "notSalted",
                 salt = "saltey"
         )
         val mappedDto = modelMapper.map(user, UserDto::class.java)
         assert(mappedDto.id == user.id)
-        assert(mappedDto.username == user.username)
+        assert(mappedDto.name == user.name)
         assert(mappedDto.email == user.email)
         assert(mappedDto.salt == user.salt)
     }

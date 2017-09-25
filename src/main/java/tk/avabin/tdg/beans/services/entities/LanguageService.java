@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface LanguageService {
+public interface LanguageService extends IEntityService {
     Language saveOrUpdate(Language c);
 
     void delete(Language c);

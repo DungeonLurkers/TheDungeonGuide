@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface SpellService {
+public interface SpellService extends IEntityService {
     Spell saveOrUpdate(Spell s);
 
     void delete(Spell s);
