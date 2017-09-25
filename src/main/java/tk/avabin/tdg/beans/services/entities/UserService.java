@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface UserService extends IEntityService {
+public interface UserService {
     User saveOrUpdate(User u);
 
     void delete(User u);

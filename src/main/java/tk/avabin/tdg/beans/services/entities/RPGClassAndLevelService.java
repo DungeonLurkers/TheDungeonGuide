@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface RPGClassAndLevelService extends IEntityService {
+public interface RPGClassAndLevelService {
     RPGClassAndLevel saveOrUpdate(RPGClassAndLevel c);
 
     void delete(RPGClassAndLevel c);

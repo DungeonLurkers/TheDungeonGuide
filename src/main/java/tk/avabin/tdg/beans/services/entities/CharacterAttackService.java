@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface CharacterAttackService extends IEntityService {
+public interface CharacterAttackService {
     CharacterAttack saveOrUpdate(CharacterAttack c);
 
     void delete(CharacterAttack c);
@@ -18,7 +18,6 @@ public interface CharacterAttackService extends IEntityService {
 
     CharacterAttack getByName(String name);
 
-    @SuppressWarnings("SameReturnValue")
     List getAll();
 
     boolean contains(String name);

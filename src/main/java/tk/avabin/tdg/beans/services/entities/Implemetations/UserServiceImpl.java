@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByName(String name) {
-        return repository.findUserByUsername(name);
+        return repository.findUserByName(name);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean contains(String name) {
         try {
-            return repository.findUserByUsername(name) != null;
+            return repository.findUserByName(name) != null;
         } catch (Exception e) {
             return false;
         }

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Avabin on 09.04.2017.
  */
 @Transactional
-public interface FeatService extends IEntityService {
+public interface FeatService {
     Feat saveOrUpdate(Feat c);
 
     void delete(Feat c);
