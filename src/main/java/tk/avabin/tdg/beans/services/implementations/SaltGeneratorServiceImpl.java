@@ -9,14 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import tk.avabin.tdg.beans.services.SaltGeneratorService;
 
-import java.io.IOException;
-
 /**
  * Created by Avabin on 15.05.2017.
  */
 @Service
 public class SaltGeneratorServiceImpl implements SaltGeneratorService {
-    private BytesKeyGenerator bytesKeyGenerator;
+    private final BytesKeyGenerator bytesKeyGenerator;
     @Getter
     @Setter
     private int keyLength;
@@ -27,7 +25,7 @@ public class SaltGeneratorServiceImpl implements SaltGeneratorService {
         bytesKeyGenerator = KeyGenerators.secureRandom(keyLength);
     }
 
-    public String nextSaltAsString() throws IOException {
+    public String nextSaltAsString() {
         byte[] salt = bytesKeyGenerator.generateKey();
         return Base64Utils.encodeToString(salt);
     }

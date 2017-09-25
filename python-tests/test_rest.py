@@ -1,11 +1,49 @@
+"""
+Test REST endpoint utility.
+Usage example:
+template file extension must be .yml
+
+ Ex template:
+
+ template: test_user.yml
+    - message: Add user
+      method: POST
+      endpoint: /add/user
+      payload:
+        username: Admin
+        password: admin
+      response:
+        $.username: Admin
+
+That template will result in POST request at URL/add/user
+with a payload '{username: Admin, password: admin}'
+And then it will check response as defined in check_response()
+Response will be checked not just for HTTP codes, but for
+values in responses too.
+
+For this example response will be searched for username key under
+the document root. If value under key is the same as mapped value
+no exception will be raised. Otherwise, AssertionException will
+be raised.
+
+All template files are 'executed' asynchronous, but tests inside templates
+are 'executed' one after another, from top to bottom.
+"""
 import os
+from unittest import TestCase
 
 import yaml
 from jsonpath_rw import jsonpath, parse
-from requests import Request, Session, Response
+from requests import Session, Request, Response
 from rx import Observable
 
-template_dir = "../templates"
+"""
+Path to directory with templates
+"""
+template_dir = "templates"
+"""
+REST service URL
+"""
 url = "http://localhost:8080"
 
 
@@ -23,7 +61,7 @@ def get_templates():
 
 def template_as_yaml(template: str):
     with open(template_dir + "/" + template) as stream:
-            return yaml.load(stream)
+        return yaml.load(stream)
 
 
 def prepare_request_from(template: dict):
@@ -38,7 +76,7 @@ def prepare_requests(templates: list):
 
 
 def execute_request(request: dict, session: Session):
-    req: Request = request.get("request")
+    req = request.get("request")
     response = session.send(session.prepare_request(req))
     return {"template": request.get("template"),
             "method": req.method, "url": req.url,
@@ -79,3 +117,23 @@ def check_response(response: dict):
     print("###\n{} with response code {}, {} on {}".format(template["message"],
                                                            resp.status_code, response["method"], resp.url))
     print("# response: \n{}".format(resp.text))
+
+
+class RestTests(TestCase):
+    templates = []
+    request_list = []
+    session = Session()
+
+    @classmethod
+    def setup_class(cls):
+        Observable \
+            .from_(get_templates()) \
+            .map(template_as_yaml) \
+            .map(prepare_requests) \
+            .subscribe(cls.request_list.append)
+
+    def test_requests(self):
+        Observable \
+            .from_(self.request_list) \
+            .flat_map(execute_requests) \
+            .subscribe(check_response)

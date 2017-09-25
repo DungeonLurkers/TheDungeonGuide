@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    final UserRepository repository;
+    private final UserRepository repository;
 
     @Autowired
     public UserServiceImpl(UserRepository repository) {
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String username) {
-        return repository.findUserByUsername(username);
+    public User getByName(String name) {
+        return repository.findUserByName(name);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean contains(String name) {
         try {
-            return repository.findUserByUsername(name) != null;
+            return repository.findUserByName(name) != null;
         } catch (Exception e) {
             return false;
         }

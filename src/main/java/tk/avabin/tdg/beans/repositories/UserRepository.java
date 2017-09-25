@@ -7,5 +7,5 @@ import tk.avabin.tdg.beans.entities.User;
  * Created by Avabin on 09.04.2017.
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
-    User findUserByUsername(String username);
+    User findUserByName(String name);
 }

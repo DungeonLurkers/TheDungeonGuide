@@ -15,7 +15,7 @@ import java.io.Serializable
 @Scope("prototype")
 data class UserDto(
         var id: Int = 0,
-        var username: String = "",
+    var name: String = "",
         private val _password: String = "",
         var email: String = "",
         var salt: String = ""

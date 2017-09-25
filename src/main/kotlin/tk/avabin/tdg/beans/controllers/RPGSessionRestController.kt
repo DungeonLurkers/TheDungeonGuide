@@ -4,7 +4,11 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
 import tk.avabin.tdg.beans.dtos.RPGSessionDto
 import tk.avabin.tdg.beans.entities.RPGSession
 import tk.avabin.tdg.beans.services.entities.CharacterService
@@ -62,7 +66,7 @@ class RPGSessionRestController(
     ): ResponseEntity<Any> {
         return if (rpgSessionService.contains(session) && userService.contains(user)) {
             val sessionObject = rpgSessionService.getByName(session)
-            val userObject = userService.getByUsername(user)
+            val userObject = userService.getByName(user)
             sessionObject.gameMaster = userObject
             val modded = rpgSessionService.saveOrUpdate(sessionObject)
             ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
@@ -78,7 +82,7 @@ class RPGSessionRestController(
     ): ResponseEntity<Any> {
         return if (rpgSessionService.contains(session) && userService.contains(player)) {
             val sessionObject = rpgSessionService.getByName(session)
-            val userObject = userService.getByUsername(player)
+            val userObject = userService.getByName(player)
             sessionObject.players += userObject
             val modded = rpgSessionService.saveOrUpdate(sessionObject)
             ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)

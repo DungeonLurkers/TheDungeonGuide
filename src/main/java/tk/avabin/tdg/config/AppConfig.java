@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-import tk.avabin.tdg.beans.SampleBean;
 import tk.avabin.tdg.beans.services.implementations.Base64SerializableProcessorServiceImpl;
 
 import java.security.SecureRandom;
@@ -21,12 +20,6 @@ public class AppConfig {
     @Bean(name = "base64Processor")
     public Base64SerializableProcessorServiceImpl getBase64Processor() {
         return new Base64SerializableProcessorServiceImpl();
-    }
-
-    @Bean
-    @Scope(scopeName = "prototype")
-    public SampleBean sampleBean() {
-        return new SampleBean();
     }
 
     @Bean(name = "JSONObjectMapper")
