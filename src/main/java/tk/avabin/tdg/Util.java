@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by avabi on 13.03.2017.
  */
-class Util {
+public class Util {
     public static String prettyStringFromObject(Object o) {
         final int linePadding = 4;
         final String fieldColName = "Field name";

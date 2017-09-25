@@ -17,7 +17,7 @@ public class SaltGeneratorServiceImpl implements SaltGeneratorService {
     private final BytesKeyGenerator bytesKeyGenerator;
     @Getter
     @Setter
-    private final int keyLength;
+    private int keyLength;
 
     @Autowired
     public SaltGeneratorServiceImpl(Base64SerializableProcessorServiceImpl base64SerializableProcessorService) {
