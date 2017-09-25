@@ -56,7 +56,7 @@ class CharacterRestController(
             @PathVariable userName: String
     ): ResponseEntity<Any> {
         return if (characterService.contains(characterName) && userService.contains(userName)) {
-            val user = userService.getByUsername(userName)
+            val user = userService.getByName(userName)
             val characterObject = characterService.getByName(characterName)
             characterObject.owner = user
             val modded = characterService.saveOrUpdate(characterObject)

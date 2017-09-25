@@ -66,7 +66,7 @@ class RPGSessionRestController(
     ): ResponseEntity<Any> {
         return if (rpgSessionService.contains(session) && userService.contains(user)) {
             val sessionObject = rpgSessionService.getByName(session)
-            val userObject = userService.getByUsername(user)
+            val userObject = userService.getByName(user)
             sessionObject.gameMaster = userObject
             val modded = rpgSessionService.saveOrUpdate(sessionObject)
             ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
@@ -82,7 +82,7 @@ class RPGSessionRestController(
     ): ResponseEntity<Any> {
         return if (rpgSessionService.contains(session) && userService.contains(player)) {
             val sessionObject = rpgSessionService.getByName(session)
-            val userObject = userService.getByUsername(player)
+            val userObject = userService.getByName(player)
             sessionObject.players += userObject
             val modded = rpgSessionService.saveOrUpdate(sessionObject)
             ResponseEntity(modelMapper.map(modded, RPGSessionDto::class.java), HttpStatus.OK)
