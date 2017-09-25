@@ -23,6 +23,7 @@ public class PasswordEncryptionService{
         return Arrays.equals(encryptedAttemptedPass, encryptedPass);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public byte[] getEncryptedPass(String pass, String b64Salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] salt = Base64Utils.decodeFromString(b64Salt);
         String algorithm = "PBKDF2WithHmacSHA1";

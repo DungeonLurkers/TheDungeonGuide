@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class RequestAwareAuthenticationSuccessHandler : SimpleUrlAuthenticationSuccessHandler() {
 
-    var requestCache: RequestCache = HttpSessionRequestCache()
+    private var requestCache: RequestCache = HttpSessionRequestCache()
 
     @Throws(ServletException::class, IOException::class)
     override fun onAuthenticationSuccess(

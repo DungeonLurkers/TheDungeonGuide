@@ -18,6 +18,7 @@ public interface CharacterAttackService {
 
     CharacterAttack getByName(String name);
 
+    @SuppressWarnings("SameReturnValue")
     List getAll();
 
     boolean contains(String name);

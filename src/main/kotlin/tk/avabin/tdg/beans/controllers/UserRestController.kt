@@ -4,7 +4,11 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
 import tk.avabin.tdg.beans.dtos.CharacterDto
 import tk.avabin.tdg.beans.dtos.UserDto
 import tk.avabin.tdg.beans.entities.Character
@@ -58,8 +62,8 @@ class UserRestController(
     fun getuserById(@PathVariable id: Int): ResponseEntity<UserDto> {
         val user: User? = userService.getById(id)
         val body: UserDto
-        try {
-            body = mapper.map(user, UserDto::class.java)
+        body = try {
+            mapper.map(user, UserDto::class.java)
         } catch (e: Exception) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }

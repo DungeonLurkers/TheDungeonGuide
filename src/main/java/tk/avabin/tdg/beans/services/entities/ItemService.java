@@ -18,6 +18,7 @@ public interface ItemService {
 
     Item getByName(String name);
 
+    @SuppressWarnings("SameReturnValue")
     List getAll();
 
     boolean contains(String name);

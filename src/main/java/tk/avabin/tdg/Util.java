@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by avabi on 13.03.2017.
  */
-public class Util {
+class Util {
     public static String prettyStringFromObject(Object o) {
         final int linePadding = 4;
         final String fieldColName = "Field name";
@@ -85,7 +85,7 @@ public class Util {
         if (printEndOfRow) sb.append("+").append(System.lineSeparator());
     }
 
-    public static String padRight(String s, int n) {
+    private static String padRight(String s, int n) {
         return String.format("%1$-" + n + "s", s);
     }
 
