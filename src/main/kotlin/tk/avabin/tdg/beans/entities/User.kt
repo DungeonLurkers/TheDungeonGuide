@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 /**
@@ -19,20 +22,23 @@ import javax.persistence.Table
 @Table(name = "app_user")
 data class User(
 
-        @Id
+    @Id
     @Column(name = "user_id", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0,
 
     @Column(name = "name", nullable = false, unique = true)
     var name: String = "",
 
-        @Column(name = "email", nullable = false)
-        var email: String = "",
+    @Column(name = "email", nullable = false)
+    var email: String = "",
 
-        @Column(name = "password", nullable = false)
-        var password: String = "",
+    @Column(name = "password", nullable = false)
+    var password: String = "",
 
-        @Column(name = "salt", nullable = false)
-        var salt: String = ""
+    @Column(name = "salt", nullable = false)
+    var salt: String = "",
+
+    @OneToMany(fetch = FetchType.LAZY)
+    var roles: Set<UserRole> = HashSet()
 )

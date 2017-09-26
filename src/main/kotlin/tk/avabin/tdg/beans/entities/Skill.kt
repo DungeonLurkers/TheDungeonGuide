@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -20,7 +21,7 @@ import javax.validation.constraints.NotNull
 @Table(name = "skill")
 data class Skill(
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @NotNull
         var id: Int = 0,
 

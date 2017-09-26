@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
@@ -19,6 +20,6 @@ data class RPGClassAndLevel(
         var level: Int = 0,
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int = 0
 )

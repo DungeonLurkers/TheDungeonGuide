@@ -7,6 +7,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
@@ -21,7 +22,7 @@ import javax.persistence.Table
 @Table(name = "game_character")
 data class Character(
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "character_id", nullable = false, unique = true)
         var id: Int = 0,
         @Column(name = "character_name", nullable = false, unique = true)

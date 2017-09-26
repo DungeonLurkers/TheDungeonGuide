@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,10 +14,10 @@ import tk.avabin.tdg.beans.dtos.CharacterDto
 import tk.avabin.tdg.beans.dtos.UserDto
 import tk.avabin.tdg.beans.entities.Character
 import tk.avabin.tdg.beans.entities.User
-import tk.avabin.tdg.beans.services.PasswordEncryptionService
-import tk.avabin.tdg.beans.services.SaltGeneratorService
+import tk.avabin.tdg.beans.entities.UserRole
 import tk.avabin.tdg.beans.services.entities.CharacterService
 import tk.avabin.tdg.beans.services.entities.UserService
+import tk.avabin.tdg.util.Role
 import kotlin.streams.toList
 
 /**
@@ -28,15 +29,13 @@ class UserRestController(
         private @Autowired val mapper: ModelMapper,
         private @Autowired val userService: UserService,
         private @Autowired val characterService: CharacterService,
-        private @Autowired val saltGeneratorService: SaltGeneratorService,
-        private @Autowired val passwordEncryptionService: PasswordEncryptionService) {
+    private @Autowired val passwordEncryptionService: PasswordEncoder) {
 
     @RequestMapping(value = "/add", method = arrayOf(RequestMethod.POST))
     fun addUser(@RequestBody userBody: UserDto): ResponseEntity<UserDto> {
         var mapped = mapper.map(userBody, User::class.java)
         return if (!userService.contains(mapped.name)) {
-            mapped.salt = saltGeneratorService.nextSaltAsString()
-            mapped.password = passwordEncryptionService.getEncryptedPassAsB64String(mapped.password, mapped.salt)
+            mapped.password = passwordEncryptionService.encode(mapped.password)
             mapped = userService.saveOrUpdate(mapped)
             ResponseEntity(mapper.map(mapped, UserDto::class.java), HttpStatus.CREATED)
         } else {
@@ -81,6 +80,16 @@ class UserRestController(
         } catch (e: Exception) {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
+    }
+
+    @RequestMapping(value = "/{name}/role/admin", method = arrayOf(RequestMethod.PUT))
+    fun addRole(@PathVariable name: String): ResponseEntity<Any> {
+        val user = userService.getByName(name)
+        val adminRole = UserRole()
+        adminRole.role = Role.ROLE_ADMIN.value
+        user.roles += adminRole
+        val retval = userService.saveOrUpdate(user)
+        return ResponseEntity(mapper.map(retval, UserDto::class.java), HttpStatus.OK)
     }
 
     @RequestMapping(value = "/del/{name}", method = arrayOf(RequestMethod.DELETE))

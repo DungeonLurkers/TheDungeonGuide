@@ -1,7 +1,6 @@
 package tk.avabin.tdg.beans.entities
 
-import org.springframework.context.annotation.Scope
-import org.springframework.stereotype.Component
+import tk.avabin.tdg.util.Role
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -9,19 +8,19 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
-/**
- * Created by Avabin on 10.04.2017.
- */
-@Component
-@Scope("prototype")
 @Entity
-@Table(name = "game_feat")
-data class Feat(
+@Table(name = "user_role")
+data class UserRole(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     var id: Int = 0,
-    @Column(length = 70)
-    var name: String = "",
-    @Column(name = "feat_desc")
-    var desc: String = ""
-)
+    private var _role: Role = Role.ROLE_NONE
+) {
+    var role: String = _role.value
+        get() = _role.value
+        set(value) {
+            _role = Role.valueOf(value)
+            field = value
+        }
+}

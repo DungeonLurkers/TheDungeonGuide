@@ -3,6 +3,8 @@ package tk.avabin.tdg.beans.entities
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
@@ -14,7 +16,8 @@ import javax.persistence.Table
 @Entity
 @Table(name = "language")
 data class Language(
-        @Id
-        var id: Int = 0,
-        var name: String = ""
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int = 0,
+    var name: String = ""
 )

@@ -18,15 +18,14 @@ data class UserDto(
     var name: String = "",
         private val _password: String = "",
         var email: String = "",
-        var salt: String = ""
+    var salt: String = "",
+    @JsonProperty(required = false)
+    var roles: Set<UserRoleDto> = HashSet()
 ) : Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password: String = _password
         @JsonIgnore
         get() {
             return field
-        }
-        set(value) {
-            field = value
         }
 }

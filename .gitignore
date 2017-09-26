@@ -70,3 +70,7 @@ hs_err_pid*
 .gradle/
 .idea/
 build/
+ktlint
+gradlew
+gradlew.bat
+gradle.properties
