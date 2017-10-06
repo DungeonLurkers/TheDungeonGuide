@@ -55,6 +55,13 @@ After push or pull request new build is created. If tests passes
 and build did not failed, new artifact is created and then 
 deployed to Heroku by Travis.
 
+All connections to database are handled by Spring and Hibernate
+which doesn't require any knowledge of SQL or how to manage 
+connection with database.
+
+To fetch and write objects JpaRepository for each entity are used. 
+Custom method like `findByName` are defined and automatically implemented by Spring Data JPA.
+
 ## 2. How to run and use
 
    2.1. Set Environmental Variables
@@ -161,4 +168,8 @@ where `$.name` is `TestItem` and `$.price` is `999`.
 
 No request body. Response is Item object from database
 with a matching name if found, or 404 NOT FOUND code otherwise. 
+
+3. Delete Item `DELETE` request on `URL/item/del/TestItem`.
+
+Item with a matching name is deleted from database. 404 HTTP code returned if not found.
 
