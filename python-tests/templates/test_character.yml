@@ -24,7 +24,7 @@
   method: POST
   endpoint: /user/add
   payload:
-    username: TestingCharacterOwner
+    name: TestingCharacterOwner
     email: test
     password: "wobloblob"
 
@@ -33,7 +33,7 @@
   endpoint: /character/owner/TestCharacter/TestingCharacterOwner
   response:
     $.name: TestCharacter
-    $.owner.username: TestingCharacterOwner
+    $.owner.name: TestingCharacterOwner
 
 - message: Connect Character And Item
   method: PUT

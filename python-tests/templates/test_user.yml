@@ -2,7 +2,7 @@
   method: POST
   endpoint: /user/add
   payload:
-    username: TestUser
+    name: TestUser
     email: mail.com@pl.com
     password: testpass
     salt: ''
@@ -11,7 +11,7 @@
   method: GET
   endpoint: /user/get/TestUser
   response:
-    $.username: TestUser
+    $.name: TestUser
     $.email: mail.com@pl.com
 
 - message: Delete user

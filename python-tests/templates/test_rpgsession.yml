@@ -8,7 +8,7 @@
   method: POST
   endpoint: /user/add
   payload:
-    username: TestGameMaster
+    name: TestGameMaster
     email: game@master.rpg
     password: testPass
     salt: ''
@@ -17,7 +17,7 @@
   method: POST
   endpoint: /user/add
   payload:
-    username: TestCharacterOwner
+    name: TestCharacterOwner
     email: owner@character.test
     password: test
     salt: ''
@@ -34,21 +34,21 @@
   endpoint: /character/owner/SessionTestCharacter/TestCharacterOwner
   response:
     $.name: SessionTestCharacter
-    $.owner.username: TestCharacterOwner
+    $.owner.name: TestCharacterOwner
 
 - message: Connect Session And Game Master
   method: PUT
   endpoint: /rpgsession/gm/TestGameMaster/TestSession
   response:
     $.name: TestSession
-    $.gameMaster.username: TestGameMaster
+    $.gameMaster.name: TestGameMaster
 
 - message: Connect Player And Session
   method: PUT
   endpoint: /rpgsession/player/TestCharacterOwner/TestSession
   response:
     $.name: TestSession
-    $.players[0].username: TestCharacterOwner
+    $.players[0].name: TestCharacterOwner
 
 - message: Connect Character And Session
   method: PUT
@@ -60,8 +60,8 @@
   response:
     $.name: TestSession
     $.characters[0].name: SessionTestCharacter
-    $.gameMaster.username: TestGameMaster
-    $.players[0].username: TestCharacterOwner
+    $.gameMaster.name: TestGameMaster
+    $.players[0].name: TestCharacterOwner
 
 - message: Delete Session
   method: DELETE

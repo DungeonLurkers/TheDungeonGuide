@@ -104,7 +104,6 @@ def check_response(response: dict):
         correct_codes = (200,)
     if response["method"] == "PUT":
         correct_codes = (200, 201)
-
     assert resp.status_code in correct_codes, code_msg.format(response["method"], response["url"],
                                                               correct_codes, resp.status_code)
 
