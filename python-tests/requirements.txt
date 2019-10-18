@@ -11,4 +11,4 @@ PyYAML==3.12
 requests==2.18.4
 Rx==1.5.9
 six==1.11.0
-urllib3==1.22
+urllib3==1.24.2
