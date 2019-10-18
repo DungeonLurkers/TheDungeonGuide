@@ -7,7 +7,7 @@ ply==3.10
 py==1.4.34
 pyaml==17.8.0
 pytest==3.2.2
-PyYAML==3.12
+PyYAML==5.1
 requests==2.18.4
 Rx==1.5.9
 six==1.11.0
