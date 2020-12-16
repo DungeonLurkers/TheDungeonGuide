@@ -4,7 +4,7 @@ decorator==4.1.2
 idna==2.6
 jsonpath-rw==1.4.0
 ply==3.10
-py==1.4.34
+py==1.10.0
 pyaml==17.8.0
 pytest==3.2.2
 PyYAML==3.12
